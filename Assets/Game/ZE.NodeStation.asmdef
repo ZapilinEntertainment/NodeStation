@@ -1,0 +1,19 @@
+{
+    "name": "ZE.NodeStation",
+    "rootNamespace": "ZE.NodeStation",
+    "references": [
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:d525ad6bd40672747bde77962f1c401e",
+        "GUID:324caed91501a9c47a04ebfd87b68794",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
