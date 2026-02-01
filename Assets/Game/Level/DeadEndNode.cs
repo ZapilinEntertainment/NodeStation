@@ -4,6 +4,8 @@ namespace ZE.NodeStation
 {
     public class DeadEndNode : AbstractNode
     {
+        public override NodeType Type => NodeType.DeadEnd;
+
         public DeadEndNode(int key, int entranceNodeKey) : base(key, entranceNodeKey)
         {
         }

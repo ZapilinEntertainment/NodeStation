@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace ZE.NodeStation
 {
+    [Serializable]
     public struct RailPosition
     {
         public double Percent;

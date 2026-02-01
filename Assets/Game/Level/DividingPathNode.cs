@@ -7,15 +7,20 @@ namespace ZE.NodeStation
         public readonly int ExitNodeKeyA;
         public readonly int ExitNodeKeyB;
         public bool UsePathB;
+        public override NodeType Type => _type;
+        protected readonly NodeType _type;
 
-        public DividingPathNode(int key, int entranceKey, int exitKeyA, int exitKeyB) : base(key, entranceKey)
+        public DividingPathNode(int key, int entranceKey, int exitKeyA, int exitKeyB, bool isReversed) : base(key, entranceKey)
         {
             ExitNodeKeyA = exitKeyA;
             ExitNodeKeyB = exitKeyB;
+            _type = isReversed ? NodeType.DividingReversed : NodeType.Dividing;
         }
 
         public override bool TryGetExitNode(int entranceNodeKey, out int exitNodeKey)
         {
+            //Debug.Log($"requested: {entranceNodeKey} of {EntranceNodeKey}, {ExitNodeKeyA}, {ExitNodeKeyB}");
+
             if (entranceNodeKey == EntranceNodeKey)
             {
                 exitNodeKey = UsePathB ? ExitNodeKeyB : ExitNodeKeyA;

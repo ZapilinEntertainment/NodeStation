@@ -24,16 +24,16 @@ namespace ZE.NodeStation
 
             var currentNodeKey = reversedMovement ? pathKey.StartNodeKey : pathKey.EndNodeKey;
             var prevNodeKey = reversedMovement ? pathKey.EndNodeKey : pathKey.StartNodeKey;
-            if (!_nodes.TryGetValue(currentNodeKey, out var nextNode))
+            if (!_nodes.TryGetValue(currentNodeKey, out var currentNode))
             {
                 Debug.LogError($"Node {currentNodeKey} not found!");
                 nextRail = currentRail;
                 return false;
             }
 
-            if (!nextNode.TryGetExitNode(prevNodeKey, out var exitNodeKey))
+            if (!currentNode.TryGetExitNode(prevNodeKey, out var exitNodeKey))
             {
-                // train crush
+                Debug.LogWarning($"Node {currentNodeKey} has no exit! ({currentNode.Type})");
                 nextRail = currentRail;
                 return false;
             }
@@ -41,7 +41,7 @@ namespace ZE.NodeStation
             pathKey = new PathKey(currentNodeKey, exitNodeKey) ;
             if (!_paths.TryGetValue(pathKey, out nextRail))
             {
-                Debug.LogError("Invalid node exit path!");
+                Debug.LogError($"Invalid node exit path: {pathKey}");
                 nextRail = currentRail;
                 return false;
             }

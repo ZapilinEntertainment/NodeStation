@@ -6,6 +6,7 @@ namespace ZE.NodeStation
     {
         public readonly int Key;
         public readonly int EntranceNodeKey;
+        public abstract NodeType Type { get; }
 
         public AbstractNode(int key, int entranceNodeKey)
         {

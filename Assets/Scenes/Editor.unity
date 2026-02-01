@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
   <Function>k__BackingField: 0
-  Type: 3
+  Type: 4
 --- !u!4 &99086179
 Transform:
   m_ObjectHideFlags: 0
@@ -426,8 +426,9 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects: []
-  _pathsConstructor: {fileID: 0}
+  autoInjectGameObjects:
+  - {fileID: 683272230}
+  _pathsConstructor: {fileID: 1718639310}
 --- !u!4 &364135109
 Transform:
   m_ObjectHideFlags: 0
@@ -601,6 +602,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1561224901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &683272230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 683272232}
+  - component: {fileID: 683272231}
+  m_Layer: 0
+  m_Name: TestTrain
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &683272231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683272230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e2cafb72b4b134c8bacfeb3e812d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.TrainBase
+  _startPosition:
+    Path:
+      StartNodeKey: 5
+      EndNodeKey: 7
+    Percent: 0.5
+    IsReversed: 0
+  _maxSpeed: 1
+  _acceleration: 1
+  _deceleration: 0.5
+  _isAccelerating: 0
+  _isReversed: 0
+  DEBUG_railPercent: 0
+--- !u!4 &683272232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683272230}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2889, y: 0, z: 20.19268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 1
+  <Function>k__BackingField: 0
   Type: 3
 --- !u!4 &1218911114
 Transform:
@@ -999,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
+  <Function>k__BackingField: 1
   Type: 2
 --- !u!4 &1854868157
 Transform:
@@ -1150,3 +1207,4 @@ SceneRoots:
   - {fileID: 1906155872}
   - {fileID: 364135109}
   - {fileID: 1718639311}
+  - {fileID: 683272232}

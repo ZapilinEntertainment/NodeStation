@@ -5,6 +5,7 @@ namespace ZE.NodeStation
     public class StraightPathNode : AbstractNode
     {
         public readonly int ExitNodeKey;
+        public override NodeType Type => NodeType.Straight;
 
         public StraightPathNode(int key, int entranceNodeKey, int exitNodeKey) : base(key, entranceNodeKey)
         {
@@ -13,6 +14,7 @@ namespace ZE.NodeStation
 
         public override bool TryGetExitNode(int entranceNodeKey, out int exitNodeKey)
         {
+            //Debug.Log($"requested: {entranceNodeKey}, existing: entrance - {EntranceNodeKey}, exit - {ExitNodeKey}");
             if (EntranceNodeKey == entranceNodeKey)
             {
                 exitNodeKey = ExitNodeKey;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using VContainer;
+using TriInspector;
 
 namespace ZE.NodeStation
 {
@@ -13,6 +14,9 @@ namespace ZE.NodeStation
         [SerializeField] private float _deceleration = 0.5f;
         [SerializeField] private bool _isAccelerating = false;
         [SerializeField] private bool _isReversed = false;
+
+        [Space]
+        [DisplayAsString][SerializeField] private float DEBUG_railPercent;
 
         private float _speed = 0f;
         private RailPosition _position;
@@ -34,8 +38,10 @@ namespace ZE.NodeStation
                 Debug.LogError("Train rail not exists");
                 return;
             }          
-            
-            // TODO: do rail positioning
+
+            _rail = rail;
+            _isReversed = _startPosition.IsReversed;
+            SetPosition(_rail.GetPosition(_startPosition.Percent));
         }
 
         private void Update()
@@ -52,9 +58,29 @@ namespace ZE.NodeStation
 
             if (_speed != 0f)
             {
-                _position = _railMovementCalculator.MoveNext(_position, new(_speed * dt, _isReversed), _rail);
-                transform.position = _position.WorldPosition;
+                var movementResult = _railMovementCalculator.MoveNext(_position, new(_speed * dt, _isReversed), _rail);
+                _rail = movementResult.Rail;
+                SetPosition(movementResult.Position);
+                if (movementResult.IsStopped)
+                {
+                    enabled = false;
+                    return;
+                }
             }
+                
+        }
+
+        protected void SetPosition(in RailPosition pos)
+        {
+            transform.position = pos.WorldPosition;
+            var rotation = pos.WorldRotation;
+            if (_isReversed)
+                rotation *= Quaternion.AngleAxis(180f, Vector3.up);
+            transform.rotation = rotation;
+
+            _position = pos;
+
+            DEBUG_railPercent = (float)pos.Percent;
         }
     }
 }

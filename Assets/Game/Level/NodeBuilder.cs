@@ -64,93 +64,124 @@ namespace ZE.NodeStation
                             }
                         }
 
+                        if (!firstConnectionFound)
+                            Debug.LogWarning("only one connection found for straight node!");
+
                         // operating found connections
                         int entranceNodeKey = 0;
                         int exitNodeKey = 0;
                         if (connectionA.StartNodeKey == key)
-                        {
-                            exitNodeKey = connectionA.StartNodeKey;
+                        {                           
+                            //  connectionB - node - connectionA
+                            exitNodeKey = connectionA.EndNodeKey;
                             if (connectionB.EndNodeKey == key)
-                                entranceNodeKey = connectionB.EndNodeKey;
-                            else
                                 entranceNodeKey = connectionB.StartNodeKey;
+                            else
+                                entranceNodeKey = connectionB.EndNodeKey;
                         }
                         else
                         {
-                            entranceNodeKey = connectionA.EndNodeKey;
-                            if (connectionB.StartNodeKey == key)
+                            // connectionA - node - connectionB
+                            entranceNodeKey = connectionA.StartNodeKey;
+                            if (connectionB.EndNodeKey == key)
                                 exitNodeKey = connectionB.StartNodeKey;
                             else
                                 exitNodeKey = connectionB.EndNodeKey;
                         }
+
+                        //Debug.Log($"A: {connectionA.StartNodeKey} -> {connectionA.EndNodeKey}, B: {connectionB.StartNodeKey} -> {connectionB.EndNodeKey}");
+                        //Debug.Log($"{entranceNodeKey} -> {exitNodeKey}");
 
                         return new StraightPathNode(key, entranceNodeKey, exitNodeKey);
                     }
 
                     case NodeType.Dividing:
                     {
+                        //Debug.Log("Build dividing node:");
+
+                        //                 / Exit A
+                        // Entrance - Node - Exit B
+
                         var entranceNodeKey = 0;
                         var exitNodeKeyA = 0;
                         var exitNodeKeyB = 0;
-                        var foundMask = 0;
+                        var searchMask = 0;
 
                         foreach (var path in _pathsData)
                         {
-                            if ((foundMask & 1) == 0 && path.EndNodeKey == key)
+                            if (path.EndNodeKey == key)
                             {
                                 entranceNodeKey = path.StartNodeKey;
-                                foundMask += 1;
+                                searchMask += 1;
+                            }    
+                            else
+                            {
+                                if (path.StartNodeKey == key)
+                                {
+                                    if ((searchMask & 2) == 0)
+                                    {
+                                        exitNodeKeyA = path.EndNodeKey;
+                                        searchMask += 2;
+                                    }
+                                    else
+                                    {
+                                        exitNodeKeyB = path.EndNodeKey;
+                                        searchMask += 4;
+                                    }
+                                }
                             }
 
-                            if (path.StartNodeKey == key)
-                            {
-                                if ((foundMask & 2) == 0)
-                                {
-                                    exitNodeKeyA = path.EndNodeKey;
-                                    foundMask += 2;
-                                }
-                                else
-                                {
-                                    exitNodeKeyB = path.EndNodeKey;
-                                    break;
-                                }
-                            }                            
+                            if (searchMask == 7)
+                                break;
                         }
                         
-                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB);
+                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB, isReversed : false);
                     }
 
                     case NodeType.DividingReversed:
                     {
-                        var entranceNodeKey = 0;
-                        var exitNodeKeyA = 0;
-                        var exitNodeKeyB = 0;
-                        var foundMask = 0;
+                        //Debug.Log("Build dividing reversed node:");
+
+                        // Entrance A \
+                        // Entrance B - Node - Exit
+
+                        var entranceNodeKeyA = 0;
+                        var entranceNodeKeyB = 0;
+                        var exitNodeKey = 0;
+                        var searchMask = 0;
 
                         foreach (var path in _pathsData)
                         {
-                            if ((foundMask & 1) == 0 && path.StartNodeKey == key)
-                            {
-                                entranceNodeKey = path.EndNodeKey;
-                                foundMask += 1;
-                            }
-
                             if (path.EndNodeKey == key)
                             {
-                                if ((foundMask & 2) == 0)
-                                {
-                                    exitNodeKeyA = path.StartNodeKey;
-                                    foundMask += 2;
+                                if ((searchMask & 1) == 0) 
+                                { 
+                                    entranceNodeKeyA = path.StartNodeKey;
+                                    searchMask += 1;
+                                    //Debug.Log("entrance A: " + entranceNodeKeyA);
                                 }
                                 else
                                 {
-                                    exitNodeKeyB = path.StartNodeKey;
-                                    break;
+                                    entranceNodeKeyB = path.StartNodeKey;
+                                    searchMask += 2;
+                                    //Debug.Log("entrance B: " + entranceNodeKeyB);
                                 }
                             }
+                            else 
+                            { 
+                                if (path.StartNodeKey == key)
+                                {
+                                    exitNodeKey = path.EndNodeKey;
+                                    searchMask += 4;
+                                    //Debug.Log("exit: " + exitNodeKey);
+                                }
+                            }
+
+                            if (searchMask == 7)
+                                break;
                         }
 
-                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB);
+                        return new DividingPathNode(key, exitNodeKey, entranceNodeKeyA, entranceNodeKeyB, isReversed : true);
                     }
 
                     default:

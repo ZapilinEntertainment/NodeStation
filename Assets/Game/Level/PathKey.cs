@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public readonly struct PathKey : IEquatable<PathKey>
+    [Serializable]
+    public struct PathKey : IEquatable<PathKey>
     {
-        public readonly int StartNodeKey;
-        public readonly int EndNodeKey;
+        public int StartNodeKey;
+        public int EndNodeKey;
 
         // order is not important
         public bool Equals(PathKey other) => 
@@ -19,5 +20,7 @@ namespace ZE.NodeStation
             StartNodeKey = startNodeKey;
             EndNodeKey = endNodeKey;
         }
+
+        public override string ToString() => $"({StartNodeKey}->{EndNodeKey})";
     }
 }

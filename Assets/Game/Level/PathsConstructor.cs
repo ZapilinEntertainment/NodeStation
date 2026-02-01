@@ -166,7 +166,16 @@ namespace ZE.NodeStation
                     {
                         case NodeFunction.Spawn: color = Color.blue; break;
                         case NodeFunction.Exit: color = Color.red; break;
-                        default: color = node.Type == NodeType.Dividing ? Color.yellow : Color.white; break;
+                        default: 
+                            {
+                                switch (node.Type) 
+                                {
+                                    case NodeType.Dividing: color = Color.yellow; break;
+                                    case NodeType.DividingReversed: color = Color.orange; break;
+                                    default: color = Color.white; break;
+                                }
+                                break;
+                            }; 
                     }
 
                     Gizmos.color = color;

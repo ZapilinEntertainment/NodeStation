@@ -10,6 +10,8 @@ namespace ZE.NodeStation
 
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<RailMovementCalculator>(Lifetime.Scoped);
+
             var map = _pathsConstructor.ConstructMap();
             builder.RegisterInstance<PathsMap>(map);
         }
