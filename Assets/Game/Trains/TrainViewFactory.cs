@@ -4,11 +4,12 @@ namespace ZE.NodeStation
 {
     public class TrainViewFactory
     {
+        private TrainView _prefab;
+
         public ITrainView Build() 
         { 
-            var go = new GameObject("train view");
-            var view = go.AddComponent<TrainView>();
-            return view;
+            _prefab ??= Resources.Load<TrainView>("TrainView");
+            return GameObject.Instantiate<TrainView>(_prefab);
         }
     
     }
