@@ -11,10 +11,10 @@ namespace ZE.NodeStation
         private readonly Quaternion _rotation;
         
         public float Length => _length;
-        public PathKey RegistrationKey => _registrationKey;
+        public PathKey PathKey => _registrationKey;
 
-        public RailPosition Start => new() { Percent = 0f, WorldPosition = _startPosition, WorldRotation = _rotation };
-        public RailPosition End => new() { Percent = 1f, WorldPosition = _endPosition, WorldRotation = _rotation };
+        public RailPosition Start => new() { Percent = 0f, WorldPosition = _startPosition, RawWorldRotation = _rotation, Rail = this };
+        public RailPosition End => new() { Percent = 1f, WorldPosition = _endPosition, RawWorldRotation = _rotation, Rail = this };
 
         public LinearRail(in PathKey key, in Vector3 startPos, in Vector3 endPos)
         {
@@ -31,7 +31,8 @@ namespace ZE.NodeStation
         {
             Percent = distancePc,
             WorldPosition = Vector3.Lerp(_startPosition, _endPosition, (float)distancePc),
-            WorldRotation = _rotation
+            RawWorldRotation = _rotation,
+            Rail = this
         };
     }
 }

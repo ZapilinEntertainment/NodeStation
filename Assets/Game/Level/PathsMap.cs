@@ -14,7 +14,7 @@ namespace ZE.NodeStation
 
         public bool TryGetNextRail(IRailPath currentRail, out IRailPath nextRail, bool reversedMovement = false)
         {
-            var pathKey = currentRail.RegistrationKey;
+            var pathKey = currentRail.PathKey;
             if (!_paths.ContainsKey(pathKey))
             {
                 Debug.LogError("Rail not registered!");
@@ -33,7 +33,7 @@ namespace ZE.NodeStation
 
             if (!currentNode.TryGetExitNode(prevNodeKey, out var exitNodeKey))
             {
-                Debug.LogWarning($"Node {currentNodeKey} has no exit! ({currentNode.Type})");
+                //Debug.LogWarning($"Node {currentNodeKey} has no exit! ({currentNode.Type})");
                 nextRail = currentRail;
                 return false;
             }
@@ -50,6 +50,14 @@ namespace ZE.NodeStation
         }
 
         public bool TryGetPath(in PathKey key, out IRailPath path) => _paths.TryGetValue(key, out path);
+
+        public bool IsFinalNode(int nodeKey)
+        {
+            if (!_nodes.TryGetValue(nodeKey, out var node))
+                return true;
+
+            return node.IsFinal;
+        }
 
         public void Dispose()
         {

@@ -611,38 +611,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 683272232}
-  - component: {fileID: 683272231}
+  - component: {fileID: 683272233}
   m_Layer: 0
-  m_Name: TestTrain
+  m_Name: TrainSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &683272231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683272230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e2cafb72b4b134c8bacfeb3e812d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.TrainBase
-  _startPosition:
-    Path:
-      StartNodeKey: 5
-      EndNodeKey: 7
-    Percent: 0.5
-    IsReversed: 0
-  _maxSpeed: 1
-  _acceleration: 1
-  _deceleration: 0.5
-  _isAccelerating: 0
-  _isReversed: 0
-  DEBUG_railPercent: 0
 --- !u!4 &683272232
 Transform:
   m_ObjectHideFlags: 0
@@ -652,12 +628,33 @@ Transform:
   m_GameObject: {fileID: 683272230}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2889, y: 0, z: 20.19268}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &683272233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683272230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac35bf7be1d78334db90471c281622d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.EditorTrainSpawner
+  _launchPosition:
+    Path:
+      StartNodeKey: 7
+      EndNodeKey: 8
+    Percent: 0
+    IsReversed: 0
+  _trainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
+  _speedPercent: 0
+  _isAccelerating: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

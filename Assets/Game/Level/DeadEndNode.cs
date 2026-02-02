@@ -6,7 +6,9 @@ namespace ZE.NodeStation
     {
         public override NodeType Type => NodeType.DeadEnd;
 
-        public DeadEndNode(int key, int entranceNodeKey) : base(key, entranceNodeKey)
+        public override bool IsFinal => NodeFunction == NodeFunction.Spawn || NodeFunction == NodeFunction.Exit;
+
+        public DeadEndNode(int key, int entranceNodeKey, NodeFunction function) : base(key, entranceNodeKey, function)
         {
         }
 

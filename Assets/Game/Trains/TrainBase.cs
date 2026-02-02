@@ -1,86 +1,115 @@
+using System;
 using UnityEngine;
-using VContainer;
-using TriInspector;
+using VContainer.Unity;
 
 namespace ZE.NodeStation
 {
-    public class TrainBase : MonoBehaviour
+    public enum TrainActivityMode : byte { Disabled, Active, Disposed}
+
+    public class TrainBase : ITrain, ITickable, IDisposable
     {
-        [SerializeField] private MapPosition _startPosition;
-        [Space]
-
-        [SerializeField] private float _maxSpeed = 1f;
-        [SerializeField] private float _acceleration = 1f;
-        [SerializeField] private float _deceleration = 0.5f;
-        [SerializeField] private bool _isAccelerating = false;
-        [SerializeField] private bool _isReversed = false;
-
-        [Space]
-        [DisplayAsString][SerializeField] private float DEBUG_railPercent;
-
-        private float _speed = 0f;
-        private RailPosition _position;
-        private RailMovementCalculator _railMovementCalculator;
-        private PathsMap _map;
-        private IRailPath _rail;
-
-        [Inject]
-        public void Inject(RailMovementCalculator movementCalculator, PathsMap map)
+        public record InjectProtocol
         {
-            _railMovementCalculator = movementCalculator;
-            _map = map;
-        }
+            public readonly RailMovementCalculator RailMovementCalculator;
+            public readonly PathsMap Map;
+            public readonly TickableManager TickableManager;
 
-        private void Start()
-        {
-            if (!_map.TryGetPath(_startPosition.Path, out var rail))
+            public InjectProtocol(RailMovementCalculator railMovementCalculator, PathsMap map, TickableManager tickableManager)
             {
-                Debug.LogError("Train rail not exists");
-                return;
-            }          
-
-            _rail = rail;
-            _isReversed = _startPosition.IsReversed;
-            SetPosition(_rail.GetPosition(_startPosition.Percent));
+                RailMovementCalculator = railMovementCalculator;
+                Map = map;
+                TickableManager = tickableManager;
+            }
         }
 
-        private void Update()
+        public Vector3 WorldPosition => _position.WorldPosition;
+        public Quaternion WorldRotation => _position.WorldRotation;
+        public event Action DisposedEvent;
+
+        protected readonly TrainConfiguration _config;
+        protected readonly RailMovementCalculator _railMovementCalculator;
+        protected readonly PathsMap _map;
+        private readonly TickableManager _tickableManager;
+        private readonly ILifetimeObject _lifetimeObject;
+
+        protected bool _isAccelerating = false;
+        protected bool _isReversed = false;
+        protected bool _isStopped = false;
+        protected float _speed = 0f;
+        protected RailPosition _position;
+        protected TrainActivityMode _mode;
+
+        public TrainBase(
+            InjectProtocol protocol,
+            TrainConfiguration config,
+            ILifetimeObject lifetimeObject)
         {
+            _railMovementCalculator = protocol.RailMovementCalculator;
+            _map = protocol.Map;
+            _tickableManager = protocol.TickableManager;
+
+            _config = config;
+
+            _lifetimeObject = lifetimeObject;
+            _lifetimeObject.DisposedEvent += Dispose;
+            _tickableManager.Add(this);
+        }
+
+        public void Activate() => _mode = TrainActivityMode.Active;
+
+        public void SetPosition(in RailPosition pos)
+        {
+            _position = pos;
+        }
+
+        public void SetSpeed(float speedPc, bool isAccelerating)
+        {
+            _speed = speedPc * _config.MaxSpeed;
+            _isAccelerating = isAccelerating;
+        }
+
+        public void Tick()
+        {
+            if (_mode != TrainActivityMode.Active)
+                return;
+
             var dt = Time.deltaTime;
             if (_isAccelerating)
             {
-                _speed = Mathf.MoveTowards(_speed, _maxSpeed, dt * _acceleration);
+                _speed = Mathf.MoveTowards(_speed, _config.MaxSpeed, dt * _config.Acceleration);
             }
             else
             {
-                _speed = Mathf.MoveTowards(_speed, 0f, dt * _deceleration);
+                _speed = Mathf.MoveTowards(_speed, 0f, dt * _config.Deceleration);
             }
 
             if (_speed != 0f)
             {
-                var movementResult = _railMovementCalculator.MoveNext(_position, new(_speed * dt, _isReversed), _rail);
-                _rail = movementResult.Rail;
+                var movementResult = _railMovementCalculator.MoveNext(_position, new(_speed * dt, _isReversed));
                 SetPosition(movementResult.Position);
-                if (movementResult.IsStopped)
+                switch (movementResult.EventType)
                 {
-                    enabled = false;
-                    return;
+                    case PostMovementEventType.Derail: Derail(); return;
+                    case PostMovementEventType.Disappear: Dispose(); return;
                 }
             }
-                
         }
 
-        protected void SetPosition(in RailPosition pos)
+        public void Dispose()
         {
-            transform.position = pos.WorldPosition;
-            var rotation = pos.WorldRotation;
-            if (_isReversed)
-                rotation *= Quaternion.AngleAxis(180f, Vector3.up);
-            transform.rotation = rotation;
+            if (_mode == TrainActivityMode.Disposed)
+                return;
 
-            _position = pos;
+            _lifetimeObject.DisposedEvent -= Dispose;
+            _tickableManager.Remove(this);
 
-            DEBUG_railPercent = (float)pos.Percent;
+            _mode = TrainActivityMode.Disposed;
+            DisposedEvent?.Invoke();
         }
+
+        private void Derail()
+        {
+            _mode = TrainActivityMode.Disabled;
+        }       
     }
 }

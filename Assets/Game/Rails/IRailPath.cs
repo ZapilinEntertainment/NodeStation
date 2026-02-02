@@ -4,7 +4,7 @@ namespace ZE.NodeStation
 {
     public interface IRailPath
     {
-        PathKey RegistrationKey { get; }
+        PathKey PathKey { get; }
         RailPosition Start { get; }
         RailPosition End { get;}
 

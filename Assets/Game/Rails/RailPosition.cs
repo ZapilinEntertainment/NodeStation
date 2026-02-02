@@ -6,8 +6,12 @@ namespace ZE.NodeStation
     [Serializable]
     public struct RailPosition
     {
+        public IRailPath Rail;
         public double Percent;
+        public bool IsReversed;
         public Vector3 WorldPosition;   
-        public Quaternion WorldRotation;
+        public Quaternion RawWorldRotation;
+
+        public Quaternion WorldRotation => IsReversed ? Quaternion.AngleAxis(180f, Vector3.up) * RawWorldRotation : RawWorldRotation;
     }
 }

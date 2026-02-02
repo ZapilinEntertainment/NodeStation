@@ -6,8 +6,9 @@ namespace ZE.NodeStation
     {
         public readonly int ExitNodeKey;
         public override NodeType Type => NodeType.Straight;
+        public override bool IsFinal => false;
 
-        public StraightPathNode(int key, int entranceNodeKey, int exitNodeKey) : base(key, entranceNodeKey)
+        public StraightPathNode(int key, int entranceNodeKey, int exitNodeKey, NodeFunction function) : base(key, entranceNodeKey, function)
         {
             ExitNodeKey = exitNodeKey;
         }

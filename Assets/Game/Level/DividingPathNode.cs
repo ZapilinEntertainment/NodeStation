@@ -7,10 +7,11 @@ namespace ZE.NodeStation
         public readonly int ExitNodeKeyA;
         public readonly int ExitNodeKeyB;
         public bool UsePathB;
+        public override bool IsFinal => false;
         public override NodeType Type => _type;
         protected readonly NodeType _type;
 
-        public DividingPathNode(int key, int entranceKey, int exitKeyA, int exitKeyB, bool isReversed) : base(key, entranceKey)
+        public DividingPathNode(int key, int entranceKey, int exitKeyA, int exitKeyB, bool isReversed, NodeFunction function) : base(key, entranceKey, function)
         {
             ExitNodeKeyA = exitKeyA;
             ExitNodeKeyB = exitKeyB;

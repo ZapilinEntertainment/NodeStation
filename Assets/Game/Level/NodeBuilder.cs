@@ -37,7 +37,7 @@ namespace ZE.NodeStation
                                 break;
                             }
                         }
-                        return new DeadEndNode(key, entranceNodeKey);
+                        return new DeadEndNode(key, entranceNodeKey, nodePoint.Function);
                     }
 
                     case NodeType.Straight:
@@ -92,7 +92,7 @@ namespace ZE.NodeStation
                         //Debug.Log($"A: {connectionA.StartNodeKey} -> {connectionA.EndNodeKey}, B: {connectionB.StartNodeKey} -> {connectionB.EndNodeKey}");
                         //Debug.Log($"{entranceNodeKey} -> {exitNodeKey}");
 
-                        return new StraightPathNode(key, entranceNodeKey, exitNodeKey);
+                        return new StraightPathNode(key, entranceNodeKey, exitNodeKey, nodePoint.Function);
                     }
 
                     case NodeType.Dividing:
@@ -135,7 +135,7 @@ namespace ZE.NodeStation
                                 break;
                         }
                         
-                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB, isReversed : false);
+                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB, isReversed : false, nodePoint.Function);
                     }
 
                     case NodeType.DividingReversed:
@@ -181,7 +181,7 @@ namespace ZE.NodeStation
                                 break;
                         }
 
-                        return new DividingPathNode(key, exitNodeKey, entranceNodeKeyA, entranceNodeKeyB, isReversed : true);
+                        return new DividingPathNode(key, exitNodeKey, entranceNodeKeyA, entranceNodeKeyB, isReversed : true, nodePoint.Function);
                     }
 
                     default:
