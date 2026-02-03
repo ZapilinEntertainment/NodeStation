@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 2
+  <Function>k__BackingField: 0
   Type: 2
 --- !u!4 &281309613
 Transform:
@@ -252,6 +252,52 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 109.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1718639311}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &294307987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294307989}
+  - component: {fileID: 294307988}
+  m_Layer: 0
+  m_Name: B6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &294307988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294307987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
+  <Function>k__BackingField: 2
+  Type: 2
+--- !u!4 &294307989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294307987}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -648,18 +694,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.EditorTrainSpawner
   _launchPosition:
     Path:
-      StartNodeKey: 4
-      EndNodeKey: 6
+      StartNodeKey: 0
+      EndNodeKey: 1
     Percent: 0
-    IsReversed: 1
+    IsReversed: 0
   _trainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
   _railCars:
   - ReverseCarViewDirection: 0
     Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
   - ReverseCarViewDirection: 1
     Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
+  - ReverseCarViewDirection: 0
+    Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
+  - ReverseCarViewDirection: 1
+    Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
+  - ReverseCarViewDirection: 0
+    Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}
+  - ReverseCarViewDirection: 1
+    Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}
   _speedPercent: 0
   _isAccelerating: 1
+--- !u!1 &767331765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 767331767}
+  - component: {fileID: 767331766}
+  m_Layer: 0
+  m_Name: A6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &767331766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767331765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
+  <Function>k__BackingField: 2
+  Type: 2
+--- !u!4 &767331767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767331765}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.19, y: 0, z: 200}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1718639311}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,8 +1212,10 @@ MonoBehaviour:
       Value: {fileID: 2066136506}
     - Key: 7
       Value: {fileID: 99086178}
-    - Key: 8
-      Value: {fileID: 281309612}
+    - Key: 9
+      Value: {fileID: 767331766}
+    - Key: 10
+      Value: {fileID: 294307988}
   _paths:
   - StartNodeKey: 0
     EndNodeKey: 1
@@ -1140,10 +1242,13 @@ MonoBehaviour:
     EndNodeKey: 7
     Type: 0
   - StartNodeKey: 7
-    EndNodeKey: 8
+    EndNodeKey: 10
     Type: 0
   - StartNodeKey: -1
     EndNodeKey: 0
+    Type: 0
+  - StartNodeKey: 6
+    EndNodeKey: 9
     Type: 0
 --- !u!4 &1718639311
 Transform:
@@ -1168,6 +1273,8 @@ Transform:
   - {fileID: 2066136507}
   - {fileID: 99086179}
   - {fileID: 281309613}
+  - {fileID: 767331767}
+  - {fileID: 294307989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854868155
@@ -1323,8 +1430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 2
-  Type: 2
+  <Function>k__BackingField: 0
+  Type: 1
 --- !u!4 &2066136507
 Transform:
   m_ObjectHideFlags: 0

@@ -22,8 +22,6 @@ namespace ZE.NodeStation
             var count = _cars.Length;
             _distances = new float[count-1];
 
-            // todo: calculate distances somehow
-            // todo: operate with bogeys local positions
             for (var i = 0; i < count-1; i++)
             {
                 _distances[i] = (_cars[i].CarLength + _cars[i + 1].CarLength) * 0.5f;
@@ -46,6 +44,8 @@ namespace ZE.NodeStation
                 car.SetPosition(bogeyPos, rearBogeyPos);
                 if (i != _cars.Length - 1)
                 {
+
+                    // note: some proble with distances here (only between passenger car and locomotive)
                     var nextPos = RailMovementCalculator.MoveNext(bogeyPos, new(_distances[i], !_isReversed)).Position;
                     nextPos.IsReversed = _isReversed;
                     bogeyPos = nextPos;
