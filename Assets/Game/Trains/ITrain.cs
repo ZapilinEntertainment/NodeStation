@@ -3,11 +3,8 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public interface ITrain : ILifetimeObject
+    public interface ITrain : IViewable
     {
-        Vector3 WorldPosition { get; }
-        Quaternion WorldRotation { get; }
-
         void SetSpeed(float speedPc, bool isAccelerating);
         void Activate();
     }

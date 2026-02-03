@@ -27,12 +27,13 @@ namespace ZE.NodeStation
             _rotation = Quaternion.LookRotation(dir / _length, Vector3.up);
         }
 
-        public RailPosition GetPosition(double distancePc) => new()
+        public RailPosition GetPosition(double distancePc, bool isReversed) => new()
         {
             Percent = distancePc,
             WorldPosition = Vector3.Lerp(_startPosition, _endPosition, (float)distancePc),
             RawWorldRotation = _rotation,
-            Rail = this
+            Rail = this,
+            IsReversed = isReversed
         };
     }
 }

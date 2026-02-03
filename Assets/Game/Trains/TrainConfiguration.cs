@@ -8,6 +8,6 @@ namespace ZE.NodeStation
         [field:SerializeField] public float MaxSpeed { get;private set; } = 1f;
         [field: SerializeField] public float Acceleration { get; private set; } = 1f;
         [field: SerializeField] public float Deceleration { get; private set; } = 0.5f;
-        
+
     }
 }

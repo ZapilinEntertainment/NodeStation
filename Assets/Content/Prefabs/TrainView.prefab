@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2449440772803773356}
-  - component: {fileID: 4194243206275500912}
+  - component: {fileID: 8579712919718209687}
   m_Layer: 0
   m_Name: TrainView
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 1837826947486158915}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4194243206275500912
+--- !u!114 &8579712919718209687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,9 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5361871526513253698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a74d85c23da16b41a77c6a209548876, type: 3}
+  m_Script: {fileID: 11500000, guid: 012055da6b2bd6a42b790f93e0556dc1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.TrainView
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.RailCarView
+  _model: {fileID: 1837826947486158915}
 --- !u!1001 &2165101820294264744
 PrefabInstance:
   m_ObjectHideFlags: 0

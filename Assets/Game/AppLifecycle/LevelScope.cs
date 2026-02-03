@@ -18,7 +18,7 @@ namespace ZE.NodeStation
             builder.RegisterInstance<PathsMap>(_pathsMap);
 
             builder.Register<TrainFactory>(Lifetime.Scoped);
-            builder.Register<TrainViewFactory>(Lifetime.Scoped);
+            builder.Register<RailCarBuilder>(Lifetime.Scoped);
         }
 
         protected override void OnDestroy()

@@ -8,13 +8,11 @@ namespace ZE.NodeStation
     public struct MovementResult
     {
         public RailPosition Position;
-        public IRailPath Rail;
         public PostMovementEventType EventType;
 
-        public MovementResult(RailPosition position, IRailPath rail, PostMovementEventType eventType = PostMovementEventType.None)
+        public MovementResult(RailPosition position, PostMovementEventType eventType = PostMovementEventType.None)
         {
             Position = position;
-            Rail = rail;
             EventType = eventType;
         }
     }
@@ -45,7 +43,7 @@ namespace ZE.NodeStation
                 resultingPercent = startPos.Percent - percentMovement;
 
                 if (resultingPercent > 0f)
-                    return new(rail.GetPosition(resultingPercent), rail);
+                    return new(rail.GetPosition(resultingPercent, reverseMovement));
                 else
                     resultingPercent += 1f;
             }
@@ -55,7 +53,7 @@ namespace ZE.NodeStation
                 resultingPercent = startPos.Percent + percentMovement;
 
                 if (resultingPercent < 1f)
-                    return new(rail.GetPosition(resultingPercent), rail);    
+                    return new(rail.GetPosition(resultingPercent, reverseMovement));    
                 else
                     resultingPercent -= 1f;
             }            
@@ -65,7 +63,7 @@ namespace ZE.NodeStation
                 var pathKey = rail.PathKey;
                 var endPoint = reverseMovement ? pathKey.StartNodeKey : pathKey.EndNodeKey;
                 var stopMode = _map.IsFinalNode(endPoint) ? PostMovementEventType.Disappear : PostMovementEventType.Derail;
-                return new(reverseMovement ? rail.Start : rail.End, rail, stopMode);
+                return new(reverseMovement ? rail.Start : rail.End, stopMode);
             }        
             //Debug.Log($"rail changed: {rail.RegistrationKey} -> {nextRail.RegistrationKey}, {resultingPercent}");
 

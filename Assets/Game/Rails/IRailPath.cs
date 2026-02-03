@@ -10,6 +10,6 @@ namespace ZE.NodeStation
 
         float Length { get; }
 
-        RailPosition GetPosition(double distancePc);
+        RailPosition GetPosition(double distancePc, bool isReversed);
     }
 }

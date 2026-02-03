@@ -8,6 +8,7 @@ namespace ZE.NodeStation
     {
         [SerializeField] private MapPosition _launchPosition;
         [SerializeField] private TrainConfiguration _trainConfig;
+        [SerializeField] private RailCarBuildProtocol[] _railCars;
         [SerializeField] private float _speedPercent = 0f;
         [SerializeField] private bool _isAccelerating = false;
 
@@ -21,7 +22,8 @@ namespace ZE.NodeStation
             _map = map;
         }
 
-        [Button("Spawn train")]
+        [InfoBox("Available only in Playmode")]
+        [Button("Spawn train"), EnableInPlayMode]
         public void LaunchTrain()
         {
             if (!_map.TryGetPath(_launchPosition.Path, out var path))
@@ -30,10 +32,9 @@ namespace ZE.NodeStation
                 return;
             }
 
-            var position = path.GetPosition(_launchPosition.Percent);
-            position.IsReversed = _launchPosition.IsReversed;
+            var position = path.GetPosition(_launchPosition.Percent, _launchPosition.IsReversed);
 
-            var train = _trainFactory.Build(_trainConfig, position);
+            var train = _trainFactory.Build(_trainConfig, position, _railCars);
             train.SetSpeed(_speedPercent, _isAccelerating);
         }
     }

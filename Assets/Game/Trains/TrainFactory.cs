@@ -7,32 +7,37 @@ namespace ZE.NodeStation
     public class TrainFactory : ILifetimeObject, IDisposable
     {
         public event Action DisposedEvent;
-        private readonly TrainViewFactory _trainViewFactory;
         private readonly TrainBase.InjectProtocol _injectProtocol;
+        private readonly RailCarBuilder _railCarBuilder;
 
         [Inject]
         public TrainFactory(
             RailMovementCalculator railMovementCalculator, 
             PathsMap pathsMap, 
             TickableManager tickableManager,
-            TrainViewFactory viewFactory) 
+            RailCarBuilder railCarBuilder) 
         {
             _injectProtocol = new(railMovementCalculator, pathsMap, tickableManager);
-            _trainViewFactory = viewFactory;
-        }        
-
-        public ITrain Build(TrainConfiguration config, RailPosition position)
+            _railCarBuilder = railCarBuilder;
+        }  
+        
+        public ITrain Build(TrainConfiguration config, RailPosition position, params RailCarBuildProtocol[] protocols)
         {
-            var train = new TrainBase(_injectProtocol, config, lifetimeObject: this);
+            var train = new MultiBogeysTrain(_injectProtocol, config, lifetimeObject: this);
+
+            var carsCount = protocols.Length;
+            var cars = new RailCar[carsCount];
+            for (var i = 0; i< carsCount; i++)
+            {
+                cars[i] = _railCarBuilder.Build(protocols[i]);
+            }
+
+            train.SetupTrain(cars);
             train.SetPosition(position);
-
-            var view = _trainViewFactory.Build();
-            view.AssignOwner(train);
-
             train.Activate();
 
             return train;
-        }            
+        }
 
         public void Dispose()
         {

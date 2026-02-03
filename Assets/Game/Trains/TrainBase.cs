@@ -26,9 +26,9 @@ namespace ZE.NodeStation
         public Quaternion WorldRotation => _position.WorldRotation;
         public event Action DisposedEvent;
 
-        protected readonly TrainConfiguration _config;
-        protected readonly RailMovementCalculator _railMovementCalculator;
-        protected readonly PathsMap _map;
+        protected readonly TrainConfiguration Config;
+        protected readonly RailMovementCalculator RailMovementCalculator;
+        protected readonly PathsMap Map;
         private readonly TickableManager _tickableManager;
         private readonly ILifetimeObject _lifetimeObject;
 
@@ -44,11 +44,11 @@ namespace ZE.NodeStation
             TrainConfiguration config,
             ILifetimeObject lifetimeObject)
         {
-            _railMovementCalculator = protocol.RailMovementCalculator;
-            _map = protocol.Map;
+            RailMovementCalculator = protocol.RailMovementCalculator;
+            Map = protocol.Map;
             _tickableManager = protocol.TickableManager;
 
-            _config = config;
+            Config = config;
 
             _lifetimeObject = lifetimeObject;
             _lifetimeObject.DisposedEvent += Dispose;
@@ -57,14 +57,15 @@ namespace ZE.NodeStation
 
         public void Activate() => _mode = TrainActivityMode.Active;
 
-        public void SetPosition(in RailPosition pos)
+        public virtual void SetPosition(in RailPosition pos)
         {
             _position = pos;
+            _isReversed = pos.IsReversed;
         }
 
         public void SetSpeed(float speedPc, bool isAccelerating)
         {
-            _speed = speedPc * _config.MaxSpeed;
+            _speed = speedPc * Config.MaxSpeed;
             _isAccelerating = isAccelerating;
         }
 
@@ -76,23 +77,15 @@ namespace ZE.NodeStation
             var dt = Time.deltaTime;
             if (_isAccelerating)
             {
-                _speed = Mathf.MoveTowards(_speed, _config.MaxSpeed, dt * _config.Acceleration);
+                _speed = Mathf.MoveTowards(_speed, Config.MaxSpeed, dt * Config.Acceleration);
             }
             else
             {
-                _speed = Mathf.MoveTowards(_speed, 0f, dt * _config.Deceleration);
+                _speed = Mathf.MoveTowards(_speed, 0f, dt * Config.Deceleration);
             }
 
             if (_speed != 0f)
-            {
-                var movementResult = _railMovementCalculator.MoveNext(_position, new(_speed * dt, _isReversed));
-                SetPosition(movementResult.Position);
-                switch (movementResult.EventType)
-                {
-                    case PostMovementEventType.Derail: Derail(); return;
-                    case PostMovementEventType.Disappear: Dispose(); return;
-                }
-            }
+                DoMove(dt);
         }
 
         public void Dispose()
@@ -105,6 +98,17 @@ namespace ZE.NodeStation
 
             _mode = TrainActivityMode.Disposed;
             DisposedEvent?.Invoke();
+        }
+
+        protected void DoMove(float deltaTime)
+        {
+            var movementResult = RailMovementCalculator.MoveNext(_position, new(_speed * deltaTime, _isReversed));
+            SetPosition(movementResult.Position);
+            switch (movementResult.EventType)
+            {
+                case PostMovementEventType.Derail: Derail(); return;
+                case PostMovementEventType.Disappear: Dispose(); return;
+            }
         }
 
         private void Derail()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db89314d84b9b2478f131827cfd4f85, type: 3}
+  m_Name: Locomotive
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.RailCarConfiguration
+  <Prefab>k__BackingField: {fileID: 8579712919718209687, guid: b731305c2bb249b4198381d21aa235a8, type: 3}
+  <FrontBogeyOffset>k__BackingField: 3.4
+  <RearBogeyOffset>k__BackingField: -4.75
+  <CarLength>k__BackingField: 16.5
