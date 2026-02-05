@@ -31,6 +31,43 @@ namespace ZE.NodeStation
             }
         }
 
+        protected override void DoMove(float deltaTime)
+        {
+            var movement = new RailMovement(_speed * deltaTime, _isReversed);
+            var carsCount = _cars.Length;
+
+            // handle locomotive movement
+            var locomotive = _cars[0];
+            var front = RailMovementCalculator.MoveNext(locomotive.FrontBogie.RailPosition, movement);
+            var rear = RailMovementCalculator.MoveNext(locomotive.RearBogie.RailPosition, movement);
+            locomotive.SetPosition(front.Position, rear.Position);
+            base.SetPosition(locomotive.FrontBogie.RailPosition);
+
+            // events appears on locomotive
+            switch (front.EventType)
+            {
+                case PostMovementEventType.Derail: Derail(); return;
+                case PostMovementEventType.Disappear: Dispose(); return;
+            }
+
+            // other cars
+            if (carsCount > 1) { 
+                for (var i = 1; i < carsCount; i++)
+                {
+                    var car = _cars[i];
+                    front = RailMovementCalculator.MoveNext(car.FrontBogie.RailPosition, movement);
+                    rear = RailMovementCalculator.MoveNext(car.RearBogie.RailPosition, movement);
+                    car.SetPosition(front.Position, rear.Position);
+                }
+            }         
+        }
+
+        // use only for first-time position
+        // because all bogies position depends on first pos
+        // that can cause instant rail-change when entering reversed dividing path
+
+        // TODO: there is a problem. If front bogie positions before divider, and rear - after, 
+        // rear one can go on other track when moving
         public override void SetPosition(in RailPosition pos)
         {
             base.SetPosition(pos);

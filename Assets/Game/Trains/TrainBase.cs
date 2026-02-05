@@ -100,7 +100,7 @@ namespace ZE.NodeStation
             DisposedEvent?.Invoke();
         }
 
-        protected void DoMove(float deltaTime)
+        protected virtual void DoMove(float deltaTime)
         {
             var movementResult = RailMovementCalculator.MoveNext(_position, new(_speed * deltaTime, _isReversed));
             SetPosition(movementResult.Position);
@@ -111,7 +111,7 @@ namespace ZE.NodeStation
             }
         }
 
-        private void Derail()
+        protected virtual void Derail()
         {
             _mode = TrainActivityMode.Disabled;
         }       

@@ -159,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 99086177}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 110.100006}
+  m_LocalPosition: {x: 0, y: 0, z: 220.80002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -251,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 281309611}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 109.8}
+  m_LocalPosition: {x: 0, y: 0, z: 220.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -297,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 294307987}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 200}
+  m_LocalPosition: {x: 0, y: 0, z: 310.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -694,9 +694,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.EditorTrainSpawner
   _launchPosition:
     Path:
-      StartNodeKey: 0
-      EndNodeKey: 1
-    Percent: 0
+      StartNodeKey: 3
+      EndNodeKey: 5
+    Percent: 0.5
     IsReversed: 0
   _trainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
   _railCars:
@@ -708,7 +708,7 @@ MonoBehaviour:
     Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}
   - ReverseCarViewDirection: 1
     Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}
-  _speedPercent: 0
+  _speedPercent: 1
   _isAccelerating: 1
 --- !u!1 &767331765
 GameObject:
@@ -750,7 +750,7 @@ Transform:
   m_GameObject: {fileID: 767331765}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.19, y: 0, z: 200}
+  m_LocalPosition: {x: -4.19, y: 0, z: 310.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1026,7 +1026,7 @@ Transform:
   m_GameObject: {fileID: 1224865539}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 69.6}
+  m_LocalPosition: {x: 0, y: 0, z: 180.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1391,7 +1391,7 @@ Transform:
   m_GameObject: {fileID: 2063306401}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.19, y: 0, z: 69.6}
+  m_LocalPosition: {x: -4.19, y: 0, z: 180.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1437,7 +1437,7 @@ Transform:
   m_GameObject: {fileID: 2066136505}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.19, y: 0, z: 109.8}
+  m_LocalPosition: {x: -4.19, y: 0, z: 220.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
