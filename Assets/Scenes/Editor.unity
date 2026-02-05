@@ -705,10 +705,6 @@ MonoBehaviour:
   - ReverseCarViewDirection: 1
     Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
   - ReverseCarViewDirection: 0
-    Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
-  - ReverseCarViewDirection: 1
-    Configuration: {fileID: 11400000, guid: d674af8933580124dae6afc0e22f3155, type: 2}
-  - ReverseCarViewDirection: 0
     Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}
   - ReverseCarViewDirection: 1
     Configuration: {fileID: 11400000, guid: 57b93ce3a12866b4caa12dc60b230907, type: 2}

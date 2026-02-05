@@ -15,4 +15,4 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 3457708727919491309, guid: 5a2a4e49dee78da4a995148d4ee87652, type: 3}
   <FrontBogeyOffset>k__BackingField: 8.5
   <RearBogeyOffset>k__BackingField: -8.5
-  <CarLength>k__BackingField: 25.2
+  <CarLength>k__BackingField: 25.8

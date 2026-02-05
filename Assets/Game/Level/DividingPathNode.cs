@@ -18,6 +18,8 @@ namespace ZE.NodeStation
             _type = isReversed ? NodeType.DividingReversed : NodeType.Dividing;
         }
 
+        // TODO: there is problem where multi-bogie trains enters the inverted division and its tail suddenly appears on other line
+
         public override bool TryGetExitNode(int entranceNodeKey, out int exitNodeKey)
         {
             //Debug.Log($"requested: {entranceNodeKey} of {EntranceNodeKey}, {ExitNodeKeyA}, {ExitNodeKeyB}");

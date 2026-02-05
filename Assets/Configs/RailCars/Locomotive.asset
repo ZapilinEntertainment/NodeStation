@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Locomotive
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.RailCarConfiguration
   <Prefab>k__BackingField: {fileID: 8579712919718209687, guid: b731305c2bb249b4198381d21aa235a8, type: 3}
-  <FrontBogeyOffset>k__BackingField: 3.4
-  <RearBogeyOffset>k__BackingField: -4.75
-  <CarLength>k__BackingField: 16.5
+  <FrontBogeyOffset>k__BackingField: 4.2
+  <RearBogeyOffset>k__BackingField: -4
+  <CarLength>k__BackingField: 16.6

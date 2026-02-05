@@ -23,21 +23,10 @@ namespace ZE.NodeStation
         public RailCar(Bogie front, Bogie rear, float carLength, bool reverseView)
         {
             ReverseView = reverseView;
-
             CarLength = carLength;
-
-            if (!reverseView)
-            {
-                FrontBogie = front;
-                RearBogie = rear;
-                BogeysDistance = FrontBogie.Offset + Mathf.Abs(RearBogie.Offset);
-            }
-            else
-            {
-                FrontBogie = rear;
-                RearBogie = front;
-                BogeysDistance = Mathf.Abs(FrontBogie.Offset) + RearBogie.Offset;
-            }            
+            FrontBogie = front;
+            RearBogie = rear;
+            BogeysDistance = Mathf.Abs(RearBogie.Offset) + FrontBogie.Offset;          
         }
 
         public void SetPosition(in RailPosition frontPos, in RailPosition rearPos)
@@ -46,13 +35,10 @@ namespace ZE.NodeStation
             RearBogie.SetPosition(rearPos);
 
             var dir = (FrontPos - RearPos).normalized;
-            if (ReverseView) 
-                dir *= -1f;
-
             WorldPosition = FrontPos - dir * FrontBogie.Offset;
 
             if (dir.sqrMagnitude != 0f) 
-                WorldRotation = Quaternion.LookRotation(dir, Vector3.up);
+                WorldRotation = Quaternion.LookRotation(dir * (ReverseView ? -1f: 1f), Vector3.up);
         }
 
         public void Dispose()
