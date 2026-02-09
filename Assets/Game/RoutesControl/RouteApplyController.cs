@@ -8,7 +8,7 @@ namespace ZE.NodeStation
     public struct RouteCheckResult
     {
         public RouteStatus Status;
-        public int LastNodeKey;
+        public IPathNode LastNode;
 
         public static RouteCheckResult Undefined => new() { Status = RouteStatus.Undefined};
         public static RouteCheckResult Completed => new() { Status = RouteStatus.Complete };
@@ -17,7 +17,7 @@ namespace ZE.NodeStation
     public class RouteApplyController
     {
         private readonly PathsMap _map;
-        private readonly Dictionary<int, TrainRoute> _routeAffiliations = new();
+        private readonly Dictionary<IPathNode, TrainRoute> _routeAffiliations = new();
         
         public RouteApplyController(PathsMap map)
         {
@@ -31,37 +31,27 @@ namespace ZE.NodeStation
 
             for (var i = 0; i < routeLength; i++)
             {
-                var nodeKey = points[i];
+                var node = points[i];
                 var isFirstNode = i == 0;
 
-                if (!_map.TryGetNode(nodeKey, out var node))
+                if (isFirstNode)
                 {
-                    if (isFirstNode)
+                    if (!node.TrySetupPath(Constants.NO_EXIT_PATH_CODE, points[i + 1].Key))
                         return RouteCheckResult.Undefined;
-                    else
-                        return new() { Status = RouteStatus.Incomplete, LastNodeKey = points[i-1] };
                 }
                 else
                 {
-                    if (isFirstNode)
-                    {
-                        if (!node.TrySetupPath(Constants.NO_EXIT_PATH_CODE, points[i + 1]))
-                            return RouteCheckResult.Undefined;
-                    }
-                    else
-                    {
-                        var nextNodeKey = i == routeLength - 1 ? Constants.NO_EXIT_PATH_CODE : points[i + 1];
-                        var prevNodeKey = points[i-1];
-                        if (!node.TrySetupPath(prevNodeKey, nextNodeKey))
-                            return new() { Status = RouteStatus.Blocked, LastNodeKey = prevNodeKey };
-                    }
-
-                    if (_routeAffiliations.TryGetValue(nodeKey, out var overlappingRoute) 
-                        && overlappingRoute != route)
-                        return new() { Status = RouteStatus.RouteIntersections, LastNodeKey = nodeKey};
-
-                    _routeAffiliations[nodeKey] = route;
+                    var nextNodeKey = i == routeLength - 1 ? Constants.NO_EXIT_PATH_CODE : points[i + 1].Key;
+                    var prevNode = points[i - 1];
+                    if (!node.TrySetupPath(prevNode.Key, nextNodeKey))
+                        return new() { Status = RouteStatus.Blocked, LastNode = prevNode };
                 }
+
+                if (_routeAffiliations.TryGetValue(node, out var overlappingRoute)
+                    && overlappingRoute != route)
+                    return new() { Status = RouteStatus.RouteIntersections, LastNode = node };
+
+                _routeAffiliations[node] = route;
             }
 
             return RouteCheckResult.Completed;

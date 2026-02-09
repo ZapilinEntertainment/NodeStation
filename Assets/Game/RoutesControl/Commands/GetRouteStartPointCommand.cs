@@ -26,7 +26,7 @@ namespace ZE.NodeStation
                 return default;
             }
 
-            var isReversed = path.PathKey.StartNodeKey == point1;
+            var isReversed = path.PathKey.StartNodeKey == point1.Key;
             if (isReversed)
                 return path.GetPosition(1f, true);
             else

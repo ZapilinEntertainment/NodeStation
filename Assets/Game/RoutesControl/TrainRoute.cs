@@ -7,10 +7,10 @@ namespace ZE.NodeStation
     public class TrainRoute : IDisposable
     {
         public readonly ColorKey ColorKey;
-        public IReadOnlyList<int> Points => _points;
-        private readonly List<int> _points;
+        public IReadOnlyList<IPathNode> Points => _points;
+        private List<IPathNode> _points;
 
-        public TrainRoute(ColorKey colorKey, List<int> points)
+        public TrainRoute(ColorKey colorKey, List<IPathNode> points)
         {
             ColorKey = colorKey;
             _points = new(points);
@@ -21,6 +21,8 @@ namespace ZE.NodeStation
             _points.Clear();
         }
 
-        public IEnumerator<int> GetEnumerator() => _points.GetEnumerator();
+        public IEnumerator<IPathNode> GetEnumerator() => _points.GetEnumerator();
+
+        public void UpdatePoints(List<IPathNode> points) => _points = points;
     }
 }

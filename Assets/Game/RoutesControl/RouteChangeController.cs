@@ -11,6 +11,7 @@ namespace ZE.NodeStation
         private readonly RouteControlsWindow _window;
         private readonly CollidersManager _collidersManager;
         private readonly RouteBuilder _routeBuilder;
+        private readonly RouteDrawManager _routeDrawManager;
 
         private const int DRAGGABLES_MASK = LayerMasks.USER_DRAGGABLE_MASK;
         private const int DRAGGABLES_RECEIVERS_MASK = LayerMasks.DRAGGABLES_RECEIVERS_MASK;
@@ -23,12 +24,14 @@ namespace ZE.NodeStation
             RouteControlsWindow window, 
             ICameraController cameraController, 
             CollidersManager collidersManager,
-            RouteBuilder routeBuilder)
+            RouteBuilder routeBuilder,
+            RouteDrawManager routeDrawManager)
         {
             _window = window;
             _cameraController = cameraController;
             _collidersManager = collidersManager;
             _routeBuilder = routeBuilder;
+            _routeDrawManager = routeDrawManager;
 
             _window.DragStartEvent += OnBeginDrag;
             _window.DragEndEvent += OnEndDrag;
@@ -48,11 +51,13 @@ namespace ZE.NodeStation
             if (_isMovingRoutePoint)
                 return;
 
-            if (_cameraController.TryRaycastAtCursor(DRAGGABLES_MASK, out var rh)
+            if (_cameraController.TryRaycastAtCursor(int.MaxValue, out var rh)
                 && _collidersManager.TryIdentifyColliderAs<IDraggableRoutePoint>(rh.colliderInstanceID, out var routePoint))
             {
                 _isMovingRoutePoint = true;
                 _movingRoutePoint = routePoint;
+
+                Debug.Log($"grabbed {routePoint.RouteIndex}");
             }
         }
 
@@ -62,9 +67,12 @@ namespace ZE.NodeStation
                 return;
 
             if (_cameraController.TryRaycastAtCursor(DRAGGABLES_RECEIVERS_MASK, out var rh)
-                && _collidersManager.TryIdentifyColliderAs<IRoutePoint>(rh.colliderInstanceID, out var routePoint))
+                && _collidersManager.TryIdentifyColliderAs<SwitchableRoutePoint>(rh.colliderInstanceID, out var routePoint)
+                && _routeBuilder.TryRebuildRoute(_movingRoutePoint, routePoint.Node))
             {
-                _routeBuilder.TryRebuildRoute(_movingRoutePoint, routePoint);
+                var route = _movingRoutePoint.Route;
+                _routeDrawManager.ClearRouteDrawing(route);
+                _routeDrawManager.DrawRoute(route);
             }
 
             _isMovingRoutePoint = false;

@@ -12,8 +12,11 @@ namespace ZE.NodeStation
 {
     public class PathsConstructor : MonoBehaviour
     {
-        [SerializeField] private SerializedDictionary<int, NodePoint> _nodes;
-        [SerializeField, OnValueChanged(nameof(RecalculateNodeTypes))] private ConstructingPathData[] _paths;
+        // why using keys, instead of direct links:
+        // When converting editor-scheme to game-scheme, not all points are converted in same time
+
+        [SerializeField] private SerializedDictionary<int, ConstructingNodePoint> _nodes;
+        [SerializeField] private ConstructingPathData[] _paths;
         private readonly Dictionary<int, int> _nodeEntrancesCount = new();
         private readonly Dictionary<int, int> _nodeExitsCount = new();
         private NodeBuilder _nodeBuilder;
@@ -21,6 +24,7 @@ namespace ZE.NodeStation
 
         public PathsMap ConstructMap()
         {
+            RecalculateNodeTypes();
             _nodeBuilder ??= new(_paths);
 
             var map = new PathsMap();

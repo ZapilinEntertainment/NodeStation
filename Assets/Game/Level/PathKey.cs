@@ -21,6 +21,12 @@ namespace ZE.NodeStation
             EndNodeKey = endNodeKey;
         }
 
+        public PathKey(IPathNode startNode, IPathNode endNode)
+        {
+            StartNodeKey = startNode.Key;
+            EndNodeKey = endNode.Key;
+        }
+
         public override string ToString() => $"({StartNodeKey}->{EndNodeKey})";
     }
 }

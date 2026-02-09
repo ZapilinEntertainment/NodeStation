@@ -1,24 +1,27 @@
+using System;
 using UnityEngine;
 
 namespace ZE.NodeStation
 {
     public abstract class AbstractNode : IPathNode
-    {
-        public readonly int Key;
+    {      
         public readonly int EntranceNodeKey;
         public readonly NodeFunction NodeFunction;
         public Vector3 WorldPosition => _worldPos;
         public abstract NodeType Type { get; }
         public abstract bool IsFinal { get;}
+        public int Key => _key;
 
         public abstract bool HaveMultipleExits { get; }
+        public event Action DisposeEvent;
 
         protected readonly Vector3 _worldPos;
+        private readonly int _key;
 
         public AbstractNode(Vector3 worldPos, int key, int entranceNodeKey, NodeFunction nodeFunction)
         {
             _worldPos = worldPos;
-            Key = key;
+            _key = key;
             EntranceNodeKey = entranceNodeKey;
             NodeFunction = nodeFunction;
         }
@@ -26,5 +29,7 @@ namespace ZE.NodeStation
         public abstract bool TryGetExitNode(int entranceNodeKey, out int exitNodeKey);
 
         public abstract bool TrySetupPath(int entranceNodeKey, int exitNodeKey);
+
+        public void Dispose() => DisposeEvent?.Invoke();    
     }
 }

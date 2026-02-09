@@ -7,6 +7,7 @@ namespace ZE.NodeStation
     public class PathsMap : IDisposable
     {
         public IReadOnlyDictionary<int, IPathNode> Nodes => _nodes;
+        public IReadOnlyDictionary<PathKey, IPathSegment> Paths => _paths;
 
         private readonly Dictionary<int, IPathNode> _nodes = new();
         private readonly Dictionary<PathKey, IPathSegment> _paths = new();
@@ -65,7 +66,12 @@ namespace ZE.NodeStation
 
         public void Dispose()
         {
-            _nodes.Clear();
+            if (_nodes.Count != 0)
+            {
+                foreach (var node in _nodes.Values)
+                    node.Dispose();
+                _nodes.Clear();
+            }            
             _paths.Clear();
         }
     

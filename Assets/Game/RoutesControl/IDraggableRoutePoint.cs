@@ -2,9 +2,11 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public interface IDraggableRoutePoint : IRoutePoint
+    public interface IDraggableRoutePoint : IColliderOwner
     {
-        public TrainRoute Route { get; }
+        TrainRoute Route { get; }
+        IPathNode Node { get; }
+        int RouteIndex { get; }
     
     }
 }

@@ -5,9 +5,9 @@ namespace ZE.NodeStation
 {
     public class RailPathBuilder
     {
-        private readonly IReadOnlyDictionary<int, NodePoint> _points;
+        private readonly IReadOnlyDictionary<int, ConstructingNodePoint> _points;
 
-        public RailPathBuilder(IReadOnlyDictionary<int, NodePoint> points) 
+        public RailPathBuilder(IReadOnlyDictionary<int, ConstructingNodePoint> points) 
         { 
             _points = points; 
         }

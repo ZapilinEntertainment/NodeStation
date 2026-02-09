@@ -13,7 +13,7 @@ namespace ZE.NodeStation
             _pathsData = paths;
         }
 
-        public IPathNode Build(int key, NodePoint nodePoint)
+        public IPathNode Build(int key, ConstructingNodePoint nodePoint)
         {
             var worldPos = nodePoint.transform.position;
             // no type-checks included (data is already checked)

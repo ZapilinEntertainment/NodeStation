@@ -11,9 +11,10 @@ namespace ZE.NodeStation
         [SerializeField] private CameraController _cameraController;
         [Space]
         [Header("app scope:")]
-        [SerializeField] private NodePointDrawer _nodePointDrawer;
+        [SerializeField] private RoutePointDrawer _nodePointDrawer;
         [SerializeField] private RouteSegmentLineDrawer _segmentLineDrawer;
         [SerializeField] private ColorPalette _colorPalette;
+        [SerializeField] private SwitchableRoutePoint _switchableRoutePointPrefab;
 
         private PathsMap _pathsMap;
 
@@ -35,6 +36,7 @@ namespace ZE.NodeStation
             builder.Register<RouteBuilder>(Lifetime.Scoped);
             builder.Register<RouteChangeController>(Lifetime.Scoped);
             builder.Register<RouteApplyController>(Lifetime.Scoped);
+            builder.Register<AddSwitchablePointsReceiverCommand>(Lifetime.Scoped);
             builder.RegisterInstance(_dragWindow);
             builder.Register<GetRouteStartPointCommand>(Lifetime.Scoped);
             builder.Register<RouteDrawManager>(Lifetime.Scoped);
@@ -43,6 +45,8 @@ namespace ZE.NodeStation
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
 
+            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);
+
             // todo: move to app scope
             builder.RegisterInstance(_colorPalette);
             PreparePools(builder);
@@ -50,11 +54,13 @@ namespace ZE.NodeStation
 
         private void PreparePools(IContainerBuilder builder)
         {
-            var nodeDrawersPool = new MonoObjectsPool<NodePointDrawer>(_nodePointDrawer);
+            var nodeDrawersPool = new MonoObjectsPool<RoutePointDrawer>(_nodePointDrawer);
             builder.RegisterInstance(nodeDrawersPool);
 
             var lineDrawersPool = new MonoObjectsPool<RouteSegmentLineDrawer>(_segmentLineDrawer);
             builder.RegisterInstance(lineDrawersPool);
+
+            builder.RegisterInstance(_switchableRoutePointPrefab);
         }
 
         protected override void OnDestroy()

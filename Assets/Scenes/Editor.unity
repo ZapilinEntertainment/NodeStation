@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 99086179}
-  - component: {fileID: 99086178}
+  - component: {fileID: 99086180}
   m_Layer: 0
   m_Name: B4
   m_TagString: Untagged
@@ -136,20 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &99086178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99086177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 4
 --- !u!4 &99086179
 Transform:
   m_ObjectHideFlags: 0
@@ -165,6 +151,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &99086180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99086177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 4
 --- !u!1 &249056447
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 249056449}
-  - component: {fileID: 249056448}
+  - component: {fileID: 249056450}
   m_Layer: 0
   m_Name: A2
   m_TagString: Untagged
@@ -182,20 +182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &249056448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249056447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 1
 --- !u!4 &249056449
 Transform:
   m_ObjectHideFlags: 0
@@ -211,52 +197,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &281309611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 281309613}
-  - component: {fileID: 281309612}
-  m_Layer: 0
-  m_Name: B5
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &281309612
+--- !u!114 &249056450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281309611}
+  m_GameObject: {fileID: 249056447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
   <Function>k__BackingField: 0
-  Type: 2
---- !u!4 &281309613
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281309611}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 220.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1718639311}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  Type: 1
 --- !u!1 &294307987
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294307989}
-  - component: {fileID: 294307988}
+  - component: {fileID: 294307990}
   m_Layer: 0
   m_Name: B6
   m_TagString: Untagged
@@ -274,20 +228,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &294307988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294307987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 2
-  Type: 2
 --- !u!4 &294307989
 Transform:
   m_ObjectHideFlags: 0
@@ -303,6 +243,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294307990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294307987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 2
+  Type: 2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
-  m_LocalPosition: {x: 0, y: 102, z: -67}
+  m_LocalPosition: {x: 0, y: 27.2, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -521,12 +475,13 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 683272230}
-  _pathsConstructor: {fileID: 1718639310}
+  _pathsConstructor: {fileID: 1718639312}
   _dragWindow: {fileID: 1766005711}
   _cameraController: {fileID: 330585549}
   _nodePointDrawer: {fileID: 2464172477405051001, guid: 34547d9d7a17e00438a3d51958505579, type: 3}
   _segmentLineDrawer: {fileID: 5185787143834030628, guid: 121c4b1bc436dfd47ad6d46b46c76cb2, type: 3}
   _colorPalette: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
+  _switchableRoutePointPrefab: {fileID: 3563052122217928501, guid: 9fac2ddf63eb7f04eb0661a463661569, type: 3}
 --- !u!4 &364135109
 Transform:
   m_ObjectHideFlags: 0
@@ -819,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &683272232
 Transform:
   m_ObjectHideFlags: 0
@@ -891,7 +846,9 @@ MonoBehaviour:
   _isAccelerating: 1
   _routeTargets:
     SpawnNodeKey: 0
-    ExitNodeKey: 0
+    IsReversed: 0
+    TargetNodeKey: 0
+    ColorKey: 0
 --- !u!1 &767331765
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 767331767}
-  - component: {fileID: 767331766}
+  - component: {fileID: 767331768}
   m_Layer: 0
   m_Name: A6
   m_TagString: Untagged
@@ -909,20 +866,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &767331766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767331765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 2
-  Type: 2
 --- !u!4 &767331767
 Transform:
   m_ObjectHideFlags: 0
@@ -938,6 +881,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &767331768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767331765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 2
+  Type: 2
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1042,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079900794}
-  - component: {fileID: 1079900793}
+  - component: {fileID: 1079900795}
   m_Layer: 0
   m_Name: B2
   m_TagString: Untagged
@@ -1093,20 +1050,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1079900793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079900792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 1
 --- !u!4 &1079900794
 Transform:
   m_ObjectHideFlags: 0
@@ -1122,6 +1065,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079900795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079900792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 1
 --- !u!1 &1218911112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,7 +1088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1218911114}
-  - component: {fileID: 1218911113}
+  - component: {fileID: 1218911115}
   m_Layer: 0
   m_Name: A1
   m_TagString: Untagged
@@ -1139,20 +1096,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1218911113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218911112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 3
 --- !u!4 &1218911114
 Transform:
   m_ObjectHideFlags: 0
@@ -1168,6 +1111,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218911115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218911112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 3
 --- !u!1 &1224865539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1224865541}
-  - component: {fileID: 1224865540}
+  - component: {fileID: 1224865542}
   m_Layer: 0
   m_Name: B3
   m_TagString: Untagged
@@ -1185,20 +1142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1224865540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1224865539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 1
 --- !u!4 &1224865541
 Transform:
   m_ObjectHideFlags: 0
@@ -1214,6 +1157,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224865542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224865539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 1
 --- !u!1 &1561224900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1566100394}
-  - component: {fileID: 1566100393}
+  - component: {fileID: 1566100395}
   m_Layer: 0
   m_Name: pre-Start
   m_TagString: Untagged
@@ -1281,20 +1238,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1566100393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566100392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 1
-  Type: 2
 --- !u!4 &1566100394
 Transform:
   m_ObjectHideFlags: 0
@@ -1310,6 +1253,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1566100395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566100392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 1
+  Type: 2
 --- !u!1 &1569547167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,7 +1336,7 @@ Transform:
   m_GameObject: {fileID: 1569547167}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2164396, y: 0, z: 0, w: 0.97629607}
-  m_LocalPosition: {x: 0, y: 102, z: -67}
+  m_LocalPosition: {x: 0, y: 27.2, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1425,7 +1382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1718639311}
-  - component: {fileID: 1718639310}
+  - component: {fileID: 1718639312}
   m_Layer: 0
   m_Name: paths constructor
   m_TagString: Untagged
@@ -1433,76 +1390,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1718639310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718639309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2202299d6adf9c34f8d57ea9ae7ed3ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.PathsConstructor
-  _nodes:
-    _serializedList:
-    - Key: -1
-      Value: {fileID: 1566100393}
-    - Key: 0
-      Value: {fileID: 1854868156}
-    - Key: 1
-      Value: {fileID: 1218911113}
-    - Key: 2
-      Value: {fileID: 249056448}
-    - Key: 3
-      Value: {fileID: 1079900793}
-    - Key: 4
-      Value: {fileID: 2063306402}
-    - Key: 5
-      Value: {fileID: 1224865540}
-    - Key: 6
-      Value: {fileID: 2066136506}
-    - Key: 7
-      Value: {fileID: 99086178}
-    - Key: 9
-      Value: {fileID: 767331766}
-    - Key: 10
-      Value: {fileID: 294307988}
-  _paths:
-  - StartNodeKey: 0
-    EndNodeKey: 1
-    Type: 0
-  - StartNodeKey: 1
-    EndNodeKey: 2
-    Type: 0
-  - StartNodeKey: 1
-    EndNodeKey: 3
-    Type: 0
-  - StartNodeKey: 2
-    EndNodeKey: 4
-    Type: 0
-  - StartNodeKey: 3
-    EndNodeKey: 5
-    Type: 0
-  - StartNodeKey: 4
-    EndNodeKey: 6
-    Type: 0
-  - StartNodeKey: 4
-    EndNodeKey: 7
-    Type: 0
-  - StartNodeKey: 5
-    EndNodeKey: 7
-    Type: 0
-  - StartNodeKey: 7
-    EndNodeKey: 10
-    Type: 0
-  - StartNodeKey: -1
-    EndNodeKey: 0
-    Type: 0
-  - StartNodeKey: 6
-    EndNodeKey: 9
-    Type: 0
 --- !u!4 &1718639311
 Transform:
   m_ObjectHideFlags: 0
@@ -1525,11 +1412,80 @@ Transform:
   - {fileID: 1224865541}
   - {fileID: 2066136507}
   - {fileID: 99086179}
-  - {fileID: 281309613}
   - {fileID: 767331767}
   - {fileID: 294307989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718639312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718639309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2202299d6adf9c34f8d57ea9ae7ed3ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.PathsConstructor
+  _nodes:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 1566100395}
+    - Key: 1
+      Value: {fileID: 1854868158}
+    - Key: 2
+      Value: {fileID: 1218911115}
+    - Key: 3
+      Value: {fileID: 249056450}
+    - Key: 4
+      Value: {fileID: 1079900795}
+    - Key: 5
+      Value: {fileID: 2063306404}
+    - Key: 6
+      Value: {fileID: 1224865542}
+    - Key: 7
+      Value: {fileID: 2066136508}
+    - Key: 8
+      Value: {fileID: 99086180}
+    - Key: 10
+      Value: {fileID: 767331768}
+    - Key: 11
+      Value: {fileID: 294307990}
+  _paths:
+  - StartNodeKey: 0
+    EndNodeKey: 1
+    Type: 0
+  - StartNodeKey: 1
+    EndNodeKey: 2
+    Type: 0
+  - StartNodeKey: 2
+    EndNodeKey: 3
+    Type: 0
+  - StartNodeKey: 2
+    EndNodeKey: 4
+    Type: 0
+  - StartNodeKey: 3
+    EndNodeKey: 5
+    Type: 0
+  - StartNodeKey: 4
+    EndNodeKey: 6
+    Type: 0
+  - StartNodeKey: 5
+    EndNodeKey: 7
+    Type: 0
+  - StartNodeKey: 5
+    EndNodeKey: 8
+    Type: 0
+  - StartNodeKey: 6
+    EndNodeKey: 8
+    Type: 0
+  - StartNodeKey: 7
+    EndNodeKey: 10
+    Type: 0
+  - StartNodeKey: 8
+    EndNodeKey: 11
+    Type: 0
 --- !u!1 &1766005706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,7 +1583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1854868157}
-  - component: {fileID: 1854868156}
+  - component: {fileID: 1854868158}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -1635,20 +1591,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1854868156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854868155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 1
-  Type: 1
 --- !u!4 &1854868157
 Transform:
   m_ObjectHideFlags: 0
@@ -1664,6 +1606,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854868158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854868155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 1
 --- !u!1 &1906155871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,7 +1729,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2063306403}
-  - component: {fileID: 2063306402}
+  - component: {fileID: 2063306404}
   m_Layer: 0
   m_Name: A3
   m_TagString: Untagged
@@ -1781,20 +1737,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2063306402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063306401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 3
 --- !u!4 &2063306403
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,6 +1752,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2063306404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063306401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 3
 --- !u!1 &2066136505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1775,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2066136507}
-  - component: {fileID: 2066136506}
+  - component: {fileID: 2066136508}
   m_Layer: 0
   m_Name: A5
   m_TagString: Untagged
@@ -1827,20 +1783,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2066136506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2066136505}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a617bcf373352f64fab3b2c2e7980433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.NodePoint
-  <Function>k__BackingField: 0
-  Type: 1
 --- !u!4 &2066136507
 Transform:
   m_ObjectHideFlags: 0
@@ -1856,6 +1798,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1718639311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2066136508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066136505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 0
+  Type: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

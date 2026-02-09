@@ -1,20 +1,22 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
 namespace ZE.NodeStation
 {
-    public class NodePointDrawer : MonoBehaviour, IPointDrawer, IPoolable<NodePointDrawer>
+    public class RoutePointDrawer : MonoBehaviour, IPointDrawer, IPoolable<RoutePointDrawer>
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Collider _dragCollider;
-        [SerializeField] private Collider _receiveCollider;
-        private IObjectPool<NodePointDrawer> _pool;
+        private IObjectPool<RoutePointDrawer> _pool;
         private bool _isDestroyed = false;
 
-        public void AssignToPool(IObjectPool<NodePointDrawer> pool) => _pool = pool;
+        public void AssignToPool(IObjectPool<RoutePointDrawer> pool) => _pool = pool;
         public void SetDraggable(bool x) => _dragCollider.enabled = x;
         public void SetColor(Color color) => _spriteRenderer.color = color;
         public void SetPosition(Vector3 pos) => transform.position = pos;
+        public Collider DragCollider => _dragCollider;
+        public event Action DisposeEvent;
 
         public void Dispose()
         {
@@ -36,15 +38,12 @@ namespace ZE.NodeStation
             Destroy(gameObject);
         }
 
-        public void OnGet() 
-        { 
-            _receiveCollider.enabled = true;
-        }
+        public void OnGet() { }
 
         public void OnRelease() 
         { 
             SetDraggable(false); 
-            _receiveCollider.enabled = false;
+            DisposeEvent?.Invoke();
         }
 
         private void OnDestroy() => _isDestroyed = true;
