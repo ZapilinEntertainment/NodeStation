@@ -15,6 +15,7 @@ namespace ZE.NodeStation
 
         public IPathNode Build(int key, NodePoint nodePoint)
         {
+            var worldPos = nodePoint.transform.position;
             // no type-checks included (data is already checked)
             switch (nodePoint.Type)
             {
@@ -37,7 +38,7 @@ namespace ZE.NodeStation
                                 break;
                             }
                         }
-                        return new DeadEndNode(key, entranceNodeKey, nodePoint.Function);
+                        return new DeadEndNode(worldPos, key, entranceNodeKey, nodePoint.Function);
                     }
 
                     case NodeType.Straight:
@@ -92,7 +93,7 @@ namespace ZE.NodeStation
                         //Debug.Log($"A: {connectionA.StartNodeKey} -> {connectionA.EndNodeKey}, B: {connectionB.StartNodeKey} -> {connectionB.EndNodeKey}");
                         //Debug.Log($"{entranceNodeKey} -> {exitNodeKey}");
 
-                        return new StraightPathNode(key, entranceNodeKey, exitNodeKey, nodePoint.Function);
+                        return new StraightPathNode(worldPos, key, entranceNodeKey, exitNodeKey, nodePoint.Function);
                     }
 
                     case NodeType.Dividing:
@@ -135,7 +136,7 @@ namespace ZE.NodeStation
                                 break;
                         }
                         
-                        return new DividingPathNode(key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB, isReversed : false, nodePoint.Function);
+                        return new DividingPathNode(worldPos, key, entranceNodeKey, exitNodeKeyA, exitNodeKeyB, isReversed : false, nodePoint.Function);
                     }
 
                     case NodeType.DividingReversed:
@@ -181,7 +182,7 @@ namespace ZE.NodeStation
                                 break;
                         }
 
-                        return new DividingPathNode(key, exitNodeKey, entranceNodeKeyA, entranceNodeKeyB, isReversed : true, nodePoint.Function);
+                        return new DividingPathNode(worldPos, key, exitNodeKey, entranceNodeKeyA, entranceNodeKeyB, isReversed : true, nodePoint.Function);
                     }
 
                     default:

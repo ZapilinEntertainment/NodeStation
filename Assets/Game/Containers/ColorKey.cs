@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public enum PathType
+    public enum ColorKey
     {
-        Linear,    
+        White,
+    
     }
 }

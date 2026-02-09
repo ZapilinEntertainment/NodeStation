@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public interface IRailPath
+    public interface IPathSegment
     {
         PathKey PathKey { get; }
         RailPosition Start { get; }

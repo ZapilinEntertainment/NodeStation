@@ -8,6 +8,6 @@ namespace ZE.NodeStation
     {
         public int StartNodeKey;
         public int EndNodeKey;
-        public PathType Type;    
+        public SegmentType Type;    
     }
 }

@@ -12,7 +12,7 @@ namespace ZE.NodeStation
             _points = points; 
         }
 
-        public IRailPath Build(in PathKey key, ConstructingPathData data)
+        public IPathSegment Build(in PathKey key, ConstructingPathData data)
         {
             var startPos = _points[data.StartNodeKey].transform.position;
             var endPos = _points[data.EndNodeKey].transform.position;

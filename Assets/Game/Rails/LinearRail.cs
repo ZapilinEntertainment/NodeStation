@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public class LinearRail : IRailPath
+    public class LinearRail : IPathSegment
     {
         private readonly PathKey _registrationKey;
         private readonly float _length;

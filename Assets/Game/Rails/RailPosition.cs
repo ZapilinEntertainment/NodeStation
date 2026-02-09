@@ -6,7 +6,7 @@ namespace ZE.NodeStation
     [Serializable]
     public struct RailPosition
     {
-        public IRailPath Rail;
+        public IPathSegment Rail;
         public double Percent;
         public bool IsReversed;
         public Vector3 WorldPosition;   

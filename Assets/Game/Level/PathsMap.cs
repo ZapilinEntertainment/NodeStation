@@ -6,13 +6,15 @@ namespace ZE.NodeStation
 {
     public class PathsMap : IDisposable
     {
+        public IReadOnlyDictionary<int, IPathNode> Nodes => _nodes;
+
         private readonly Dictionary<int, IPathNode> _nodes = new();
-        private readonly Dictionary<PathKey, IRailPath> _paths = new();
+        private readonly Dictionary<PathKey, IPathSegment> _paths = new();
 
         public void AddNode(int key, IPathNode node) => _nodes.Add(key, node);
-        public void AddPath(in PathKey key, IRailPath path) => _paths.Add(key, path);
+        public void AddPath(in PathKey key, IPathSegment path) => _paths.Add(key, path);
 
-        public bool TryGetNextRail(IRailPath currentRail, out IRailPath nextRail, bool reversedMovement = false)
+        public bool TryGetNextRail(IPathSegment currentRail, out IPathSegment nextRail, bool reversedMovement = false)
         {
             var pathKey = currentRail.PathKey;
             if (!_paths.ContainsKey(pathKey))
@@ -49,7 +51,7 @@ namespace ZE.NodeStation
             return true;
         }
 
-        public bool TryGetPath(in PathKey key, out IRailPath path) => _paths.TryGetValue(key, out path);
+        public bool TryGetPath(in PathKey key, out IPathSegment path) => _paths.TryGetValue(key, out path);
 
         public bool IsFinalNode(int nodeKey)
         {
@@ -58,6 +60,8 @@ namespace ZE.NodeStation
 
             return node.IsFinal;
         }
+
+        public bool TryGetNode(int key, out IPathNode node) => _nodes.TryGetValue(key, out node);
 
         public void Dispose()
         {

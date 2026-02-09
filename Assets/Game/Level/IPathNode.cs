@@ -8,5 +8,9 @@ namespace ZE.NodeStation
         bool TryGetExitNode(int entranceNodeKey, out int exitNodeKey);   
         NodeType Type { get; }
         bool IsFinal { get; }
+        bool HaveMultipleExits { get; }
+        Vector3 WorldPosition { get; }
+
+        bool TrySetupPath(int entranceNodeKey, int exitNodeKey);
     }
 }
