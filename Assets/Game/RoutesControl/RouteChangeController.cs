@@ -61,8 +61,6 @@ namespace ZE.NodeStation
             {
                 _isMovingRoutePoint = true;
                 _movingRoutePoint = routePoint;
-
-                Debug.Log($"grabbed {routePoint.RouteIndex}");
             }
         }
 

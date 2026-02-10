@@ -25,6 +25,7 @@ namespace ZE.NodeStation
         public Vector3 WorldPosition => _position.WorldPosition;
         public Quaternion WorldRotation => _position.WorldRotation;
         public event Action DisposedEvent;
+        public bool IsReachedDestination { get; private set; } = false;
 
         protected readonly TrainConfiguration Config;
         protected readonly RailMovementCalculator RailMovementCalculator;
@@ -97,6 +98,7 @@ namespace ZE.NodeStation
             _tickableManager.Remove(this);
 
             _mode = TrainActivityMode.Disposed;
+            IsReachedDestination = true;
             DisposedEvent?.Invoke();
         }
 

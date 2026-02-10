@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0062a561b22deff4a846de5d38f2edf2, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.LevelConfig
+  StartTime:
+    Day: 0
+    Hour: 23
+    Minute: 0
+  EndTime:
+    Day: 1
+    Hour: 6
+    Minute: 0
+  <Trains>k__BackingField:
+  - LabelAppearTime:
+      Day: 0
+      Hour: 23
+      Minute: 0
+    TrainAppearTime:
+      Day: 1
+      Hour: 0
+      Minute: 0
+    SpawnNodeKey: 0
+    TargetNodeKey: 10
+    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
+  - LabelAppearTime:
+      Day: 1
+      Hour: 23
+      Minute: 30
+    TrainAppearTime:
+      Day: 1
+      Hour: 0
+      Minute: 30
+    SpawnNodeKey: 0
+    TargetNodeKey: 11
+    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}

@@ -9,6 +9,8 @@ namespace ZE.NodeStation
         [SerializeField] private PathsConstructor _pathsConstructor;
         [SerializeField] private RouteControlsWindow _dragWindow;
         [SerializeField] private CameraController _cameraController;
+        [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private TrainsTimetableWindow _timetableWindow;
         [Space]
         [Header("app scope:")]
         [SerializeField] private RoutePointDrawer _nodePointDrawer;
@@ -21,6 +23,7 @@ namespace ZE.NodeStation
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_cameraController).As<ICameraController>();
+            builder.RegisterInstance(_levelConfig);
 
             builder.Register<TickableManager>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             builder.Register<RailMovementCalculator>(Lifetime.Scoped);
@@ -45,7 +48,14 @@ namespace ZE.NodeStation
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
 
+            builder.RegisterEntryPoint<TrainsTimetableController>(Lifetime.Scoped);
+            builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);
+            builder.Register<TrainsTimetableWindow>(Lifetime.Scoped);
+            builder.RegisterInstance(_timetableWindow);
+
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);
+
+           
 
             // todo: move to app scope
             builder.RegisterInstance(_colorPalette);

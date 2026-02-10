@@ -1,0 +1,14 @@
+using System;
+using UnityEngine;
+
+namespace ZE.NodeStation
+{
+    [CreateAssetMenu(fileName = nameof(LevelConfig), menuName = Constants.ScriptableObjectsFolderPath + nameof(LevelConfig))]
+    public class LevelConfig : ScriptableObject
+    {
+        [field: SerializeField] public TimeStamp StartTime;
+        [field: SerializeField] public TimeStamp EndTime;
+        [field:SerializeField] public TrainAppearInfo[] Trains { get; set; }
+    
+    }
+}

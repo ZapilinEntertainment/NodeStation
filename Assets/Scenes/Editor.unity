@@ -478,6 +478,7 @@ MonoBehaviour:
   _pathsConstructor: {fileID: 1718639312}
   _dragWindow: {fileID: 1766005711}
   _cameraController: {fileID: 330585549}
+  _levelConfig: {fileID: 11400000, guid: 73a5e53a5b931e54cb149e83ca4d11c6, type: 2}
   _nodePointDrawer: {fileID: 2464172477405051001, guid: 34547d9d7a17e00438a3d51958505579, type: 3}
   _segmentLineDrawer: {fileID: 5185787143834030628, guid: 121c4b1bc436dfd47ad6d46b46c76cb2, type: 3}
   _colorPalette: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
