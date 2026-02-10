@@ -13,7 +13,7 @@ namespace ZE.NodeStation
             _map = map;
         }
 
-        public RailPosition Execute(TrainRoute route)
+        public RailPosition Execute(TrainRoute route, float percent, bool isReversed)
         {
             var points = route.Points;
             var point0 = points[0];
@@ -26,11 +26,7 @@ namespace ZE.NodeStation
                 return default;
             }
 
-            var isReversed = path.PathKey.StartNodeKey == point1.Key;
-            if (isReversed)
-                return path.GetPosition(1f, true);
-            else
-                return path.GetPosition(0f, false);
+            return path.GetPosition(percent, isReversed);
         }
     
     }

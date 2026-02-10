@@ -13,15 +13,6 @@ namespace ZE.NodeStation
         
         private TrainRoute _currentRoute;
 
-
-        public override void LaunchTrain()
-        {
-            if (_currentRoute == null)
-                PrepareRouteWithExistingParameters();
-            ApplyNewRoute(_currentRoute);
-            base.LaunchTrain();
-        }
-
         [InfoBox("Available only in Playmode")]
         [Button("Draw route"), EnableInPlayMode]
         public void DrawRoute()
@@ -35,7 +26,7 @@ namespace ZE.NodeStation
         {
             if (_currentRoute == null) 
                 PrepareRouteWithExistingParameters();
-            return _getRouteStartPointCommand.Execute(_currentRoute);
+            return _getRouteStartPointCommand.Execute(_currentRoute, _routeTargets.IsReversed ? 0f : 1f, _routeTargets.IsReversed);
         }
         
         private void PrepareRouteWithExistingParameters()

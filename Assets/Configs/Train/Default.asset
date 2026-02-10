@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1eac58c5b0d9246a4f6175411e0c64, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.TrainConfiguration
-  <MaxSpeed>k__BackingField: 10
+  <MaxSpeed>k__BackingField: 25
   <Acceleration>k__BackingField: 1
   <Deceleration>k__BackingField: 2
