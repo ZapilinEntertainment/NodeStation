@@ -28,6 +28,32 @@ namespace ZE.NodeStation
 
             return path.GetPosition(percent, isReversed);
         }
-    
+
+        public RailPosition Execute(int spawnNodeKey)
+        {
+            if (!_map.TryGetNode(spawnNodeKey, out var spawnNode))
+            {
+                Debug.LogError($"route spawn node not defined: {spawnNodeKey}");
+                return default;
+            }
+
+            if (!spawnNode.TryGetExitNode(Constants.NO_EXIT_PATH_CODE, out var exitNodeKey))
+            {
+                Debug.LogError($"route spawn exit node invalid: {exitNodeKey}");
+                return default;
+            }
+
+            var pathKey = new PathKey(spawnNodeKey, exitNodeKey);
+            //Debug.Log($"{pathKey.StartNodeKey} -> {pathKey.EndNodeKey}");
+            if (!_map.TryGetPath(pathKey, out var path))
+            {
+                Debug.LogError("Route start segment invalid");
+                return default;
+            }
+
+            var isReversed = path.PathKey.StartNodeKey == exitNodeKey;
+            return path.GetPosition(isReversed ? 0f: 1f, isReversed);
+        }
+
     }
 }

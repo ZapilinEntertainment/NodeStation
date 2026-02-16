@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using UniRx;
 
 namespace ZE.NodeStation
 {
-    public class TrainsTimetableController : IDisposable, ITickable
+    public class TrainsTimetableController : IDisposable
     {
-        public TimeSpan CurrentTime => _currentTick;
 
         private readonly LevelConfig _levelConfig;
-        private readonly TimeSpan _endTime;
         private readonly List<TimetabledTrain> _trains;
         private readonly TimetabledTrainBuilder _timetabledTrainBuilder;
         private readonly TrainsTimetableWindowController _windowController;
-
-        // TODO: discrete into autonomous TimeManager
-        private TimeSpan _currentTick;
-        private float _secondsLeft = 0f;
-        private bool _isCompleted = false;
-       
+        private readonly LaunchTimetabledTrainCommand _launchTrainCommand;
+        private readonly CompositeDisposable _compositeDisposable = new();
 
         [Inject]
-        public TrainsTimetableController(LevelConfig levelConfig, TimetabledTrainBuilder timetabledTrainBuilder, TrainsTimetableWindowController windowController)
+        public TrainsTimetableController(
+            LevelConfig levelConfig, 
+            TimetabledTrainBuilder timetabledTrainBuilder, 
+            TrainsTimetableWindowController windowController,
+            TimeManager timeManager,
+            LaunchTimetabledTrainCommand launchTrainCommand)
         {
             _levelConfig = levelConfig;
             _timetabledTrainBuilder = timetabledTrainBuilder;
             _windowController = windowController;
-
-            _currentTick = _levelConfig.EndTime.ToTimeSpan();
-            _endTime = _levelConfig.EndTime.ToTimeSpan();
+            _launchTrainCommand = launchTrainCommand;
 
             var trains = levelConfig.Trains;
             var count = trains.Length;
@@ -40,60 +38,49 @@ namespace ZE.NodeStation
             {
                 _trains.Add(_timetabledTrainBuilder.Build(trains[i]));
             }
+
+            timeManager.CurrentTimeProperty.Subscribe(OnTimeChanged).AddTo(_compositeDisposable);
+            //TEST
+            timeManager.IsShiftEndedProperty
+                .Where(x => x == true)
+                .Subscribe(_ => Debug.Log("level completed!"))
+                .AddTo(_compositeDisposable);
         }
 
-        public void Tick()
+        private void OnTimeChanged(TimeSpan time)
         {
-            if (_isCompleted)
-                return;
-
-            _secondsLeft += Time.deltaTime;
-            if (_secondsLeft >= 1f)
+            if (_trains.Count != 0)
             {
-                var secondsInt = (int)_secondsLeft;
-                _currentTick.Add(new(hours:0, minutes:0, seconds: secondsInt));
-                _secondsLeft -= secondsInt;
-
-                if (_currentTick > _endTime)
+                for (var i = 0; i < _trains.Count; i++)
                 {
-                    EndLevel();
-                }
-                else
-                {
-                    if (_trains.Count != 0)
+                    var train = _trains[i];
+                    switch (train.Status)
                     {
-                        for (var i = 0; i < _trains.Count; i++)
-                        {
-                            var train = _trains[i];
-                            switch (train.Status)
+                        case TimetabledTrainStatus.NotReady:
                             {
-                                case TimetabledTrainStatus.NotReady:
-                                    {
-                                        if (train.LabelAppearTime >= _currentTick)
-                                            ShowTrainLabel(train);
-                                        break;
-                                    }
-                                    case TimetabledTrainStatus.Announced:
-                                    {
-                                        if (train.TrainLaunchTime >= _currentTick)
-                                            LaunchTrain(train);
-                                        break;
-                                    }
-                                    case TimetabledTrainStatus.Launched:
-                                    {
-                                        if (train.IsReachedDestination)
-                                            train.Status = TimetabledTrainStatus.CompletedRoute;
-                                        break;
-                                    }
-                                    case TimetabledTrainStatus.CompletedRoute:
-                                    {
-                                        train.Dispose();
-                                        _trains.RemoveAt(i);
-                                        i--;
-                                        break;
-                                    }
+                                if (train.LabelAppearTime <= time)
+                                    ShowTrainLabel(train);
+                                break;
                             }
-                        }
+                        case TimetabledTrainStatus.Announced:
+                            {
+                                if (train.TrainLaunchTime <= time)
+                                    _launchTrainCommand.Execute(train);
+                                break;
+                            }
+                        case TimetabledTrainStatus.Launched:
+                            {
+                                if (train.IsReachedDestination)
+                                    train.Status = TimetabledTrainStatus.CompletedRoute;
+                                break;
+                            }
+                        case TimetabledTrainStatus.CompletedRoute:
+                            {
+                                train.Dispose();
+                                _trains.RemoveAt(i);
+                                i--;
+                                break;
+                            }
                     }
                 }
             }
@@ -101,29 +88,18 @@ namespace ZE.NodeStation
 
         public void Dispose() 
         { 
+            _compositeDisposable.Dispose();
             foreach (var train in _trains)
             {
-                train.Dispose();
-                _trains.Clear();
-            }           
-        }
-
-        // TODO: rework to signal
-        private void EndLevel()
-        {
-            _isCompleted = true;
-            Debug.Log("Level completed!");
+                train.Dispose();               
+            }
+            _trains.Clear();
         }
 
         private void ShowTrainLabel(TimetabledTrain train)
-        {
+        {            
             train.Status = TimetabledTrainStatus.Announced;
             _windowController.AddLine(train);
-        }
-
-        private void LaunchTrain(TimetabledTrain train)
-        {
-            train.Status = TimetabledTrainStatus.Launched;
         }
     }
 }

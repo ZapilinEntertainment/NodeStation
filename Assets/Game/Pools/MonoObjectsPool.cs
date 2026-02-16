@@ -22,7 +22,7 @@ namespace ZE.NodeStation
                 );
         }
 
-        private T Create() 
+        protected virtual T Create() 
         {
             var obj = GameObject.Instantiate<T>(_prefab);
             obj.AssignToPool(_pool);

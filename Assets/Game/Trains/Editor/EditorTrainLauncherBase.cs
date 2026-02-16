@@ -8,26 +8,25 @@ namespace ZE.NodeStation
     {
         [Space]
         [SerializeField] protected TrainConfiguration _trainConfig;
-        [SerializeField] protected RailCarBuildProtocol[] _railCars;
         [SerializeField] protected float _speedPercent = 0f;
         [SerializeField] protected bool _isAccelerating = false;
-
-        protected TrainFactory _trainFactory;
         protected PathsMap _map;
 
+        private LaunchTrainCommand _launchTrainCommand;
+
         [Inject]
-        public void Inject(TrainFactory trainFactory, PathsMap map)
+        public void Inject(PathsMap map, LaunchTrainCommand launchTrainCommand)
         {
-            _trainFactory = trainFactory;
             _map = map;
+            _launchTrainCommand = launchTrainCommand;
         }
 
         [InfoBox("Available only in Playmode")]
         [Button("Spawn train"), EnableInPlayMode]
         public virtual void LaunchTrain()
         {
-            var train = _trainFactory.Build(_trainConfig, GetSpawnPosition(), _railCars);
-            train.SetSpeed(_speedPercent, _isAccelerating);
+            var spawnPosition = GetSpawnPosition();
+            _launchTrainCommand.Execute(_trainConfig, spawnPosition, _speedPercent, _isAccelerating);
         }
 
         protected abstract RailPosition GetSpawnPosition(); 

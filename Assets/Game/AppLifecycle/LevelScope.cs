@@ -11,6 +11,7 @@ namespace ZE.NodeStation
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private LevelConfig _levelConfig;
         [SerializeField] private TrainsTimetableWindow _timetableWindow;
+        [SerializeField] private TimeWindow _timeWindow;
         [Space]
         [Header("app scope:")]
         [SerializeField] private RoutePointDrawer _nodePointDrawer;
@@ -24,7 +25,7 @@ namespace ZE.NodeStation
         {
             builder.RegisterInstance(_cameraController).As<ICameraController>();
             builder.RegisterInstance(_levelConfig);
-
+           
             builder.Register<TickableManager>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             builder.Register<RailMovementCalculator>(Lifetime.Scoped);
 
@@ -44,18 +45,24 @@ namespace ZE.NodeStation
             builder.Register<GetRouteStartPointCommand>(Lifetime.Scoped);
             builder.Register<RouteDrawManager>(Lifetime.Scoped);
             builder.Register<RouteDrawerFactory>(Lifetime.Scoped);
+            builder.Register<TrainRoutesManager>(Lifetime.Scoped);
 
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
 
-            builder.RegisterEntryPoint<TrainsTimetableController>(Lifetime.Scoped);
-            builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);
-            builder.Register<TrainsTimetableWindow>(Lifetime.Scoped);
+            builder.Register<TrainsTimetableController>(Lifetime.Scoped);
+            builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);            
             builder.RegisterInstance(_timetableWindow);
+            builder.Register<TrainsTimetableWindowController>(Lifetime.Scoped);
 
-            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);
+            builder.Register<TimeManager>(Lifetime.Scoped);
+            builder.RegisterInstance(_timeWindow);
+            builder.Register<TimeWindowController>(Lifetime.Scoped);
 
-           
+            builder.Register<LaunchTrainCommand>(Lifetime.Scoped);
+            builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
+
+            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);           
 
             // todo: move to app scope
             builder.RegisterInstance(_colorPalette);

@@ -6,17 +6,22 @@ namespace ZE.NodeStation
 {
     public class LevelEntryPoint : IStartable
     {
-        private readonly AddSwitchablePointsReceiverCommand _addSwitchablePointsCommand;
+        private readonly IObjectResolver _resolver;
 
         [Inject]
-        public LevelEntryPoint(RouteChangeController controller, AddSwitchablePointsReceiverCommand addSwitchablePointsCommand) 
+        public LevelEntryPoint(IObjectResolver resolver) 
         {
-            _addSwitchablePointsCommand = addSwitchablePointsCommand;
+            _resolver = resolver;
         }
 
         public void Start()
         {
-            _addSwitchablePointsCommand.Execute();
+            _resolver.Resolve<RouteChangeController>();
+            _resolver.Resolve<AddSwitchablePointsReceiverCommand>().Execute();
+
+            _resolver.Resolve<TimeManager>();
+            _resolver.Resolve<TimeWindowController>();
+            _resolver.Resolve<TrainsTimetableController>();
         }
     }
 }

@@ -8,33 +8,67 @@ namespace ZE.NodeStation
     public class TrainsTimetableWindowController : IDisposable
     {
         private readonly TrainsTimetableWindow _window;
-        private readonly Dictionary<TimetabledTrain, TrainAppearLine> _lines = new();
+        private readonly RouteDrawManager _routeDrawManager;
+        private readonly TrainRoutesManager _routesManager;
+        private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();
+        private TrainRoute _currentVisibleRoute;
 
         [Inject]
-        public TrainsTimetableWindowController(TrainsTimetableWindow window)
+        public TrainsTimetableWindowController(TrainsTimetableWindow window, RouteDrawManager routeDrawManager, TrainRoutesManager routesManager)
         {
             _window = window;
+            _routeDrawManager = routeDrawManager;
+            _routesManager = routesManager;
         }
 
         public void AddLine(TimetabledTrain train)
         {
+            var line = _window.GetOrCreateLinesPool().Get();
 
+            var appearTime = train.TrainLaunchTime;
+            var timeLabel = $"d:{appearTime.Days:D1} {appearTime.Hours:D2}:{appearTime.Minutes:D2}";
+
+            line.Setup(new()
+            {
+                RouteLabel = train.LabelText,
+                TimeLabel = timeLabel,
+                StatusProperty = train.StatusProperty,
+                OnClickAction = () => OnTrainLineClicked(train)
+            });
+            _lines.Add(train, line);    
+            train.DisposeEvent += () => OnTrainDisposed(train);
         }
 
         public void Dispose()
         {
             if (_lines.Count != 0)
             {
-                foreach (var lineKvp in _lines)
+                foreach (var trainLine in _lines.Values)
                 {
-                    //lineKvp.Key.DisposeEvent -= RemoveLine;
+                    trainLine.Dispose();
                 }
+                _lines.Clear();
             }
         }
 
-        private void RemoveLine(TimetabledTrain train)
+        private void OnTrainDisposed(TimetabledTrain train)
         {
+            if (_lines.TryGetValue(train, out var line))
+            {
+                line.Dispose();
+                _lines.Remove(train);
+            }
+        }
 
+        private void OnTrainLineClicked(TimetabledTrain train)
+        {
+            if (_routesManager.TryGetRoute(train, out var route))
+            {
+                if (_currentVisibleRoute != null)
+                    _routeDrawManager.ClearRouteDrawing(_currentVisibleRoute);
+                _routeDrawManager.DrawRoute(route);
+                _currentVisibleRoute = route;
+            }                
         }
     }
 }

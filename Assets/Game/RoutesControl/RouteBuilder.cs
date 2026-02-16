@@ -14,10 +14,11 @@ namespace ZE.NodeStation
             _map = pathsMap;
         }
 
-        public bool TryBuildRoute(in RouteSettings routeTargets, out TrainRoute route)
+        // just get next point until path ends
+        public bool TryBuildRoute(int startNode, ColorKey colorKey, out TrainRoute route)
         {
             var points = new List<IPathNode>();
-            var nodeKey = routeTargets.SpawnNodeKey;
+            var nodeKey = startNode;
             var nextNodeFound = false;
             var prevNodeKey = Constants.NO_EXIT_PATH_CODE;
 
@@ -47,7 +48,7 @@ namespace ZE.NodeStation
             }
             while (nextNodeFound);
 
-            route = new(routeTargets.ColorKey, points);
+            route = new(colorKey, points);
             return true;
         }
 
@@ -113,6 +114,5 @@ namespace ZE.NodeStation
             route.UpdatePoints(newPoints);
             return true;
         }
-    
     }
 }

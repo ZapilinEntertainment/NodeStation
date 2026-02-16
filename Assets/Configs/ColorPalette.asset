@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: ColorPalette
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ColorPalette
   _colors:
-    _serializedList: []
+    _serializedList:
+    - Key: 0
+      Value: {r: 1, g: 1, b: 1, a: 1}
+    - Key: 1
+      Value: {r: 0.15599996, g: 0.21226658, b: 1, a: 1}
+    - Key: 2
+      Value: {r: 1, g: 0.14899999, b: 0.17374294, a: 1}

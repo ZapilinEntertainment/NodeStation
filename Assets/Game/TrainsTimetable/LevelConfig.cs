@@ -7,7 +7,8 @@ namespace ZE.NodeStation
     public class LevelConfig : ScriptableObject
     {
         [field: SerializeField] public TimeStamp StartTime;
-        [field: SerializeField] public TimeStamp EndTime;
+        [field: SerializeField] public DayOfWeek StartDayOfTheWeek;
+        [field: SerializeField] public TimeStamp ShiftDuration;
         [field:SerializeField] public TrainAppearInfo[] Trains { get; set; }
     
     }

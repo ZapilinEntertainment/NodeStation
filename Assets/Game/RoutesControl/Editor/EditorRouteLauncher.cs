@@ -37,7 +37,7 @@ namespace ZE.NodeStation
                 return;
             }
 
-            if (!_routeBuilder.TryBuildRoute(_routeTargets, out var route))
+            if (!_routeBuilder.TryBuildRoute(_routeTargets.SpawnNodeKey, _routeTargets.ColorKey, out var route))
             {
                 Debug.LogError("route build failed");
                 return;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 
@@ -21,11 +22,12 @@ namespace ZE.NodeStation
             _railCarBuilder = railCarBuilder;
         }  
         
-        public ITrain Build(TrainConfiguration config, RailPosition position, params RailCarBuildProtocol[] protocols)
+        public ITrain Build(TrainConfiguration config, RailPosition position)
         {
             var train = new MultiBogeysTrain(_injectProtocol, config, lifetimeObject: this);
 
-            var carsCount = protocols.Length;
+            var protocols = config.TrainCompositionConfig.RailCarProtocols;
+            var carsCount = protocols.Count;
             var cars = new RailCar[carsCount];
             for (var i = 0; i< carsCount; i++)
             {

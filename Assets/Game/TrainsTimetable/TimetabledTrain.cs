@@ -1,21 +1,24 @@
 using System;
 using UnityEngine;
+using UniRx;
 
 namespace ZE.NodeStation
 {
-    public enum TimetabledTrainStatus : byte { NotReady, Announced, Launched, CompletedRoute, Disposed }
     public class TimetabledTrain : IDisposable
     {
         public readonly TimeSpan LabelAppearTime;
         public readonly TimeSpan TrainLaunchTime;
         public readonly string LabelText;
         public readonly TimetabledTrainSpawnInfo SpawnInfo;
-
-        public TimetabledTrainStatus Status;
-        public ITrain Train;
         public event Action DisposeEvent;
 
-        public bool IsReachedDestination => Train.IsReachedDestination;
+        public IReadOnlyReactiveProperty<TimetabledTrainStatus> StatusProperty => _statusProperty;
+        public TimetabledTrainStatus Status { get => _statusProperty.Value; set => _statusProperty.Value = value; }
+        public ITrain Train;        
+
+        public bool IsReachedDestination => Train?.IsReachedDestination ?? false;
+        private ReactiveProperty<TimetabledTrainStatus> _statusProperty = new();
+
 
         public TimetabledTrain(TimeSpan labelAppearTime, TimeSpan launchTime, string labelText, in TimetabledTrainSpawnInfo spawnInfo)
         {
@@ -29,8 +32,12 @@ namespace ZE.NodeStation
 
         public void Dispose() 
         {
+            if (Status == TimetabledTrainStatus.Disposed)
+                return;
+
             Status = TimetabledTrainStatus.Disposed;
             DisposeEvent?.Invoke();
+            _statusProperty.Dispose();
         }
     }
 

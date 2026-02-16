@@ -7,9 +7,12 @@ namespace ZE.NodeStation
     public struct TrainAppearInfo
     {
         public TimeStamp LabelAppearTime;
-        public TimeStamp TrainAppearTime;
+        public int WarningTimeInMinutes;
         public int SpawnNodeKey;
         public int TargetNodeKey;
-        public TrainConfiguration TrainConfig;    
+        public TrainConfiguration TrainConfig;  
+        public ColorKey ColorKey;
+
+        public TimeSpan WarningTime => new (hours: 0, minutes: WarningTimeInMinutes, seconds: 0);
     }
 }

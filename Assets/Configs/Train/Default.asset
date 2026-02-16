@@ -15,3 +15,4 @@ MonoBehaviour:
   <MaxSpeed>k__BackingField: 25
   <Acceleration>k__BackingField: 1
   <Deceleration>k__BackingField: 2
+  <TrainCompositionConfig>k__BackingField: {fileID: 11400000, guid: 5c7e450adcc3d3b46afeece917c8ae29, type: 2}

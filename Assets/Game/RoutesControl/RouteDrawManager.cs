@@ -16,8 +16,15 @@ namespace ZE.NodeStation
             _routeDrawerFactory = routeDrawerFactory;
         }        
 
-        public void DrawRoute(TrainRoute route)
+        public void DrawRoute(TrainRoute route, bool redraw = false)
         {
+            if (_drawers.ContainsKey(route))
+            {
+                if (redraw)
+                    ClearRouteDrawing(route);
+                else
+                    return;
+            }
             var drawer = _routeDrawerFactory.Create(route);
             _drawers.Add(route, drawer);
         }

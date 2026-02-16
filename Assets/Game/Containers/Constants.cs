@@ -8,5 +8,6 @@ namespace ZE.NodeStation
         public const string ScriptableObjectsFolderPath = "Scriptable Objects/";
 
         public const int NO_EXIT_PATH_CODE = -1;
+        public const int MAX_TRAIN_ROUTES = 8;
     }
 }

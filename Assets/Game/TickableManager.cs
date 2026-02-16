@@ -10,12 +10,22 @@ namespace ZE.NodeStation
     {
         private readonly HashSet<ITickable> _tickables = new();
         private readonly HashSet<ITickable> _clearList = new();
+        private readonly HashSet<ITickable> _addList = new();
 
-        public void Add(ITickable tickable) => _tickables.Add(tickable);
+        public void Add(ITickable tickable) => _addList.Add(tickable);
         public void Remove(ITickable tickable) => _clearList.Add(tickable);
 
         public void Tick()
         {
+            if (_addList.Count != 0)
+            {
+                foreach (var item in _addList)
+                {
+                    _tickables.Add(item);
+                }
+                _addList.Clear();
+            }
+
             if (_clearList.Count != 0)
             {
                 foreach (var tickable in _clearList)
