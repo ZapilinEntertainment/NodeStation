@@ -24,5 +24,20 @@ namespace ZE.NodeStation
         public IEnumerator<IPathNode> GetEnumerator() => _points.GetEnumerator();
 
         public void UpdatePoints(List<IPathNode> points) => _points = points;
+
+        public bool TryGetNextPoint(IPathNode prevPoint, out IPathNode nextPoint) 
+        { 
+            var count = _points.Count;
+            for (var i = 0; i < count; i++)
+            {
+                if (_points[i] == prevPoint && count - i != 1)
+                {
+                    nextPoint = _points[i + 1];
+                    return true;
+                }                    
+            }
+            nextPoint = null;
+            return false;
+        }
     }
 }

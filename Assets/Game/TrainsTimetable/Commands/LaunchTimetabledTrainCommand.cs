@@ -6,27 +6,27 @@ namespace ZE.NodeStation
     public class LaunchTimetabledTrainCommand
     {
         private readonly LaunchTrainCommand _launchCommand;
-        private readonly TrainRoutesManager _routesManager;
-        private readonly RouteApplyController _routeApplyController;
+        private readonly RoutesManager _routesManager;
+        private readonly PathsMap _map;
 
         [Inject]
         public LaunchTimetabledTrainCommand(
             LaunchTrainCommand launchCommand, 
-            TrainRoutesManager routesManager, 
-            RouteApplyController routeApplyController)
+            RoutesManager routesManager,
+            PathsMap map)
         {
             _launchCommand = launchCommand;
             _routesManager = routesManager;
-            _routeApplyController = routeApplyController;
+            _map = map;
         }
 
-        public void Execute(TimetabledTrain train) 
+        public void Execute(TimetabledTrain timetabledTrain) 
         {
-            train.Status = TimetabledTrainStatus.Launched;
-            _launchCommand.Execute(train);
+            timetabledTrain.Status = TimetabledTrainStatus.Launched;
+            var train = _launchCommand.Execute(timetabledTrain);
 
-            if (_routesManager.TryGetRoute(train, out var route))
-                _routeApplyController.ApplyRoute(route);
+            if (_routesManager.TryGetRoute(timetabledTrain, out var route))
+                new RouteTrackController(train, route, _map);
 
         }
 

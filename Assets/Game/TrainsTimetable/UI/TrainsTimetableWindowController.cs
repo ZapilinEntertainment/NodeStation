@@ -9,12 +9,12 @@ namespace ZE.NodeStation
     {
         private readonly TrainsTimetableWindow _window;
         private readonly RouteDrawManager _routeDrawManager;
-        private readonly TrainRoutesManager _routesManager;
+        private readonly RoutesManager _routesManager;
         private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();
         private TrainRoute _currentVisibleRoute;
 
         [Inject]
-        public TrainsTimetableWindowController(TrainsTimetableWindow window, RouteDrawManager routeDrawManager, TrainRoutesManager routesManager)
+        public TrainsTimetableWindowController(TrainsTimetableWindow window, RouteDrawManager routeDrawManager, RoutesManager routesManager)
         {
             _window = window;
             _routeDrawManager = routeDrawManager;

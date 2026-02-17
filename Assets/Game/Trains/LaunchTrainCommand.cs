@@ -21,11 +21,12 @@ namespace ZE.NodeStation
             train.SetSpeed(speedPercent, isAccelerating);
         }
 
-        public void Execute(TimetabledTrain trainData)
+        public ITrain Execute(TimetabledTrain trainData)
         {
             var spawnInfo = trainData.SpawnInfo;
             var train = _trainFactory.Build(spawnInfo.TrainConfiguration, spawnInfo.SpawnPosition); 
             train.SetSpeed(1f, true);
+            return train;
         }
     }
 }

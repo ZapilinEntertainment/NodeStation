@@ -36,7 +36,7 @@ namespace ZE.NodeStation
         }
 
         public override bool TrySetupPath(int entranceNodeKey, int exitNodeKey) => 
-            (entranceNodeKey == EntranceNodeKey && ExitNodeKey == exitNodeKey) 
-            || (entranceNodeKey == exitNodeKey && ExitNodeKey == EntranceNodeKey);
+            (entranceNodeKey == EntranceNodeKey && exitNodeKey == ExitNodeKey) 
+            || (entranceNodeKey == ExitNodeKey && exitNodeKey == EntranceNodeKey);
     }
 }

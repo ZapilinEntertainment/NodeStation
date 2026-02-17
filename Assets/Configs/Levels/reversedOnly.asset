@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0062a561b22deff4a846de5d38f2edf2, type: 3}
-  m_Name: Level1
+  m_Name: reversedOnly
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.LevelConfig
   StartTime:
     Day: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
       Day: 0
       Hour: 23
       Minute: 0
-    WarningTimeInMinutes: 10
+    WarningTimeInMinutes: 5
     SpawnNodeKey: 10
     TargetNodeKey: 0
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
@@ -35,26 +35,8 @@ MonoBehaviour:
       Day: 0
       Hour: 23
       Minute: 10
-    WarningTimeInMinutes: 10
+    WarningTimeInMinutes: 5
     SpawnNodeKey: 11
     TargetNodeKey: 15
-    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
-    ColorKey: 2
-  - LabelAppearTime:
-      Day: 0
-      Hour: 23
-      Minute: 15
-    WarningTimeInMinutes: 10
-    SpawnNodeKey: 0
-    TargetNodeKey: 11
-    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
-    ColorKey: 1
-  - LabelAppearTime:
-      Day: 0
-      Hour: 23
-      Minute: 20
-    WarningTimeInMinutes: 10
-    SpawnNodeKey: 14
-    TargetNodeKey: 11
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 2

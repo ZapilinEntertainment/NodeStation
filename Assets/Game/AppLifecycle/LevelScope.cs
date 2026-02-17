@@ -39,13 +39,12 @@ namespace ZE.NodeStation
 
             builder.Register<RouteBuilder>(Lifetime.Scoped);
             builder.Register<RouteChangeController>(Lifetime.Scoped);
-            builder.Register<RouteApplyController>(Lifetime.Scoped);
             builder.Register<AddSwitchablePointsReceiverCommand>(Lifetime.Scoped);
             builder.RegisterInstance(_dragWindow);
             builder.Register<GetRouteStartPointCommand>(Lifetime.Scoped);
             builder.Register<RouteDrawManager>(Lifetime.Scoped);
             builder.Register<RouteDrawerFactory>(Lifetime.Scoped);
-            builder.Register<TrainRoutesManager>(Lifetime.Scoped);
+            builder.Register<RoutesManager>(Lifetime.Scoped);
 
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
@@ -62,7 +61,12 @@ namespace ZE.NodeStation
             builder.Register<LaunchTrainCommand>(Lifetime.Scoped);
             builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
 
-            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);           
+            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);  
+            
+            #if UNITY_EDITOR
+            // NOTE: Sometimes produce hidden error and dont dispose!!!
+            builder.RegisterDisposeCallback(_ => Debug.Log("level scope disposed"));
+            #endif
 
             // todo: move to app scope
             builder.RegisterInstance(_colorPalette);

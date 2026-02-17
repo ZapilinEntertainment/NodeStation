@@ -8,10 +8,10 @@ namespace ZE.NodeStation
     {
         private readonly GetRouteStartPointCommand _getStartCommand;
         private readonly RouteBuilder _routeBuilder;
-        private readonly TrainRoutesManager _routesManager;
+        private readonly RoutesManager _routesManager;
 
         [Inject]
-        public TimetabledTrainBuilder(GetRouteStartPointCommand getStartCommand, RouteBuilder routeBuilder, TrainRoutesManager routesManager)
+        public TimetabledTrainBuilder(GetRouteStartPointCommand getStartCommand, RouteBuilder routeBuilder, RoutesManager routesManager)
         {
             _getStartCommand = getStartCommand;
             _routeBuilder = routeBuilder;

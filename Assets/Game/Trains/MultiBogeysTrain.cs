@@ -7,6 +7,7 @@ namespace ZE.NodeStation
     {
         private RailCar[] _cars;
         private float[] _distances;
+        private RailPosition _lastBogiePosition;
 
         public MultiBogeysTrain(
             InjectProtocol protocol, 
@@ -72,7 +73,7 @@ namespace ZE.NodeStation
         {
             base.SetPosition(pos);
 
-            var frontBogiePos = _position;
+            var frontBogiePos = FirstBogiePosition;
             for (var i = 0; i < _cars.Length; i++)
             {
                 var car = _cars[i];
@@ -89,6 +90,7 @@ namespace ZE.NodeStation
                     frontBogiePos = nextPos;
                 }                    
             }
+            _lastBogiePosition = _cars[_cars.Length - 1].RearBogie.RailPosition; 
         }
 
         private void DisposeCars()

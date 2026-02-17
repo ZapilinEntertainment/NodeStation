@@ -14,7 +14,6 @@ namespace ZE.NodeStation
         private readonly CollidersManager _collidersManager;
         private readonly RouteBuilder _routeBuilder;
         private readonly RouteDrawManager _routeDrawManager;
-        private readonly RouteApplyController _routeApplyController;
 
         private const int DRAGGABLES_MASK = LayerMasks.USER_DRAGGABLE_MASK;
         private const int DRAGGABLES_RECEIVERS_MASK = LayerMasks.DRAGGABLES_RECEIVERS_MASK;
@@ -28,15 +27,13 @@ namespace ZE.NodeStation
             ICameraController cameraController, 
             CollidersManager collidersManager,
             RouteBuilder routeBuilder,
-            RouteDrawManager routeDrawManager,
-            RouteApplyController routeApplyController)
+            RouteDrawManager routeDrawManager)
         {
             _window = window;
             _cameraController = cameraController;
             _collidersManager = collidersManager;
             _routeBuilder = routeBuilder;
             _routeDrawManager = routeDrawManager;
-            _routeApplyController = routeApplyController;
 
             _window.DragStartEvent += OnBeginDrag;
             _window.DragEndEvent += OnEndDrag;
@@ -76,7 +73,6 @@ namespace ZE.NodeStation
                 var route = _movingRoutePoint.Route;
                 _routeDrawManager.ClearRouteDrawing(route);
                 _routeDrawManager.DrawRoute(route);
-                _routeApplyController.ApplyRoute(route);
             }
 
             _isMovingRoutePoint = false;

@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public class TrainRoutesManager : IDisposable
+    public class RoutesManager : IDisposable
     {
-        private readonly Dictionary<TimetabledTrain, TrainRoute> _routes = new();
-    
+        private readonly Dictionary<TimetabledTrain, TrainRoute> _routes = new();    
 
         public void SetRoute(TimetabledTrain train, TrainRoute route)
         {

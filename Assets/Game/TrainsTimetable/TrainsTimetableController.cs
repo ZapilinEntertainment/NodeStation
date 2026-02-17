@@ -34,9 +34,12 @@ namespace ZE.NodeStation
             var count = trains.Length;
             _trains = new List<TimetabledTrain>(count);
 
+            var time = levelConfig.StartTime.ToTimeSpan();
             for (var i = 0; i < count; i++)
             {
-                _trains.Add(_timetabledTrainBuilder.Build(trains[i]));
+                var timetabledTrain = _timetabledTrainBuilder.Build(trains[i]);
+                _trains.Add(timetabledTrain);
+                time = timetabledTrain.TrainLaunchTime;
             }
 
             timeManager.CurrentTimeProperty.Subscribe(OnTimeChanged).AddTo(_compositeDisposable);

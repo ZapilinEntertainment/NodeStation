@@ -56,18 +56,18 @@ namespace ZE.NodeStation
         {
             var changingNode = draggingPoint.Node;
             var route = draggingPoint.Route;
-            var points = route.Points;
+            var routePoints = route.Points;
             var newPoints = new List<IPathNode>();
 
             var prevRouteNodeKey = Constants.NO_EXIT_PATH_CODE;
             var exitNodeKey = Constants.NO_EXIT_PATH_CODE;
 
-            for (var i = 0; i < points.Count; i++)
+            for (var i = 0; i < routePoints.Count; i++)
             {
-                if (points[i] == changingNode)
+                if (routePoints[i] == changingNode)
                 {
                     if (i != 0)
-                        prevRouteNodeKey = points[i - 1].Key;
+                        prevRouteNodeKey = routePoints[i - 1].Key;
 
                     if (receivingPoint.TryGetExitNode(prevRouteNodeKey, out exitNodeKey)
                         && receivingPoint.TrySetupPath(prevRouteNodeKey, exitNodeKey))
@@ -78,13 +78,13 @@ namespace ZE.NodeStation
                     else
                     {
                         // TODO: some notification
-                        Debug.Log("cannot reach this point");
+                        Debug.LogWarning($"cannot reach this point. {prevRouteNodeKey} -> {receivingPoint.Key} -> {exitNodeKey}");                        
                         return false;
                     }
                 }
                 else
                 {
-                    newPoints.Add(points[i]);
+                    newPoints.Add(routePoints[i]);
                 }
             }
 

@@ -21,6 +21,7 @@ namespace ZE.NodeStation
                 .Select(x => !x)
                 .Subscribe(_window.SetVisibility)
                 .AddTo(_compositeDisposable);
+
             _timeManager.CurrentTimeProperty
                 .Subscribe(DisplayTime)
                 .AddTo(_compositeDisposable);
@@ -33,6 +34,8 @@ namespace ZE.NodeStation
 
         private void DisplayTime(TimeSpan span)
         {
+            if (_window == null)
+                return;
             // TODO: add day of the week localized short string
             _window.Label.text = $"[{span.Days}] {span.Hours:D2}:{span.Minutes:D2}";
             _window.ProgressionBar.fillAmount = _timeManager.LevelProgress;
