@@ -8,7 +8,6 @@ namespace ZE.NodeStation
 
         public override bool IsFinal => NodeFunction == NodeFunction.Spawn || NodeFunction == NodeFunction.Exit;
 
-        public override bool HaveMultipleExits => false;
 
         public DeadEndNode(Vector3 worldPos, int key, int entranceNodeKey, NodeFunction function) : base(worldPos, key, entranceNodeKey, function)
         {
@@ -29,5 +28,7 @@ namespace ZE.NodeStation
         }
 
         public override bool TrySetupPath(int entranceNodeKey, int exitNodeKey) => exitNodeKey == EntranceNodeKey || entranceNodeKey == EntranceNodeKey;
+
+        public override NodeExitsContainer GetAllExits(int entranceNodeKey) => TryGetExitNode(entranceNodeKey, out var exit) ? new(exit) : NodeExitsContainer.Empty;
     }
 }

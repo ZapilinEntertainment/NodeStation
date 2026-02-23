@@ -14,10 +14,9 @@ namespace ZE.NodeStation
         [SerializeField] private TimeWindow _timeWindow;
         [Space]
         [Header("app scope:")]
-        [SerializeField] private RoutePointDrawer _nodePointDrawer;
+        [SerializeField] private RoutePointDrawer _routePointDrawer;
         [SerializeField] private RouteSegmentLineDrawer _segmentLineDrawer;
         [SerializeField] private ColorPalette _colorPalette;
-        [SerializeField] private SwitchableRoutePoint _switchableRoutePointPrefab;
 
         private PathsMap _pathsMap;
 
@@ -39,7 +38,6 @@ namespace ZE.NodeStation
 
             builder.Register<RouteBuilder>(Lifetime.Scoped);
             builder.Register<RouteChangeController>(Lifetime.Scoped);
-            builder.Register<AddSwitchablePointsReceiverCommand>(Lifetime.Scoped);
             builder.RegisterInstance(_dragWindow);
             builder.Register<GetRouteStartPointCommand>(Lifetime.Scoped);
             builder.Register<RouteDrawManager>(Lifetime.Scoped);
@@ -75,13 +73,11 @@ namespace ZE.NodeStation
 
         private void PreparePools(IContainerBuilder builder)
         {
-            var nodeDrawersPool = new MonoObjectsPool<RoutePointDrawer>(_nodePointDrawer);
+            var nodeDrawersPool = new MonoObjectsPool<RoutePointDrawer>(_routePointDrawer);
             builder.RegisterInstance(nodeDrawersPool);
 
             var lineDrawersPool = new MonoObjectsPool<RouteSegmentLineDrawer>(_segmentLineDrawer);
             builder.RegisterInstance(lineDrawersPool);
-
-            builder.RegisterInstance(_switchableRoutePointPrefab);
         }
 
         protected override void OnDestroy()

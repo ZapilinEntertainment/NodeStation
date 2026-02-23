@@ -17,7 +17,6 @@ namespace ZE.NodeStation
         public void Start()
         {
             _resolver.Resolve<RouteChangeController>();
-            _resolver.Resolve<AddSwitchablePointsReceiverCommand>().Execute();
 
             _resolver.Resolve<TimeManager>();
             _resolver.Resolve<TimeWindowController>();

@@ -8,8 +8,6 @@ namespace ZE.NodeStation
         public override NodeType Type => NodeType.Straight;
         public override bool IsFinal => false;
 
-        public override bool HaveMultipleExits => false;
-
         public StraightPathNode(Vector3 worldPos, int key, int entranceNodeKey, int exitNodeKey, NodeFunction function) : 
             base(worldPos, key, entranceNodeKey, function)
         {
@@ -38,5 +36,7 @@ namespace ZE.NodeStation
         public override bool TrySetupPath(int entranceNodeKey, int exitNodeKey) => 
             (entranceNodeKey == EntranceNodeKey && exitNodeKey == ExitNodeKey) 
             || (entranceNodeKey == ExitNodeKey && exitNodeKey == EntranceNodeKey);
+
+        public override NodeExitsContainer GetAllExits(int entranceNodeKey) => TryGetExitNode(entranceNodeKey, out var exit) ? new(exit) : NodeExitsContainer.Empty;
     }
 }

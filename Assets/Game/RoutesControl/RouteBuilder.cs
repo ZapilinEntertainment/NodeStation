@@ -35,7 +35,11 @@ namespace ZE.NodeStation
 
                 nextNodeFound = node.TryGetExitNode(prevNodeKey, out var nextNodeKey);
                 if (!nextNodeFound)
+                {
+                    //Debug.Log($"stop route: ${prevNodeKey} -> {nextNodeKey}");
                     break;
+                }
+                    
 
                 prevNodeKey = nodeKey;
                 nodeKey = nextNodeKey;       
@@ -68,11 +72,14 @@ namespace ZE.NodeStation
                 {
                     if (i != 0)
                         prevRouteNodeKey = routePoints[i - 1].Key;
+                    else
+                        Debug.LogWarning("Attention: dividing at start route point");
 
                     if (receivingPoint.TryGetExitNode(prevRouteNodeKey, out exitNodeKey)
                         && receivingPoint.TrySetupPath(prevRouteNodeKey, exitNodeKey))
                     {
                         // switch success
+                        newPoints.Add(receivingPoint);
                         break;
                     }
                     else
@@ -96,11 +103,16 @@ namespace ZE.NodeStation
             {
                 if (_map.TryGetNode(exitNodeKey, out var exitNode))
                 {
-                    newPoints.Add(node);
+                    newPoints.Add(exitNode);
                     prevRouteNodeKey = node.Key;
                     node = exitNode;
 
                     nextNodeFound = node.TryGetExitNode(prevRouteNodeKey, out exitNodeKey);
+                    if (!nextNodeFound)
+                    {
+                       // Debug.Log($"stop route: ${prevRouteNodeKey} -> {exitNodeKey}");
+                        break;
+                    }
                 }
                 else
                 {

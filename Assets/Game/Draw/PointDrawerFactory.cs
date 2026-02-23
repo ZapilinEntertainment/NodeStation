@@ -5,56 +5,52 @@ namespace ZE.NodeStation
 {
     public class PointDrawerFactory
     {
-        private readonly MonoObjectsPool<RoutePointDrawer> _nodeDrawers;
+        private readonly MonoObjectsPool<RoutePointDrawer> _draggableDrawers;
+        private readonly MonoObjectsPool<RoutePointDrawer> _routePointDrawers;
         private readonly ColorPalette _colorPalette;
         private readonly CollidersManager _collidersManager;
-        private readonly SwitchableRoutePoint _routeReceiverPrefab;
 
         [Inject]
         public PointDrawerFactory(
             MonoObjectsPool<RoutePointDrawer> nodeDrawers, 
+            MonoObjectsPool<RoutePointDrawer> routePointDrawers,    
             ColorPalette colorPalette, 
-            CollidersManager collidersManager,
-            SwitchableRoutePoint routeReceiverPrefab)
+            CollidersManager collidersManager)
         {
-            _nodeDrawers = nodeDrawers;
+            _draggableDrawers = nodeDrawers;
+            _routePointDrawers = routePointDrawers;
+
             _colorPalette = colorPalette;
             _collidersManager = collidersManager;
-            _routeReceiverPrefab = routeReceiverPrefab;
         }
 
-        public RoutePointDrawer CreateRoutePointDrawer(TrainRoute route, IPathNode point, bool isDraggable, int routeIndex)
+        public RoutePointDrawer CreateRoutePointDrawer(TrainRoute route, IPathNode point, int routeIndex, RoutePointMode mode)
         {
-            var nodeDrawer = _nodeDrawers.Get();
+            var nodeDrawer = _draggableDrawers.Get();
 
-            nodeDrawer.SetDraggable(isDraggable);
+            nodeDrawer.SetMode(mode);
             nodeDrawer.SetColor(_colorPalette.GetColor(route.ColorKey));
             nodeDrawer.SetPosition(point.WorldPosition);
 
-            if (isDraggable)
+            switch (mode)
             {
-                var controller = new RoutePointController(_collidersManager, route, point, nodeDrawer, routeIndex);
-                nodeDrawer.DisposeEvent += controller.Dispose;
+                case RoutePointMode.Draggable:
+                    {
+                        var controller = new RoutePointDragController(_collidersManager, route, point, nodeDrawer, routeIndex);
+                        controller.Initialize();
+                        nodeDrawer.DisposeEvent += controller.Dispose;
+                        break;
+                    }
+                    case RoutePointMode.Receiving:
+                    {
+                        var controller = new RoutePointReceiveController(_collidersManager, point, nodeDrawer);
+                        controller.Initialize();
+                        nodeDrawer.DisposeEvent += controller.Dispose;
+                        break;
+                    }
             }
 
             return nodeDrawer;
         }
-
-        public SwitchableRoutePoint CreateSwitchableRoutePoint(IPathNode point)
-        {
-            var receiver = GameObject.Instantiate(_routeReceiverPrefab);
-            receiver.transform.position = point.WorldPosition;
-            receiver.AssignNode(point);
-            var colliderKey = _collidersManager.Register(receiver);
-
-            point.DisposeEvent += () =>
-            {
-                receiver?.Dispose();
-                _collidersManager?.Unregister(colliderKey);
-            };
-
-            return receiver;
-        }
-
     }
 }

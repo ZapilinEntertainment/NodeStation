@@ -15,8 +15,6 @@ namespace ZE.NodeStation
         public override bool IsFinal => false;
         public override NodeType Type => _type;
 
-        public override bool HaveMultipleExits => true;
-
         protected readonly NodeType _type;
 
         public DividingPathNode(Vector3 worldPos, int key, int entranceKey, int exitKeyA, int exitKeyB, bool isReversed, NodeFunction function) : 
@@ -85,6 +83,17 @@ namespace ZE.NodeStation
             }
 
             return false;
+        }
+
+        public override NodeExitsContainer GetAllExits(int entranceNodeKey)
+        {
+            if (entranceNodeKey == EntranceNodeKey)
+                return new(ExitNodeKeyA, ExitNodeKeyB);
+
+            if (entranceNodeKey == ExitNodeKeyA || entranceNodeKey == ExitNodeKeyB)
+                return new(EntranceNodeKey);
+
+            return NodeExitsContainer.Empty;
         }
     }
 }

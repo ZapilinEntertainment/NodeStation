@@ -38,7 +38,13 @@ namespace ZE.NodeStation
 
         public void FinishDraw()
         {
-            _lineDrawer.DrawPoints(_points.ToArray());
+            var pointsArray = _points.ToArray();
+            var up = Vector3.up;
+            for (var i = 0; i< pointsArray.Length; i++)
+            {
+                pointsArray[i] = pointsArray[i] + up * 0.01f;
+            }
+            _lineDrawer.DrawPoints(pointsArray);
         }
     }
 }

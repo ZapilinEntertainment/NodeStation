@@ -17,7 +17,7 @@ namespace ZE.NodeStation
 
         public void DrawPoints(Vector3[] positions) 
         {
-            _lineRenderer.positionCount = positions.Length;
+            _lineRenderer.positionCount = positions.Length;            
             _lineRenderer.SetPositions(positions);
         }
 
@@ -43,10 +43,14 @@ namespace ZE.NodeStation
             GameObject.Destroy(gameObject);
         }
 
-        public void OnGet() { }
+        public void OnGet() 
+        { 
+            gameObject.SetActive(true);
+        }
 
         public void OnRelease()
         {
+            gameObject.SetActive(false);
             _lineRenderer.SetPositions(new Vector3[0]);
         }
 

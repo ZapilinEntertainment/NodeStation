@@ -21,6 +21,8 @@ namespace ZE.NodeStation
         [SerializeField] private TextMeshProUGUI _timeLabel;
         [SerializeField] private Image _statusImage;
         [SerializeField] private Button _button;
+
+        private bool _isDestroyed = false;
         private IObjectPool<TrainTimetableLine> _pool;
         private CompositeDisposable _subscriptions = new();
         private ReactiveCommand _buttonClickCommand = new();
@@ -51,12 +53,18 @@ namespace ZE.NodeStation
         {
             _pool = null;
             _buttonClickCommand.Dispose();
-            Destroy(gameObject);
+            Destroy(gameObject);            
         }
 
         private void OnStatusChanged(TimetabledTrainStatus status)
         {
+            if (_isDestroyed) return;
             _button.interactable = status.CanChangeRoute();
+        }
+
+        private void OnDestroy()
+        {
+            _isDestroyed = true;
         }
     }
 }

@@ -4,23 +4,25 @@ using UnityEngine.Pool;
 
 namespace ZE.NodeStation
 {
-    public class RoutePointDrawer : MonoBehaviour, IPointDrawer, IPoolable<RoutePointDrawer>
+    public class RoutePointDrawer : WorldSpriteDrawer, IPointDrawer, IPoolable<RoutePointDrawer>
     {
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        [SerializeField] private MonoPropertySwitcher _propertiesSwitcher;
         [SerializeField] private Collider _dragCollider;
+        [SerializeField] private Collider _receiveCollider;
+
         private IObjectPool<RoutePointDrawer> _pool;
-        private bool _isDestroyed = false;
 
         public void AssignToPool(IObjectPool<RoutePointDrawer> pool) => _pool = pool;
-        public void SetDraggable(bool x) => _dragCollider.enabled = x;
-        public void SetColor(Color color) => _spriteRenderer.color = color;
-        public void SetPosition(Vector3 pos) => transform.position = pos;
+        public void SetMode(RoutePointMode mode) => _propertiesSwitcher.SwitchState((int)mode);
+
         public Collider DragCollider => _dragCollider;
+        public Collider ReceiveCollider => _receiveCollider;
         public event Action DisposeEvent;
 
         public void Dispose()
         {
-            if (_isDestroyed)
+            if (IsDestroyed)
                 return;
 
             if (_pool != null)
@@ -31,21 +33,22 @@ namespace ZE.NodeStation
 
         public void FinalDispose()
         {
-            if (_isDestroyed)
+            if (IsDestroyed)
                 return;
 
             _pool = null;
             Destroy(gameObject);
         }
 
-        public void OnGet() { }
+        public void OnGet() 
+        { 
+            gameObject.SetActive(true);
+        }
 
         public void OnRelease() 
         { 
-            SetDraggable(false); 
             DisposeEvent?.Invoke();
+            gameObject.SetActive(false);
         }
-
-        private void OnDestroy() => _isDestroyed = true;
     }
 }

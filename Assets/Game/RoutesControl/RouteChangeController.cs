@@ -67,11 +67,12 @@ namespace ZE.NodeStation
                 return;
 
             if (_cameraController.TryRaycastAtCursor(DRAGGABLES_RECEIVERS_MASK, out var rh)
-                && _collidersManager.TryIdentifyColliderAs<SwitchableRoutePoint>(rh.colliderInstanceID, out var routePoint)
+                && _collidersManager.TryIdentifyColliderAs<IReceivingRoutePoint>(rh.colliderInstanceID, out var routePoint)
                 && _routeBuilder.TryRebuildRoute(_movingRoutePoint, routePoint.Node))
             {
                 var route = _movingRoutePoint.Route;
                 _routeDrawManager.ClearRouteDrawing(route);
+
                 _routeDrawManager.DrawRoute(route);
             }
 
