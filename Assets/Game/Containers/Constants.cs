@@ -9,5 +9,8 @@ namespace ZE.NodeStation
 
         public const int NO_EXIT_PATH_CODE = -1;
         public const int MAX_TRAIN_ROUTES = 8;
+        
+        public const float SEMAPHORE_IGNITE_DISTANCE = 50f;
+        public const float SEMAPHORE_EXTINGUISH_DISTANCE = 10f;
     }
 }

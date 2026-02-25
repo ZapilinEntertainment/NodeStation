@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b655be566f3b3174796e1a655eb40c4f, type: 3}
-  m_Name: ColorPalette
+  m_Name: GUIColors
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ColorPalette
   _colors:
     _serializedList:

@@ -34,7 +34,7 @@ namespace ZE.NodeStation
 
         protected override void DoMove(float deltaTime)
         {
-            var movement = new RailMovement(_speed * deltaTime, _isReversed);
+            var movement = new RailMovement(Speed * deltaTime, _isReversed);
             var carsCount = _cars.Length;
 
             // handle locomotive movement

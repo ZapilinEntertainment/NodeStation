@@ -1,6 +1,7 @@
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using UniRx;
 
 namespace ZE.NodeStation
 {
@@ -16,7 +17,8 @@ namespace ZE.NodeStation
         [Header("app scope:")]
         [SerializeField] private RoutePointDrawer _routePointDrawer;
         [SerializeField] private RouteSegmentLineDrawer _segmentLineDrawer;
-        [SerializeField] private ColorPalette _colorPalette;
+        [SerializeField] private ColorPalette _guiColors;
+        [SerializeField] private ColorPalette _lightColors;
 
         private PathsMap _pathsMap;
 
@@ -59,6 +61,11 @@ namespace ZE.NodeStation
             builder.Register<LaunchTrainCommand>(Lifetime.Scoped);
             builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
 
+            builder.Register<RouteSemaphoresSupervisor>(Lifetime.Scoped);
+            builder.Register<PrepareRouteSemaphoresDataCommand>(Lifetime.Scoped);
+            builder.Register<SemaphoresManager>(Lifetime.Scoped);
+            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);
+
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);  
             
             #if UNITY_EDITOR
@@ -67,8 +74,12 @@ namespace ZE.NodeStation
             #endif
 
             // todo: move to app scope
-            builder.RegisterInstance(_colorPalette);
+            builder.RegisterInstance<IGUIColorsPalette>(_guiColors);
+            builder.RegisterInstance<ILightColorsPalette>(_lightColors);
             PreparePools(builder);
+
+            var messageBroker = MessageBroker.Default;
+            builder.RegisterInstance(messageBroker);
         }
 
         private void PreparePools(IContainerBuilder builder)

@@ -64,6 +64,19 @@ namespace ZE.NodeStation
 
         public bool TryGetNode(int key, out IPathNode node) => _nodes.TryGetValue(key, out node);
 
+        public bool IsPathKeyReversed(PathKey key)
+        {
+            // this method returns REAL path direction (map data)
+
+            // NOTE: path key AB = path key BA
+            // this allows to get path, without depending on its direction
+
+            if (TryGetPath(key, out var path))
+                return path.PathKey.StartNodeKey == key.EndNodeKey;
+
+            return false;
+        }
+
         public void Dispose()
         {
             if (_nodes.Count != 0)

@@ -9,12 +9,12 @@ namespace ZE.NodeStation
 {
     public class TrainsTimetableController : IDisposable
     {
-
         private readonly LevelConfig _levelConfig;
         private readonly List<TimetabledTrain> _trains;
         private readonly TimetabledTrainBuilder _timetabledTrainBuilder;
         private readonly TrainsTimetableWindowController _windowController;
         private readonly LaunchTimetabledTrainCommand _launchTrainCommand;
+        private readonly IMessageBroker _messageBroker;
         private readonly CompositeDisposable _compositeDisposable = new();
 
         [Inject]
@@ -23,12 +23,14 @@ namespace ZE.NodeStation
             TimetabledTrainBuilder timetabledTrainBuilder, 
             TrainsTimetableWindowController windowController,
             TimeManager timeManager,
-            LaunchTimetabledTrainCommand launchTrainCommand)
+            LaunchTimetabledTrainCommand launchTrainCommand,
+            IMessageBroker messageBroker)
         {
             _levelConfig = levelConfig;
             _timetabledTrainBuilder = timetabledTrainBuilder;
             _windowController = windowController;
             _launchTrainCommand = launchTrainCommand;
+            _messageBroker = messageBroker;
 
             var trains = levelConfig.Trains;
             var count = trains.Length;

@@ -8,6 +8,7 @@ namespace ZE.NodeStation
     {
         public readonly ColorKey ColorKey;
         public IReadOnlyList<IPathNode> Points => _points;
+        public Action PointsChangedEvent;
         private List<IPathNode> _points;
 
         public TrainRoute(ColorKey colorKey, List<IPathNode> points)
@@ -23,7 +24,11 @@ namespace ZE.NodeStation
 
         public IEnumerator<IPathNode> GetEnumerator() => _points.GetEnumerator();
 
-        public void UpdatePoints(List<IPathNode> points) => _points = points;
+        public void UpdatePoints(List<IPathNode> points) 
+        {
+            _points = points;
+            PointsChangedEvent?.Invoke();
+        }
 
         public bool TryGetNextPoint(IPathNode prevPoint, out IPathNode nextPoint) 
         { 

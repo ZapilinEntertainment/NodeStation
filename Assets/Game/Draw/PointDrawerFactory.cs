@@ -7,14 +7,14 @@ namespace ZE.NodeStation
     {
         private readonly MonoObjectsPool<RoutePointDrawer> _draggableDrawers;
         private readonly MonoObjectsPool<RoutePointDrawer> _routePointDrawers;
-        private readonly ColorPalette _colorPalette;
+        private readonly IGUIColorsPalette _colorPalette;
         private readonly CollidersManager _collidersManager;
 
         [Inject]
         public PointDrawerFactory(
             MonoObjectsPool<RoutePointDrawer> nodeDrawers, 
-            MonoObjectsPool<RoutePointDrawer> routePointDrawers,    
-            ColorPalette colorPalette, 
+            MonoObjectsPool<RoutePointDrawer> routePointDrawers,
+            IGUIColorsPalette colorPalette, 
             CollidersManager collidersManager)
         {
             _draggableDrawers = nodeDrawers;
@@ -29,7 +29,7 @@ namespace ZE.NodeStation
             var nodeDrawer = _draggableDrawers.Get();
 
             nodeDrawer.SetMode(mode);
-            nodeDrawer.SetColor(_colorPalette.GetColor(route.ColorKey));
+            nodeDrawer.SetColor(_colorPalette.GetGUIColor(route.ColorKey));
             nodeDrawer.SetPosition(point.WorldPosition);
 
             switch (mode)

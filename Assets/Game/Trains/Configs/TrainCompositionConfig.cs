@@ -10,5 +10,14 @@ namespace ZE.NodeStation
 
         public override IReadOnlyList<RailCarBuildProtocol> RailCarProtocols => _railCars;
 
+        public override float CalculateTrainLength()
+        {
+            var length = 0f;
+            foreach (var railCar in _railCars)
+            {
+                length += railCar.Configuration.CarLength;
+            }
+            return length;
+        }
     }
 }

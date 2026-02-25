@@ -2,11 +2,10 @@ using System;
 using UnityEngine;
 using UniRx;
 using VContainer;
-using VContainer.Unity;
 
 namespace ZE.NodeStation
 {
-    public class TimeManager : IDisposable, ITickable
+    public class TimeManager : IDisposable, IFrameTickable
     {
         public bool IsShiftEnded => _isShiftEndedProperty.Value;
         public IReactiveProperty<bool> IsShiftEndedProperty => _isShiftEndedProperty;

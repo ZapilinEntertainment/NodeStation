@@ -1,13 +1,12 @@
 using System;
 using UnityEngine;
-using VContainer.Unity;
 using UniRx;
 
 namespace ZE.NodeStation
 {
     public enum TrainActivityMode : byte { Disabled, Active, Disposed}
 
-    public abstract class TrainBase : ITrain, ITickable, IDisposable
+    public abstract class TrainBase : ITrain, IFrameTickable, IDisposable
     {
         public record InjectProtocol
         {
@@ -29,6 +28,7 @@ namespace ZE.NodeStation
 
         public event Action DisposedEvent;
         public bool IsReachedDestination { get; private set; } = false;
+        public float Speed { get; protected set; } = 0f;
         public RailPosition FirstBogiePosition => RailPosition;
 
         protected readonly TrainConfiguration Config;
@@ -39,8 +39,7 @@ namespace ZE.NodeStation
 
         protected bool _isAccelerating = false;
         protected bool _isReversed = false;
-        protected bool _isStopped = false;
-        protected float _speed = 0f;
+        protected bool _isStopped = false;        
         protected TrainActivityMode _mode;
 
         private readonly TickableManager _tickableManager;
@@ -72,7 +71,7 @@ namespace ZE.NodeStation
 
         public void SetSpeed(float speedPc, bool isAccelerating)
         {
-            _speed = speedPc * Config.MaxSpeed;
+            Speed = speedPc * Config.MaxSpeed;
             _isAccelerating = isAccelerating;
         }
 
@@ -84,14 +83,14 @@ namespace ZE.NodeStation
             var dt = Time.deltaTime;
             if (_isAccelerating)
             {
-                _speed = Mathf.MoveTowards(_speed, Config.MaxSpeed, dt * Config.Acceleration);
+                Speed = Mathf.MoveTowards(Speed, Config.MaxSpeed, dt * Config.Acceleration);
             }
             else
             {
-                _speed = Mathf.MoveTowards(_speed, 0f, dt * Config.Deceleration);
+                Speed = Mathf.MoveTowards(Speed, 0f, dt * Config.Deceleration);
             }
 
-            if (_speed != 0f)
+            if (Speed != 0f)
                 DoMove(dt);
         }
 
@@ -110,7 +109,7 @@ namespace ZE.NodeStation
 
         protected virtual void DoMove(float deltaTime)
         {
-            var movementResult = RailMovementCalculator.MoveNext(RailPosition, new(_speed * deltaTime, _isReversed));
+            var movementResult = RailMovementCalculator.MoveNext(RailPosition, new(Speed * deltaTime, _isReversed));
             SetPosition(movementResult.Position);
             switch (movementResult.EventType)
             {

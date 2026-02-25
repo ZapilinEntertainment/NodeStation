@@ -21,6 +21,9 @@ namespace ZE.NodeStation
             _resolver.Resolve<TimeManager>();
             _resolver.Resolve<TimeWindowController>();
             _resolver.Resolve<TrainsTimetableController>();
+
+            _resolver.Resolve<SemaphoresManager>().Init();
+            _resolver.Resolve<RouteSemaphoresSupervisor>();
         }
     }
 }

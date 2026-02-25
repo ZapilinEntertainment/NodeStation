@@ -23,7 +23,8 @@ namespace ZE.NodeStation
             }
         }
 
-        public bool TryGetRoute(TimetabledTrain train, out TrainRoute route) => _routes.TryGetValue(train, out route);
+        public bool TryGetRoute(TimetabledTrain train, out TrainRoute route) =>
+            _routes.TryGetValue(train, out route);
 
         public void Dispose()
         {

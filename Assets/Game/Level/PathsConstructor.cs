@@ -184,7 +184,7 @@ namespace ZE.NodeStation
 
                     Gizmos.color = color;
                     Gizmos.DrawSphere(pos, DebugConstants.RAIL_NODES_RADIUS);
-                    Handles.Label(pos + new Vector3(0f,DebugConstants.RAIL_NODES_RADIUS * 2f,0f), nodeKvp.Key.ToString());
+                    Handles.Label(pos + new Vector3(0f,DebugConstants.RAIL_NODES_RADIUS * 2f,0f), nodeKvp.Key.ToString(), DebugConstants.NodeHandleStyle);
                 }
             }
 

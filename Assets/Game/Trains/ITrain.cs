@@ -7,6 +7,8 @@ namespace ZE.NodeStation
     public interface ITrain : IViewable
     {
         bool IsReachedDestination { get;}
+        float Speed { get;}
+
         void SetSpeed(float speedPc, bool isAccelerating);
         void Activate();
 

@@ -11,6 +11,5 @@ namespace ZE.NodeStation
 
         // why base class: there can be some random or variable compositions (opposite to basic fixed ones)
         [field: SerializeField] public TrainCompositionBase TrainCompositionConfig { get; private set; }
-
     }
 }

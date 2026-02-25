@@ -14,9 +14,11 @@ namespace ZE.NodeStation
 
         public IReadOnlyReactiveProperty<TimetabledTrainStatus> StatusProperty => _statusProperty;
         public TimetabledTrainStatus Status { get => _statusProperty.Value; set => _statusProperty.Value = value; }
-        public ITrain Train;        
+        public ITrain Train { get; private set;}    
 
         public bool IsReachedDestination => Train?.IsReachedDestination ?? false;
+        public float MaxSpeed => SpawnInfo.TrainConfiguration.MaxSpeed;
+
         private ReactiveProperty<TimetabledTrainStatus> _statusProperty = new();
 
 
@@ -28,6 +30,12 @@ namespace ZE.NodeStation
             Status = TimetabledTrainStatus.NotReady;
             Train = null;
             SpawnInfo = spawnInfo;
+        }
+
+        public void OnTrainLaunched(ITrain train)
+        {
+            Train = train;
+            _statusProperty.Value = TimetabledTrainStatus.Launched;
         }
 
         public void Dispose() 

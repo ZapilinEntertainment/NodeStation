@@ -4,6 +4,7 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
+    // todo: rework to message subscription
     public class RouteTrackController : IDisposable
     {
         private readonly ITrain _train;
@@ -18,13 +19,17 @@ namespace ZE.NodeStation
         {
             _train = train;
             _route = route;
-            _map = map;
+            _map = map;           
             
-            train.RailPositionProperty
+        }
+
+        public void Init()
+        {
+            _train.RailPositionProperty
                 .Subscribe(OnTrainPositionChanged)
                 .AddTo(_compositeDisposable);
 
-            train.DisposedEvent += Dispose;
+            _train.DisposedEvent += Dispose;
         }
 
         public void Dispose()
