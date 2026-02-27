@@ -11,22 +11,23 @@ namespace ZE.NodeStation
         [Inject] private GetRouteStartPointCommand _getRouteStartPointCommand;
         [Inject] private RouteDrawManager _routeDrawManager;
         
-        private TrainRoute _currentRoute;
+        private RouteController _activeRouteController;
+        private IRoute CurrentRoute => _activeRouteController.Route;
 
         [InfoBox("Available only in Playmode")]
         [Button("Draw route"), EnableInPlayMode]
         public void DrawRoute()
         {
-            if (_currentRoute == null) 
+            if (_activeRouteController == null) 
                 PrepareRouteWithExistingParameters();
-            _routeDrawManager.DrawRoute(_currentRoute);
+            _routeDrawManager.DrawRoute(_activeRouteController.Route);
         }
 
         protected override RailPosition GetSpawnPosition()
         {
-            if (_currentRoute == null) 
+            if (_activeRouteController == null) 
                 PrepareRouteWithExistingParameters();
-            return _getRouteStartPointCommand.Execute(_currentRoute, _routeTargets.IsReversed ? 0f : 1f, _routeTargets.IsReversed);
+            return _getRouteStartPointCommand.Execute(CurrentRoute, _routeTargets.IsReversed ? 0f : 1f, _routeTargets.IsReversed);
         }
         
         private void PrepareRouteWithExistingParameters()
@@ -43,21 +44,21 @@ namespace ZE.NodeStation
                 return;
             }
             ClearCurrentRoute();
-            _currentRoute = route;
+            _activeRouteController = route;
         }
 
         private void ClearCurrentRoute()
         {
-            if (_currentRoute == null)
+            if (_activeRouteController == null)
                 return;
 
-            _routeDrawManager.ClearRouteDrawing(_currentRoute);
+            _routeDrawManager.ClearRouteDrawing(CurrentRoute);
         }
 
         private void ApplyNewRoute(TrainRoute route)
         {
             ClearCurrentRoute();
-            _routeDrawManager.DrawRoute(_currentRoute);
+            _routeDrawManager.DrawRoute(CurrentRoute);
         }
     }
 }

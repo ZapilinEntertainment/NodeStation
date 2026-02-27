@@ -14,7 +14,7 @@ namespace ZE.NodeStation
         private RailMovementCalculator _calculator;        
         private PathsMap _pathsMap;
         private RouteSemaphoresController _controller;
-        private TrainRoute _route;
+        private IRoute _route;
 
         [Inject]
         public void Inject(RailMovementCalculator calculator, PathsMap map)
@@ -23,7 +23,7 @@ namespace ZE.NodeStation
             _pathsMap = map;
         }
 
-        public void SetupRoute(TrainRoute route, RouteSemaphoresController controller)
+        public void SetupRoute(IRoute route, RouteSemaphoresController controller)
         {
             _route = route;
             _controller = controller;      

@@ -15,6 +15,8 @@ namespace ZE.NodeStation
         // distance between last car rear bogie and car's rear edge
         public abstract float GetRearOverhang();
 
+        // |<------------TrainLength----------------->|
+        // |RearOverhang - SpawnOffset - FrontOverhang|
         public float GetFirstBogieSpawnOffset() => CalculateTrainLength() - GetRearOverhang() - GetFrontOverhang();
     }
 }

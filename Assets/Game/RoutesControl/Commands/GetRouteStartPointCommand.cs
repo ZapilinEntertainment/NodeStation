@@ -13,7 +13,7 @@ namespace ZE.NodeStation
             _map = map;
         }
 
-        public RailPosition Execute(TrainRoute route, float percent, bool isReversed)
+        public RailPosition Execute(IRoute route, float percent, bool isReversed)
         {
             var points = route.Points;
             var point0 = points[0];

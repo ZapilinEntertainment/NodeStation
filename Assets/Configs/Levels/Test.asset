@@ -25,18 +25,9 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 0
+      Minute: 1
     WarningTimeInMinutes: 5
-    SpawnNodeKey: 15
-    TargetNodeKey: 10
-    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
-    ColorKey: 1
-  - LabelAppearTime:
-      Day: 0
-      Hour: 23
-      Minute: 30
-    WarningTimeInMinutes: 5
-    SpawnNodeKey: 15
-    TargetNodeKey: 10
+    SpawnNodeKey: 16
+    TargetNodeKey: 15
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 1

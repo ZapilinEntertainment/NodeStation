@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace ZE.NodeStation
 {
-    public class TrainRoute : IDisposable
+    public class TrainRoute : IRoute
     {
-        public readonly ColorKey ColorKey;
+        public ColorKey ColorKey { get;private set; }
         public IReadOnlyList<IPathNode> Points => _points;
-        public Action PointsChangedEvent;
         private List<IPathNode> _points;
+
 
         public TrainRoute(ColorKey colorKey, List<IPathNode> points)
         {
@@ -27,15 +27,14 @@ namespace ZE.NodeStation
         public void UpdatePoints(List<IPathNode> points) 
         {
             _points = points;
-            PointsChangedEvent?.Invoke();
         }
 
-        public bool TryGetNextPoint(IPathNode prevPoint, out IPathNode nextPoint) 
+        public bool TryGetNextPoint(IPathNode point, out IPathNode nextPoint) 
         { 
             var count = _points.Count;
             for (var i = 0; i < count; i++)
             {
-                if (_points[i] == prevPoint && count - i != 1)
+                if (_points[i] == point && count - i != 1)
                 {
                     nextPoint = _points[i + 1];
                     return true;

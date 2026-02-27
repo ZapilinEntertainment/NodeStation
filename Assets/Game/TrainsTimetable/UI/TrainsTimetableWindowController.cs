@@ -11,7 +11,7 @@ namespace ZE.NodeStation
         private readonly RouteDrawManager _routeDrawManager;
         private readonly RoutesManager _routesManager;
         private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();
-        private TrainRoute _currentVisibleRoute;
+        private IRoute _currentVisibleRoute;
 
         [Inject]
         public TrainsTimetableWindowController(TrainsTimetableWindow window, RouteDrawManager routeDrawManager, RoutesManager routesManager)

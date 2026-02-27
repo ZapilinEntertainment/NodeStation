@@ -9,8 +9,8 @@ namespace ZE.NodeStation
     {
         public struct SemaphoreStatus
         {
-            public TrainRoute FrontLightRoute;
-            public TrainRoute RearLightRoute;
+            public IRoute FrontLightRoute;
+            public IRoute RearLightRoute;
         }
 
         private readonly Dictionary<PathKey, SemaphoreDecoration> _semaphores = new();
@@ -40,7 +40,7 @@ namespace ZE.NodeStation
 
         public bool TryGetSemaphore(PathKey pathKey, out SemaphoreDecoration semaphore) => _semaphores.TryGetValue(pathKey, out semaphore);
 
-        public void IgniteSemaphore(SemaphoreDecoration semaphore, TrainRoute route, bool front)
+        public void IgniteSemaphore(SemaphoreDecoration semaphore, IRoute route, bool front)
         {
             if (_statuses.TryGetValue(semaphore, out var status))
             {
@@ -60,7 +60,7 @@ namespace ZE.NodeStation
             UpdateSemaphoreStatus(semaphore, status);
         }
 
-        public void DistinguishSemaphore(SemaphoreDecoration semaphore, TrainRoute route, bool front)
+        public void DistinguishSemaphore(SemaphoreDecoration semaphore, IRoute route, bool front)
         {
             if (!_statuses.TryGetValue(semaphore, out var status))
                 return;

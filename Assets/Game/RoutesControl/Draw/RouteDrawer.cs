@@ -6,15 +6,13 @@ namespace ZE.NodeStation
 {
     public class RouteDrawer : IDisposable
     {
-        private readonly ColorKey _color;
         private readonly ILineDrawer _lineDrawer;
         private readonly List<IPointDrawer> _activePointMarkers = new();
         private readonly List<Vector3> _points = new();
 
-        public RouteDrawer(ILineDrawer lineDrawer, ColorKey color) 
+        public RouteDrawer(ILineDrawer lineDrawer) 
         {
             _lineDrawer = lineDrawer;
-            _color = color;
         }
 
         public void AddNodeDrawer(IPointDrawer drawer) => _activePointMarkers.Add(drawer);

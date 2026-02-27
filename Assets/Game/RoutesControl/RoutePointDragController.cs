@@ -5,13 +5,13 @@ namespace ZE.NodeStation
 {
     public class RoutePointDragController : RoutePointController, IDraggableRoutePoint
     {        
-        private readonly TrainRoute _route;        
+        private readonly IRoute _route;        
         private readonly RoutePointDrawer _drawer;        
         private readonly int _routeIndex;
 
         public RoutePointDragController(
-            CollidersManager collidersManager, 
-            TrainRoute route, 
+            CollidersManager collidersManager,
+            IRoute route, 
             IPathNode node, 
             RoutePointDrawer drawer,
             int routeIndex) : base(collidersManager, node)
@@ -21,7 +21,7 @@ namespace ZE.NodeStation
             _routeIndex = routeIndex;            
         }
 
-        public TrainRoute Route => _route;
+        public IRoute Route => _route;
         public int RouteIndex => _routeIndex;
 
         public override int GetColliderId() => _drawer.DragCollider.GetInstanceID();        

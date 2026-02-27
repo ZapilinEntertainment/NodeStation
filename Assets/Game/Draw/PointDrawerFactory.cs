@@ -24,7 +24,7 @@ namespace ZE.NodeStation
             _collidersManager = collidersManager;
         }
 
-        public RoutePointDrawer CreateRoutePointDrawer(TrainRoute route, IPathNode point, int routeIndex, RoutePointMode mode)
+        public RoutePointDrawer CreateRoutePointDrawer(IRoute route, IPathNode point, int routeIndex, RoutePointMode mode)
         {
             var nodeDrawer = _draggableDrawers.Get();
 

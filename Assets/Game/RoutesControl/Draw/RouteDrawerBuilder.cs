@@ -3,27 +3,23 @@ using VContainer;
 
 namespace ZE.NodeStation
 {
-    public class RouteDrawerFactory
+    public class RouteDrawerBuilder
     {
         private readonly LineDrawerFactory _lineDrawerFactory;
         private readonly PointDrawerFactory _pointDrawerFactory;
         private readonly PathsMap _map;
 
         [Inject]
-        public RouteDrawerFactory(LineDrawerFactory lineDrawerFactory, PointDrawerFactory pointDrawerFactory, PathsMap map)
+        public RouteDrawerBuilder(LineDrawerFactory lineDrawerFactory, PointDrawerFactory pointDrawerFactory, PathsMap map)
         {
             _lineDrawerFactory = lineDrawerFactory;
             _pointDrawerFactory = pointDrawerFactory;
             _map = map;
         }
 
-        public RouteDrawer Create(TrainRoute route)
+        public RouteDrawer Build(IRoute route)
         {
-            var colorKey = route.ColorKey;
-
-            var drawer = new RouteDrawer(
-                _lineDrawerFactory.CreateRouteLineDrawer(colorKey),
-                colorKey);
+            var drawerController = new RouteDrawer(_lineDrawerFactory.CreateRouteLineDrawer(route.ColorKey));
 
             var points = route.Points;
             for (var i = 0; i < points.Count; i++)
@@ -49,7 +45,7 @@ namespace ZE.NodeStation
                         {
                             // current selected exit
                             var pointDrawer = _pointDrawerFactory.CreateRoutePointDrawer(route, node, i, RoutePointMode.Draggable);
-                            drawer.AddNodeDrawer(pointDrawer);
+                            drawerController.AddNodeDrawer(pointDrawer);
                         }
                         else
                         {
@@ -57,21 +53,21 @@ namespace ZE.NodeStation
                                 continue;
                             // other possible exits
                             var pointDrawer = _pointDrawerFactory.CreateRoutePointDrawer(route, otherExitNode, i, RoutePointMode.Receiving);
-                            drawer.AddNodeDrawer(pointDrawer);
+                            drawerController.AddNodeDrawer(pointDrawer);
                         }
                     }
                 }
                 else
                 {
                     var pointDrawer = _pointDrawerFactory.CreateRoutePointDrawer(route, node,i, RoutePointMode.Default);
-                    drawer.AddNodeDrawer(pointDrawer);
+                    drawerController.AddNodeDrawer(pointDrawer);
                 }
 
                 // TODO: add other segment draw options
-                drawer.AddLinePoint(node.WorldPosition);
+                drawerController.AddLinePoint(node.WorldPosition);
             }
-            drawer.FinishDraw();
-            return drawer;
+            drawerController.FinishDraw();
+            return drawerController;
         }
     }
 }

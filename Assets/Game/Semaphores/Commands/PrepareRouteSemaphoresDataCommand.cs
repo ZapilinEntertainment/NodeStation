@@ -16,7 +16,7 @@ namespace ZE.NodeStation
             _pathsMap = pathsMap;
         }
 
-        public List<RouteSemaphoreData> Execute(TrainRoute route)
+        public List<RouteSemaphoreData> Execute(IRoute route)
         {
             var list = new List<RouteSemaphoreData>();
             var points = route.Points;

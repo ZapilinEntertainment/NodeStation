@@ -1,21 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
+using UniRx;
 
 namespace ZE.NodeStation
 {
     public class RouteBuilder
     {
         private readonly PathsMap _map;
+        private readonly IMessageBroker _messageBroker;
 
         [Inject]
-        public RouteBuilder(PathsMap pathsMap)
+        public RouteBuilder(PathsMap pathsMap, IMessageBroker messageBroker)
         {
             _map = pathsMap;
+            _messageBroker = messageBroker;
         }
 
         // just get next point until path ends
-        public bool TryBuildRoute(int startNode, ColorKey colorKey, out TrainRoute route)
+        public bool TryBuildRoute(int startNode, ColorKey colorKey, out RouteController route)
         {
             var points = new List<IPathNode>();
             var nodeKey = startNode;
@@ -52,78 +55,7 @@ namespace ZE.NodeStation
             }
             while (nextNodeFound);
 
-            route = new(colorKey, points);
-            return true;
-        }
-
-        public bool TryRebuildRoute(IDraggableRoutePoint draggingPoint, IPathNode receivingPoint)
-        {
-            var changingNode = draggingPoint.Node;
-            var route = draggingPoint.Route;
-            var routePoints = route.Points;
-            var newPoints = new List<IPathNode>();
-
-            var prevRouteNodeKey = Constants.NO_EXIT_PATH_CODE;
-            var exitNodeKey = Constants.NO_EXIT_PATH_CODE;
-
-            for (var i = 0; i < routePoints.Count; i++)
-            {
-                if (routePoints[i] == changingNode)
-                {
-                    if (i != 0)
-                        prevRouteNodeKey = routePoints[i - 1].Key;
-                    else
-                        Debug.LogWarning("Attention: dividing at start route point");
-
-                    if (receivingPoint.TryGetExitNode(prevRouteNodeKey, out exitNodeKey)
-                        && receivingPoint.TrySetupPath(prevRouteNodeKey, exitNodeKey))
-                    {
-                        // switch success
-                        newPoints.Add(receivingPoint);
-                        break;
-                    }
-                    else
-                    {
-                        // TODO: some notification
-                        Debug.LogWarning($"cannot reach this point. {prevRouteNodeKey} -> {receivingPoint.Key} -> {exitNodeKey}");                        
-                        return false;
-                    }
-                }
-                else
-                {
-                    newPoints.Add(routePoints[i]);
-                }
-            }
-
-            // route part before new switch point has checked, continue new route:
-            // (exit node key and previous node are already calculated for switching point)
-            var node = receivingPoint;
-            var nextNodeFound = true;
-            do
-            {
-                if (_map.TryGetNode(exitNodeKey, out var exitNode))
-                {
-                    newPoints.Add(exitNode);
-                    prevRouteNodeKey = node.Key;
-                    node = exitNode;
-
-                    nextNodeFound = node.TryGetExitNode(prevRouteNodeKey, out exitNodeKey);
-                    if (!nextNodeFound)
-                    {
-                       // Debug.Log($"stop route: ${prevRouteNodeKey} -> {exitNodeKey}");
-                        break;
-                    }
-                }
-                else
-                {
-                    Debug.LogError($"route changing failed: node {exitNode} not exists");
-                    return false;
-                }
-            }
-            while (nextNodeFound);
-
-            // completed:
-            route.UpdatePoints(newPoints);
+            route = new RouteController(_messageBroker, new TrainRoute(colorKey, points));
             return true;
         }
     }

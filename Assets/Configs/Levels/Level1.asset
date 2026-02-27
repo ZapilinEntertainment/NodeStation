@@ -27,7 +27,7 @@ MonoBehaviour:
       Hour: 23
       Minute: 0
     WarningTimeInMinutes: 10
-    SpawnNodeKey: 10
+    SpawnNodeKey: 16
     TargetNodeKey: 0
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
       Hour: 23
       Minute: 1
     WarningTimeInMinutes: 19
-    SpawnNodeKey: 11
+    SpawnNodeKey: 17
     TargetNodeKey: 15
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 2
@@ -58,3 +58,12 @@ MonoBehaviour:
     TargetNodeKey: 11
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 2
+  - LabelAppearTime:
+      Day: 0
+      Hour: 23
+      Minute: 10
+    WarningTimeInMinutes: 40
+    SpawnNodeKey: 16
+    TargetNodeKey: 16
+    TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
+    ColorKey: 1

@@ -4,7 +4,7 @@ namespace ZE.NodeStation
 {
     public interface IDraggableRoutePoint : IColliderOwner
     {
-        TrainRoute Route { get; }
+        IRoute Route { get; }
         IPathNode Node { get; }
         int RouteIndex { get; }
     

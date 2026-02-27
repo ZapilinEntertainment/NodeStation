@@ -203,7 +203,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Percent
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Path.EndNodeKey
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
   <Function>k__BackingField: 2
-  Type: 2
+  Type: 1
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
   _pathsConstructor: {fileID: 1718639312}
   _dragWindow: {fileID: 1766005711}
   _cameraController: {fileID: 330585549}
-  _levelConfig: {fileID: 11400000, guid: 73a5e53a5b931e54cb149e83ca4d11c6, type: 2}
+  _levelConfig: {fileID: 11400000, guid: 503848696e9a1bb4a82dc6b5cc20dc48, type: 2}
   _timetableWindow: {fileID: 500088054}
   _timeWindow: {fileID: 432036141}
   _routePointDrawer: {fileID: 2464172477405051001, guid: 34547d9d7a17e00438a3d51958505579, type: 3}
@@ -6733,7 +6733,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
   <Function>k__BackingField: 2
+  Type: 1
+--- !u!1 &900690881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900690883}
+  - component: {fileID: 900690882}
+  m_Layer: 0
+  m_Name: A7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &900690882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900690881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 2
   Type: 2
+--- !u!4 &900690883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900690881}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -20, y: 0, z: 425.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1718639311}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &962350633
 GameObject:
   m_ObjectHideFlags: 0
@@ -8767,6 +8813,52 @@ MonoBehaviour:
   _end: {fileID: 1591947288}
   _startConnectedRail: {fileID: 0}
   _endConnectedRail: {fileID: 0}
+--- !u!1 &1561286828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1561286830}
+  - component: {fileID: 1561286829}
+  m_Layer: 0
+  m_Name: B7
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1561286829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561286828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31d532705abd8842bf42a114878c145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ConstructingNodePoint
+  <Function>k__BackingField: 2
+  Type: 2
+--- !u!4 &1561286830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561286828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.9, y: 0, z: 425.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1718639311}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1566100392
 GameObject:
   m_ObjectHideFlags: 0
@@ -9360,6 +9452,8 @@ Transform:
   - {fileID: 99086179}
   - {fileID: 767331767}
   - {fileID: 294307989}
+  - {fileID: 900690883}
+  - {fileID: 1561286830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1718639312
@@ -9406,6 +9500,10 @@ MonoBehaviour:
       Value: {fileID: 1484941558}
     - Key: 15
       Value: {fileID: 415812712}
+    - Key: 16
+      Value: {fileID: 900690882}
+    - Key: 17
+      Value: {fileID: 1561286829}
   _paths:
   - StartNodeKey: 0
     EndNodeKey: 1
@@ -9451,6 +9549,12 @@ MonoBehaviour:
     Type: 0
   - StartNodeKey: 14
     EndNodeKey: 12
+    Type: 0
+  - StartNodeKey: 11
+    EndNodeKey: 17
+    Type: 0
+  - StartNodeKey: 10
+    EndNodeKey: 16
     Type: 0
 --- !u!1 &1766005706
 GameObject:
@@ -10060,7 +10164,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Percent
-      value: 0.25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Path.EndNodeKey

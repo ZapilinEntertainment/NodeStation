@@ -12,8 +12,8 @@ namespace ZE.NodeStation
         private readonly ICameraController _cameraController;
         private readonly RouteControlsWindow _window;
         private readonly CollidersManager _collidersManager;
-        private readonly RouteBuilder _routeBuilder;
         private readonly RouteDrawManager _routeDrawManager;
+        private readonly RebuildRouteCommand _rebuildRouteCommand;
 
         private const int DRAGGABLES_MASK = LayerMasks.USER_DRAGGABLE_MASK;
         private const int DRAGGABLES_RECEIVERS_MASK = LayerMasks.DRAGGABLES_RECEIVERS_MASK;
@@ -26,14 +26,14 @@ namespace ZE.NodeStation
             RouteControlsWindow window, 
             ICameraController cameraController, 
             CollidersManager collidersManager,
-            RouteBuilder routeBuilder,
-            RouteDrawManager routeDrawManager)
+            RouteDrawManager routeDrawManager,
+            RebuildRouteCommand rebuildRouteCommand)
         {
             _window = window;
             _cameraController = cameraController;
             _collidersManager = collidersManager;
-            _routeBuilder = routeBuilder;
             _routeDrawManager = routeDrawManager;
+            _rebuildRouteCommand = rebuildRouteCommand;
 
             _window.DragStartEvent += OnBeginDrag;
             _window.DragEndEvent += OnEndDrag;
@@ -68,12 +68,10 @@ namespace ZE.NodeStation
 
             if (_cameraController.TryRaycastAtCursor(DRAGGABLES_RECEIVERS_MASK, out var rh)
                 && _collidersManager.TryIdentifyColliderAs<IReceivingRoutePoint>(rh.colliderInstanceID, out var routePoint)
-                && _routeBuilder.TryRebuildRoute(_movingRoutePoint, routePoint.Node))
+                && _rebuildRouteCommand.TryExecute(_movingRoutePoint, routePoint.Node))
             {
-                var route = _movingRoutePoint.Route;
-                _routeDrawManager.ClearRouteDrawing(route);
-
-                _routeDrawManager.DrawRoute(route);
+                // all updates will call automatically
+                // there may be some success update effects (ex.: sound)
             }
 
             _isMovingRoutePoint = false;

@@ -47,6 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4921870a894075439548ef8274eaa65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.LightDecoration
+  <MapPosition>k__BackingField:
+    Path:
+      StartNodeKey: 0
+      EndNodeKey: 0
+    Percent: 0
+    IsReversed: 0
   _frontLight: {fileID: 2386172595519388551}
   _rearLight: {fileID: 4308420240117159531}
 --- !u!1 &5612486947099489325
@@ -93,7 +99,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 100
+  m_Intensity: 400
   m_Range: 25
   m_SpotAngle: 108.48898
   m_InnerSpotAngle: 47.202183
@@ -220,7 +226,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 100
+  m_Intensity: 400
   m_Range: 25
   m_SpotAngle: 108.48898
   m_InnerSpotAngle: 47.202183

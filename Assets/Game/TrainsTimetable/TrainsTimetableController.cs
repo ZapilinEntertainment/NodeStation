@@ -105,6 +105,7 @@ namespace ZE.NodeStation
         {            
             train.Status = TimetabledTrainStatus.Announced;
             _windowController.AddLine(train);
+            _messageBroker.Publish<TrainAnnouncedMessage>(new(train));
         }
     }
 }

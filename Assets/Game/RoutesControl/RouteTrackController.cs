@@ -4,18 +4,19 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
+    // corrects rails before train to make it follow its route
     // todo: rework to message subscription
     public class RouteTrackController : IDisposable
     {
         private readonly ITrain _train;
-        private readonly TrainRoute _route;    
+        private readonly IRoute _route;    
         private readonly PathsMap _map;
         private readonly CompositeDisposable _compositeDisposable = new();
 
         // path where first bogie stands
         private IPathNode _frontPathEndNode;
 
-        public RouteTrackController(ITrain train, TrainRoute route, PathsMap map)
+        public RouteTrackController(ITrain train, IRoute route, PathsMap map)
         {
             _train = train;
             _route = route;

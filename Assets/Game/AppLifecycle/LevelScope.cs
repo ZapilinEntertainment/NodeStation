@@ -42,8 +42,9 @@ namespace ZE.NodeStation
             builder.Register<RouteChangeController>(Lifetime.Scoped);
             builder.RegisterInstance(_dragWindow);
             builder.Register<GetRouteStartPointCommand>(Lifetime.Scoped);
+            builder.Register<RebuildRouteCommand>(Lifetime.Scoped);
             builder.Register<RouteDrawManager>(Lifetime.Scoped);
-            builder.Register<RouteDrawerFactory>(Lifetime.Scoped);
+            builder.Register<RouteDrawerBuilder>(Lifetime.Scoped);
             builder.Register<RoutesManager>(Lifetime.Scoped);
 
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);

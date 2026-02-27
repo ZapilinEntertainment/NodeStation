@@ -12,7 +12,7 @@ namespace ZE.NodeStation
         public float FirstBogieDist => _firstBogieDist;
         public float LastBogieDist => _lastBogieDist;
 
-        private readonly TrainRoute _route;
+        private readonly IRoute _route;
         private readonly SemaphoresManager _semaphoresManager;
         private readonly IReadOnlyList<RouteSemaphoreData> _semaphoreData;
         private readonly float _igniteDistance;
@@ -23,7 +23,7 @@ namespace ZE.NodeStation
         private float _lastBogieDist;
 
         public RouteSemaphoresController(
-            TrainRoute route,
+            IRoute route,
             SemaphoresManager semaphoresManager,
             IReadOnlyList<RouteSemaphoreData> semaphoresData,
             float igniteDistance, 

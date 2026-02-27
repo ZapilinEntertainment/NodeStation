@@ -30,8 +30,7 @@ namespace ZE.NodeStation
 
             if (_routesManager.TryGetRoute(timetabledTrain, out var route))
             {
-                new RouteTrackController(train, route, _map).Init();
-                _messageBroker.Publish<TrainAnnouncedMessage>(new(timetabledTrain));
+                new RouteTrackController(train, route, _map).Init();                
             }
 
             timetabledTrain.OnTrainLaunched(train);
