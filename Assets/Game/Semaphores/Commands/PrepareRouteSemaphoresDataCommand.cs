@@ -31,16 +31,19 @@ namespace ZE.NodeStation
             {
                 var currentPointKey = points[i].Key;
                 var pathKey = new PathKey(points[i-1].Key, currentPointKey);
-                if (_semaphoresList.TryGetSemaphore(pathKey, out var semaphore) && _pathsMap.TryGetPath(pathKey, out var path))
+                if (_pathsMap.TryGetPath(pathKey, out var path))
                 {
-                    var dist = path.Length * semaphore.MapPosition.Percent;
+                    if (_semaphoresList.TryGetSemaphore(pathKey, out var semaphore)) 
+                    { 
+                        var dist = path.Length * semaphore.MapPosition.Percent;
 
-                    list.Add(new()
-                    {
-                        Distance = sumDistance + dist,
-                        Semaphore = semaphore,
-                        IsFront = path.PathKey.EndNodeKey == currentPointKey
-                    });
+                        list.Add(new()
+                        {
+                            Distance = sumDistance + dist,
+                            Semaphore = semaphore,
+                            IsFront = path.PathKey.EndNodeKey == currentPointKey
+                        });
+                    }
 
                     sumDistance += path.Length;
                 }

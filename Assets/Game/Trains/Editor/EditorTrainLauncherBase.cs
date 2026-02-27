@@ -12,10 +12,10 @@ namespace ZE.NodeStation
         [SerializeField] protected bool _isAccelerating = false;
         protected PathsMap _map;
 
-        private LaunchTrainCommand _launchTrainCommand;
+        private SpawnTrainCommand _launchTrainCommand;
 
         [Inject]
-        public void Inject(PathsMap map, LaunchTrainCommand launchTrainCommand)
+        public void Inject(PathsMap map, SpawnTrainCommand launchTrainCommand)
         {
             _map = map;
             _launchTrainCommand = launchTrainCommand;

@@ -66,12 +66,11 @@ namespace ZE.NodeStation
         // use only for first-time position
         // because all bogies position depends on first pos
         // that can cause instant rail-change when entering reversed dividing path
-
-        // TODO: there is a problem. If front bogie positions before divider, and rear - after, 
-        // rear one can go on other track when moving
         public override void SetPosition(in RailPosition pos)
         {
-            base.SetPosition(pos);
+            var firstBogieOffset = Config.TrainCompositionConfig.GetFirstBogieSpawnOffset();
+            var movedPos = RailMovementCalculator.MoveNext(pos, new(firstBogieOffset, pos.IsReversed));
+            base.SetPosition(movedPos.Position);
 
             var frontBogiePos = FirstBogiePosition;
             for (var i = 0; i < _cars.Length; i++)

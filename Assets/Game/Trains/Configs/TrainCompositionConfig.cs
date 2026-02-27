@@ -19,5 +19,31 @@ namespace ZE.NodeStation
             }
             return length;
         }
+
+        public override float GetFrontOverhang()
+        {
+            if (_railCars.Length == 0)
+                return 0f;
+
+            var config = _railCars[0].Configuration;
+            if (config == null)
+                return 0f;
+
+           
+            return config.CarLength * 0.5f - config.FrontBogeyOffset;
+        }
+
+        public override float GetRearOverhang()
+        {
+            if (_railCars.Length == 0)
+                return 0f;
+
+            var config = _railCars[_railCars.Length - 1].Configuration;
+            if (config == null)
+                return 0f;
+
+
+            return config.CarLength * 0.5f - Mathf.Abs(config.RearBogeyOffset);
+        }
     }
 }

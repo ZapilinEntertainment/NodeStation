@@ -45,12 +45,12 @@ namespace ZE.NodeStation
 
         public void OnRelease() 
         {
-            _subscriptions.Dispose();
-            _subscriptions = null;
+            _subscriptions.Clear();
         }
 
         public void FinalDispose()
         {
+            _subscriptions.Dispose();
             _pool = null;
             _buttonClickCommand.Dispose();
             Destroy(gameObject);            

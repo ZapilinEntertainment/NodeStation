@@ -5,12 +5,12 @@ using VContainer;
 namespace ZE.NodeStation
 {
     // TODO: rework to signal + controller
-    public class LaunchTrainCommand
+    public class SpawnTrainCommand
     {
 
         private readonly TrainFactory _trainFactory;
 
-        public LaunchTrainCommand(TrainFactory trainFactory)
+        public SpawnTrainCommand(TrainFactory trainFactory)
         {
             _trainFactory = trainFactory;
         }

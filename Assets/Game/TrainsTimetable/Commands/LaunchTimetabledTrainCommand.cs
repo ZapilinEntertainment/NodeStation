@@ -6,14 +6,14 @@ namespace ZE.NodeStation
 {
     public class LaunchTimetabledTrainCommand
     {
-        private readonly LaunchTrainCommand _launchCommand;
+        private readonly SpawnTrainCommand _launchCommand;
         private readonly RoutesManager _routesManager;
         private readonly PathsMap _map;
         private readonly IMessageBroker _messageBroker;
 
         [Inject]
         public LaunchTimetabledTrainCommand(
-            LaunchTrainCommand launchCommand, 
+            SpawnTrainCommand launchCommand, 
             RoutesManager routesManager,
             PathsMap map,
             IMessageBroker messageBroker)

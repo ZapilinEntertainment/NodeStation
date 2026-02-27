@@ -52,7 +52,7 @@ namespace ZE.NodeStation
             }
 
             var isReversed = path.PathKey.StartNodeKey == exitNodeKey;
-            return path.GetPosition(isReversed ? 0f: 1f, isReversed);
+            return path.GetPosition(isReversed ? 1f: 0f, isReversed);
         }
 
     }

@@ -17,24 +17,30 @@ namespace ZE.NodeStation
 
         public void Setup(SetupProtocol protocol)
         {
-            if (protocol.FrontColor != Color.clear)
-            {
-                _frontLight.color = protocol.FrontColor;
-                _frontLight.enabled = true;
-            }
-            else
-            {
-                _frontLight.enabled = false;
+            if (_frontLight != null) 
+            { 
+                if (protocol.FrontColor != Color.clear)
+                {
+                    _frontLight.color = protocol.FrontColor;
+                    _frontLight.enabled = true;
+                }
+                else
+                {
+                    _frontLight.enabled = false;
+                }
             }
 
-            if (protocol.RearColor != Color.clear)
-            {
-                _rearLight.color = protocol.RearColor;
-                _rearLight.enabled = true;
-            }
-            else
-            {
-                _rearLight.enabled = false;
+            if (_rearLight != null) 
+            { 
+                if (protocol.RearColor != Color.clear)
+                {
+                    _rearLight.color = protocol.RearColor;
+                    _rearLight.enabled = true;
+                }
+                else
+                {
+                    _rearLight.enabled = false;
+                }
             }
         }
     }

@@ -8,6 +8,9 @@ namespace ZE.NodeStation
     {
         [SerializeField] private Color _frontColor = Color.blue;
         [SerializeField] private Color _rearColor = Color.red;
+        [SerializeField] private float _frontOffset = 0f;
+        [SerializeField] private float _rearOffset = 0f;
+
         private RailMovementCalculator _calculator;        
         private PathsMap _pathsMap;
         private RouteSemaphoresController _controller;
@@ -31,11 +34,11 @@ namespace ZE.NodeStation
             if (_controller == null || _route == null)
                 return;
 
-            var lastBogieDist = _controller.LastBogieDist;
+            var lastBogieDist = _controller.LastBogieDist + _rearOffset;
             if (lastBogieDist < 0f) lastBogieDist = 0f;
             var lastBogieDistDrawn = false;
 
-            var firstBogieDist = _controller.FirstBogieDist;
+            var firstBogieDist = _controller.FirstBogieDist + _frontOffset;
             if (firstBogieDist < 0f) firstBogieDist = 0f;
             var firstBogieDistDrawn = false;
 

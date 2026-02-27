@@ -30,13 +30,13 @@ namespace ZE.NodeStation
                 Debug.LogError("timetabled train have no route");
                 return null;
             }
-
-            var timeUntilArrival = (_timeManager.CurrentTime - train.TrainLaunchTime).Seconds;
-            var trainConfig = train.SpawnInfo.TrainConfiguration;
-            var firstBogieDistance = timeUntilArrival * trainConfig.MaxSpeed * -1f;
-            var lastBogieDistance = firstBogieDistance - trainConfig.TrainCompositionConfig.CalculateTrainLength();
-
             var semaphoresData = _prepareSemaphoresDataCommand.Execute(route);
+
+            var firstBogiePos = CalculateFirstBogiePos(train);
+            var timeUntilArrival = (_timeManager.CurrentTime - train.TrainLaunchTime).Seconds;
+            var lastBogieDistance = timeUntilArrival * train.SpawnInfo.TrainConfiguration.MaxSpeed * -1f;
+            var firstBogieDistance = lastBogieDistance + firstBogiePos;
+            
 
             var controller =  new RouteSemaphoresController(
                 route: route, 
@@ -44,7 +44,7 @@ namespace ZE.NodeStation
                 semaphoresData: semaphoresData,
                 igniteDistance: Constants.SEMAPHORE_IGNITE_DISTANCE,
                 extinguishDistance: Constants.SEMAPHORE_EXTINGUISH_DISTANCE,
-                firstBogieDistance: firstBogieDistance,
+                firstBogieDistance: firstBogiePos,
                 lastBogieDistance: lastBogieDistance);
 
 #if UNITY_EDITOR
@@ -53,6 +53,14 @@ namespace ZE.NodeStation
 #endif
 
             return controller;
+        }
+
+        private float CalculateFirstBogiePos(TimetabledTrain train)
+        {
+            var compositionConfig = train.SpawnInfo.TrainConfiguration.TrainCompositionConfig;
+
+            // last bogie pos is 0
+            return compositionConfig.CalculateTrainLength() - compositionConfig.GetRearOverhang() - compositionConfig.GetFrontOverhang();
         }
     
     }

@@ -40,7 +40,7 @@ namespace ZE.NodeStation
             _firstBogieDist = firstBogieDistance;
             _lastBogieDist = lastBogieDistance;
 
-            _actualSemaphoresActivity = new(_semaphoreData.Count, false);
+            _actualSemaphoresActivity = new(_semaphoreData.Count, false);    
         }
 
         public void OnTrainMove(float travelledDistance)
@@ -81,7 +81,15 @@ namespace ZE.NodeStation
             if (_actualSemaphoresActivity[index] == isActive)
                 return;
 
-            _actualSemaphoresActivity[index] = isActive;
+            // first switch debug:
+            if (isActive) 
+            {
+                //Debug.Log(_semaphoreData[index].Semaphore.MapPosition.Path);
+                //var firstBogieDelta = _firstBogieDist - _semaphoreData[index].Distance;
+                //Debug.Log(firstBogieDelta);
+            }
+
+            _actualSemaphoresActivity[index] = isActive;            
             var data = _semaphoreData[index];
             if (isActive)
                 _semaphoresManager.IgniteSemaphore(data.Semaphore, _route, data.IsFront);

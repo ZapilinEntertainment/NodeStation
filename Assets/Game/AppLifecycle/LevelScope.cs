@@ -58,7 +58,7 @@ namespace ZE.NodeStation
             builder.RegisterInstance(_timeWindow);
             builder.Register<TimeWindowController>(Lifetime.Scoped);
 
-            builder.Register<LaunchTrainCommand>(Lifetime.Scoped);
+            builder.Register<SpawnTrainCommand>(Lifetime.Scoped);
             builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
 
             builder.Register<RouteSemaphoresSupervisor>(Lifetime.Scoped);
