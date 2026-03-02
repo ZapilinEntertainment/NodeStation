@@ -11,14 +11,20 @@ namespace ZE.NodeStation
         private readonly RouteDrawManager _routeDrawManager;
         private readonly RoutesManager _routesManager;
         private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();
+        private readonly IGUIColorsPalette _guiColorsPalette;
         private IRoute _currentVisibleRoute;
 
         [Inject]
-        public TrainsTimetableWindowController(TrainsTimetableWindow window, RouteDrawManager routeDrawManager, RoutesManager routesManager)
+        public TrainsTimetableWindowController(
+            TrainsTimetableWindow window, 
+            RouteDrawManager routeDrawManager, 
+            RoutesManager routesManager,
+            IGUIColorsPalette guiColorsPalette)
         {
             _window = window;
             _routeDrawManager = routeDrawManager;
             _routesManager = routesManager;
+            _guiColorsPalette = guiColorsPalette;
         }
 
         public void AddLine(TimetabledTrain train)
@@ -28,8 +34,11 @@ namespace ZE.NodeStation
             var appearTime = train.TrainLaunchTime;
             var timeLabel = $"d:{appearTime.Days:D1} {appearTime.Hours:D2}:{appearTime.Minutes:D2}";
 
+            var bgColor = _routesManager.TryGetRoute(train, out var route) ? _guiColorsPalette.GetGUIColor(route.ColorKey) : Color.white;
+            
             line.Setup(new()
             {
+                BgColor = bgColor,
                 RouteLabel = train.LabelText,
                 TimeLabel = timeLabel,
                 StatusProperty = train.StatusProperty,
@@ -55,7 +64,7 @@ namespace ZE.NodeStation
         {
             if (_lines.TryGetValue(train, out var line))
             {
-                line.Dispose();
+                line?.Dispose();
                 _lines.Remove(train);
             }
         }

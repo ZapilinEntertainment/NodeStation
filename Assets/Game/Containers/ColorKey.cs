@@ -4,7 +4,7 @@ namespace ZE.NodeStation
 {
     public enum ColorKey
     {
-        White, Blue, Red
+        White, Blue, Red, Green, Yellow, Cyan
     
     }
 }

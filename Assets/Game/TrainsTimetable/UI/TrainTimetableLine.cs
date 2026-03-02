@@ -11,6 +11,7 @@ namespace ZE.NodeStation
     {
         public struct SetupProtocol
         {
+            public Color BgColor;
             public string RouteLabel;
             public string TimeLabel;
             public Action OnClickAction;
@@ -20,6 +21,7 @@ namespace ZE.NodeStation
         [SerializeField] private TextMeshProUGUI _routeLabel;
         [SerializeField] private TextMeshProUGUI _timeLabel;
         [SerializeField] private Image _statusImage;
+        [SerializeField] private Image _colouredBgImage;
         [SerializeField] private Button _button;
 
         private bool _isDestroyed = false;
@@ -31,20 +33,30 @@ namespace ZE.NodeStation
         {
             _routeLabel.text = protocol.RouteLabel;
             _timeLabel.text = protocol.TimeLabel;
+            _colouredBgImage.color = protocol.BgColor;
            
             _buttonClickCommand.Subscribe(_ => protocol.OnClickAction?.Invoke()).AddTo(_subscriptions);
             protocol.StatusProperty.Subscribe(OnStatusChanged).AddTo(_subscriptions);
             _buttonClickCommand.BindTo(_button).AddTo(_subscriptions);
         }
 
-        public void Dispose() => _pool.Release(this);
+        public void Dispose() 
+        {
+           
+            _pool.Release(this);
+        }
 
         public void AssignToPool(IObjectPool<TrainTimetableLine> pool) => _pool = pool;
 
-        public void OnGet() { }
+        public void OnGet() 
+        {
+            gameObject.SetActive(true);
+        }
 
         public void OnRelease() 
         {
+            if (gameObject != null)
+                gameObject.SetActive(false);
             _subscriptions.Clear();
         }
 

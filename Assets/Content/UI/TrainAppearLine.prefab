@@ -442,6 +442,7 @@ MonoBehaviour:
   _routeLabel: {fileID: 5822038925773378850}
   _timeLabel: {fileID: 1246205932885672362}
   _statusImage: {fileID: 7389517807421546762}
+  _colouredBgImage: {fileID: 1624320916079394082}
   _button: {fileID: 2290158025768394612}
 --- !u!114 &2290158025768394612
 MonoBehaviour:
@@ -464,7 +465,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.20227209, g: 0.6698113, b: 0.1990477, a: 0.56078434}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.56078434}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.24705882}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.3137255}

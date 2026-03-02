@@ -944,13 +944,13 @@ MonoBehaviour:
   _pathsConstructor: {fileID: 1718639312}
   _dragWindow: {fileID: 1766005711}
   _cameraController: {fileID: 330585549}
-  _levelConfig: {fileID: 11400000, guid: 503848696e9a1bb4a82dc6b5cc20dc48, type: 2}
+  _levelConfig: {fileID: 11400000, guid: 73a5e53a5b931e54cb149e83ca4d11c6, type: 2}
   _timetableWindow: {fileID: 500088054}
   _timeWindow: {fileID: 432036141}
   _routePointDrawer: {fileID: 2464172477405051001, guid: 34547d9d7a17e00438a3d51958505579, type: 3}
   _segmentLineDrawer: {fileID: 5185787143834030628, guid: 121c4b1bc436dfd47ad6d46b46c76cb2, type: 3}
   _guiColors: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
-  _lightColors: {fileID: 11400000, guid: 7658839bb424ba34a835ef0b65a0c5a5, type: 2}
+  _lightColors: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
 --- !u!4 &364135109
 Transform:
   m_ObjectHideFlags: 0
@@ -7124,15 +7124,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Percent
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Path.EndNodeKey
-      value: 13
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2641033320084053796, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: <MapPosition>k__BackingField.Path.StartNodeKey
-      value: 15
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2823653884327829984, guid: 703727e138a0c9241b1efcbd330d96aa, type: 3}
       propertyPath: m_LocalPosition.x
