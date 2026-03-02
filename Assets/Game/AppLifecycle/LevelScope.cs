@@ -50,7 +50,7 @@ namespace ZE.NodeStation
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
 
-            builder.Register<TrainsTimetableController>(Lifetime.Scoped);
+            builder.Register<TrainsTimetableController>(Lifetime.Scoped).As<ITimetabledTrainsList>().AsSelf();
             builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);            
             builder.RegisterInstance(_timetableWindow);
             builder.Register<TrainsTimetableWindowController>(Lifetime.Scoped);

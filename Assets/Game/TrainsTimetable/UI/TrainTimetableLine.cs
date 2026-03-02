@@ -41,8 +41,9 @@ namespace ZE.NodeStation
         }
 
         public void Dispose() 
-        {
-           
+        {           
+            if (_isDestroyed)
+                return;
             _pool.Release(this);
         }
 

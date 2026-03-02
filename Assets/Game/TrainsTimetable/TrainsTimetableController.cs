@@ -7,8 +7,10 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
-    public class TrainsTimetableController : IDisposable
+    public class TrainsTimetableController : IDisposable, ITimetabledTrainsList
     {
+        public IReadOnlyList<TimetabledTrain> Trains => _trains;
+
         private readonly LevelConfig _levelConfig;
         private readonly List<TimetabledTrain> _trains;
         private readonly TimetabledTrainBuilder _timetabledTrainBuilder;
