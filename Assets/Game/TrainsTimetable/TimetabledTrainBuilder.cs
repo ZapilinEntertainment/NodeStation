@@ -26,7 +26,7 @@ namespace ZE.NodeStation
             var train = new TimetabledTrain(
                 labelAppearTime: labelAppearTime, 
                 launchTime: labelAppearTime.Add(trainAppearInfo.WarningTime),
-                labelText: BuildRouteLabel(trainAppearInfo),
+                routeText: BuildRouteLabel(trainAppearInfo),
                 spawnInfo: new(trainAppearInfo.TrainConfig, spawnPoint));
 
             var routeParameters = new RouteSettings()

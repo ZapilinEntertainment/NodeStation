@@ -8,7 +8,7 @@ namespace ZE.NodeStation
     {
         public readonly TimeSpan LabelAppearTime;
         public readonly TimeSpan TrainLaunchTime;
-        public readonly string LabelText;
+        public readonly string RouteText;
         public readonly TimetabledTrainSpawnInfo SpawnInfo;
         public event Action DisposeEvent;
 
@@ -22,9 +22,9 @@ namespace ZE.NodeStation
         private ReactiveProperty<TimetabledTrainStatus> _statusProperty = new();
 
 
-        public TimetabledTrain(TimeSpan labelAppearTime, TimeSpan launchTime, string labelText, in TimetabledTrainSpawnInfo spawnInfo)
+        public TimetabledTrain(TimeSpan labelAppearTime, TimeSpan launchTime, string routeText, in TimetabledTrainSpawnInfo spawnInfo)
         {
-            LabelText = labelText;
+            RouteText = routeText;
             LabelAppearTime = labelAppearTime;
             TrainLaunchTime = launchTime;
             Status = TimetabledTrainStatus.NotReady;

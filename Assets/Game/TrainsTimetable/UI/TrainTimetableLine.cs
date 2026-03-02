@@ -11,17 +11,18 @@ namespace ZE.NodeStation
     {
         public struct SetupProtocol
         {
-            public Color BgColor;
+            public Color Color;
             public string RouteLabel;
-            public string TimeLabel;
             public Action OnClickAction;
             public IReadOnlyReactiveProperty<TimetabledTrainStatus> StatusProperty;
+            public IObservable<float> ArrivalProgressObservable;
+            public IObservable<bool> IsLineSelectedObservable;
         }
 
         [SerializeField] private TextMeshProUGUI _routeLabel;
-        [SerializeField] private TextMeshProUGUI _timeLabel;
-        [SerializeField] private Image _statusImage;
-        [SerializeField] private Image _colouredBgImage;
+        [SerializeField] private MonoPropertyGroup _statusGroup;
+        [SerializeField] private Image[] _colouringImages;
+        [SerializeField] private Image _arrivalProgressImage;
         [SerializeField] private Button _button;
 
         private bool _isDestroyed = false;
@@ -32,12 +33,22 @@ namespace ZE.NodeStation
         public void Setup(SetupProtocol protocol)
         {
             _routeLabel.text = protocol.RouteLabel;
-            _timeLabel.text = protocol.TimeLabel;
-            _colouredBgImage.color = protocol.BgColor;
+            foreach (var image in _colouringImages)
+            {
+                image.color = protocol.Color;
+            }
            
             _buttonClickCommand.Subscribe(_ => protocol.OnClickAction?.Invoke()).AddTo(_subscriptions);
             protocol.StatusProperty.Subscribe(OnStatusChanged).AddTo(_subscriptions);
             _buttonClickCommand.BindTo(_button).AddTo(_subscriptions);
+
+            protocol.ArrivalProgressObservable
+                .Subscribe(x => _arrivalProgressImage.fillAmount = x)
+                .AddTo(_subscriptions);
+
+            protocol.IsLineSelectedObservable
+                .Subscribe(x => _statusGroup.SwitchState(x ? 1 : 0))
+                .AddTo(_subscriptions);
         }
 
         public void Dispose() 
