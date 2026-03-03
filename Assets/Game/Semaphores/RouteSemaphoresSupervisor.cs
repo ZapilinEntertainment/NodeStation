@@ -27,7 +27,8 @@ namespace ZE.NodeStation
             IMessageBroker messageBroker, 
             TickableManager tickableManager,
             RouteSemaphoreControllerBuilder controllersBuilder,
-            RoutesManager routesManager)
+            RoutesManager routesManager,
+            ITimetabledTrainsList trainsList)
         {
             _builder = controllersBuilder;
             _routesManager = routesManager;
@@ -42,7 +43,8 @@ namespace ZE.NodeStation
 
             tickableManager.AddAsSubscription(this).AddTo(_compositeDisposable);
 
-
+            foreach (var train in trainsList.Trains) 
+                OnTrainAnnounced(train);
         }
 
         public void Tick()
@@ -102,9 +104,10 @@ namespace ZE.NodeStation
             _compositeDisposable.Dispose();
         }        
 
-        private void OnTrainAnnounced(TrainAnnouncedMessage msg)
+        private void OnTrainAnnounced(TrainAnnouncedMessage msg) => OnTrainAnnounced(msg.Train);
+
+        private void OnTrainAnnounced(TimetabledTrain train)
         {
-            var train = msg.Train;
             if (!_routesManager.TryGetRoute(train, out var route))
                 return;
 
