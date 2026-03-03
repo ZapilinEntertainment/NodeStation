@@ -31,6 +31,8 @@ namespace ZE.NodeStation
 
         [field:SerializeField] public Transform LinesHost { get;private set; }
         [field:SerializeField] public TrainTimetableLine _linePrefab;
+        [field:SerializeField] public RouteHighlightWindow RouteHighlightWindow { get; private set; }
+
         private TrainLinesPool _linesPool;
 
         public IObjectPool<TrainTimetableLine> GetOrCreateLinesPool()

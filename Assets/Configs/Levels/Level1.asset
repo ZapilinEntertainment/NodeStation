@@ -25,7 +25,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 0
+      Minute: 1
     WarningTimeInMinutes: 10
     SpawnNodeKey: 16
     TargetNodeKey: 0

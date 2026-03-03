@@ -8,13 +8,23 @@ namespace ZE.NodeStation
 {
     public class TrainsTimetableWindowController : IDisposable
     {
+        public struct HighlightedData
+        {
+            public IRoute Route;
+            public TimetabledTrain Train;
+
+            public bool IsEmpty => Route == null || Train == null;
+        }
+
         private readonly TrainsTimetableWindow _window;
         private readonly RouteDrawManager _routeDrawManager;
         private readonly RoutesManager _routesManager;
         private readonly TimeManager _timeManager;
-        private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();
         private readonly IGUIColorsPalette _guiColorsPalette;
-        private readonly ReactiveProperty<IRoute> _highlightingRouteProperty = new();
+
+        private readonly RouteHighlightWindowController _routeHighlightWindowController;
+        private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();        
+        private readonly ReactiveProperty<HighlightedData> _highlightingProperty = new();
 
         [Inject]
         public TrainsTimetableWindowController(
@@ -29,6 +39,9 @@ namespace ZE.NodeStation
             _routesManager = routesManager;
             _timeManager = timeManager;
             _guiColorsPalette = guiColorsPalette;
+
+            _routeHighlightWindowController = new RouteHighlightWindowController(_window.RouteHighlightWindow, _timeManager, _guiColorsPalette);
+            _routeHighlightWindowController.Init(_highlightingProperty, StopHighlighting);
         }
 
         public void AddLine(TimetabledTrain train)
@@ -51,8 +64,8 @@ namespace ZE.NodeStation
                     return Mathf.Clamp01(1f - delta / periodTicks);
                 });
 
-            var isLineSelectedObservable = _highlightingRouteProperty
-                .Select( currentRoute => currentRoute == route );
+            var isLineSelectedObservable = _highlightingProperty
+                .Select( data => data.Route == route );
 
             line.Setup(new()
             {
@@ -78,7 +91,7 @@ namespace ZE.NodeStation
                 _lines.Clear();
             }
 
-            _highlightingRouteProperty.Dispose();
+            _routeHighlightWindowController.Dispose();
         }
 
         private void OnTrainDisposed(TimetabledTrain train)
@@ -88,17 +101,29 @@ namespace ZE.NodeStation
                 line?.Dispose();
                 _lines.Remove(train);
             }
+
+            if (train == _highlightingProperty.Value.Train)
+                StopHighlighting();
         }
 
         private void OnTrainLineClicked(TimetabledTrain train)
         {
             if (_routesManager.TryGetRoute(train, out var route))
             {
-                if (_highlightingRouteProperty.Value != null)
-                    _routeDrawManager.ClearRouteDrawing(_highlightingRouteProperty.Value);
+                if (!_highlightingProperty.Value.IsEmpty)
+                    _routeDrawManager.ClearRouteDrawing(_highlightingProperty.Value.Route);
                 _routeDrawManager.DrawRoute(route);
-                _highlightingRouteProperty.Value = route;
+                _highlightingProperty.Value = new() { Route = route, Train = train };
             }                
+        }
+
+        private void StopHighlighting()
+        {
+            if (_highlightingProperty.Value.IsEmpty)
+                return;
+
+            _routeDrawManager.ClearRouteDrawing(_highlightingProperty.Value.Route);
+            _highlightingProperty.Value = default;
         }
     }
 }

@@ -3,7 +3,7 @@ using TriInspector;
 
 namespace ZE.NodeStation
 {
-    public abstract class MonoPropertySwitcher : MonoBehaviour
+    public abstract class MonoPropertySwitcher : DisposableMonoBehaviour
     {
         [SerializeField, OnValueChanged(nameof(EDITOR_ChangeState))] private int _currentState;
 
@@ -12,6 +12,8 @@ namespace ZE.NodeStation
 
         public void SwitchState(int state)
         {
+            if (IsDisposed)
+                return;
             state = Mathf.Clamp(state, 0, StatesCount);
             _currentState = state;
             OnStateChanged(state);
