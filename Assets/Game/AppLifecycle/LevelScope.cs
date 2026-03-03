@@ -24,7 +24,6 @@ namespace ZE.NodeStation
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_cameraController).As<ICameraController>();
             builder.RegisterInstance(_levelConfig);
            
             builder.Register<TickableManager>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
@@ -65,19 +64,22 @@ namespace ZE.NodeStation
             builder.Register<RouteSemaphoresSupervisor>(Lifetime.Scoped);
             builder.Register<PrepareRouteSemaphoresDataCommand>(Lifetime.Scoped);
             builder.Register<SemaphoresManager>(Lifetime.Scoped);
-            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);
+            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);            
 
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);  
             
             #if UNITY_EDITOR
             // NOTE: Sometimes produce hidden error and dont dispose!!!
             builder.RegisterDisposeCallback(_ => Debug.Log("level scope disposed"));
-            #endif
+#endif
 
             // todo: move to app scope
+            builder.RegisterInstance(_cameraController).As<ICameraController>();
             builder.RegisterInstance<IGUIColorsPalette>(_guiColors);
             builder.RegisterInstance<ILightColorsPalette>(_lightColors);
             PreparePools(builder);
+
+            builder.RegisterEntryPoint<HighlightEffectController>(Lifetime.Singleton);
 
             var messageBroker = MessageBroker.Default;
             builder.RegisterInstance(messageBroker);

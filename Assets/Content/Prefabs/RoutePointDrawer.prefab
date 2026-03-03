@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1109361846960490845}
   - component: {fileID: 3515390452654001581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
