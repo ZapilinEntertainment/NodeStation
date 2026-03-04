@@ -12,6 +12,8 @@ namespace ZE.NodeStation
 
         public void SwitchRenderMode(CameraRenderMode mode)
         {
+            if (_camera == null)
+                return;
             _cameraData = _camera.GetComponent<UniversalAdditionalCameraData>();
             _cameraData.SetRenderer((int)mode);
         }

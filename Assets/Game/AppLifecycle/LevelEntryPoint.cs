@@ -24,6 +24,7 @@ namespace ZE.NodeStation
 
             _resolver.Resolve<SemaphoresManager>().Init();
             _resolver.Resolve<RouteSemaphoresSupervisor>();
+
         }
     }
 }

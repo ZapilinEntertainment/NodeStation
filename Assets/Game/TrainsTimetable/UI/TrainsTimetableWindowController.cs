@@ -8,7 +8,7 @@ namespace ZE.NodeStation
 {
     public class TrainsTimetableWindowController : IDisposable
     {
-        public struct HighlightedData
+        public struct SelectionData
         {
             public IRoute Route;
             public TimetabledTrain Train;
@@ -16,15 +16,17 @@ namespace ZE.NodeStation
             public bool IsEmpty => Route == null || Train == null;
         }
 
+        public IReadOnlyReactiveProperty<SelectionData> SelectionProperty => _selectedProperty;
+
         private readonly TrainsTimetableWindow _window;
         private readonly RouteDrawManager _routeDrawManager;
         private readonly RoutesManager _routesManager;
         private readonly TimeManager _timeManager;
         private readonly IGUIColorsPalette _guiColorsPalette;
 
-        private readonly RouteHighlightWindowController _routeHighlightWindowController;
+        private readonly TrainRouteHighlightWindowController _routeHighlightWindowController;
         private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();        
-        private readonly ReactiveProperty<HighlightedData> _highlightingProperty = new();
+        private readonly ReactiveProperty<SelectionData> _selectedProperty = new();
 
         [Inject]
         public TrainsTimetableWindowController(
@@ -32,7 +34,8 @@ namespace ZE.NodeStation
             RouteDrawManager routeDrawManager, 
             RoutesManager routesManager,
             TimeManager timeManager,
-            IGUIColorsPalette guiColorsPalette)
+            IGUIColorsPalette guiColorsPalette,
+            ISceneFlagsManager sceneFlags)
         {
             _window = window;
             _routeDrawManager = routeDrawManager;
@@ -40,8 +43,8 @@ namespace ZE.NodeStation
             _timeManager = timeManager;
             _guiColorsPalette = guiColorsPalette;
 
-            _routeHighlightWindowController = new RouteHighlightWindowController(_window.RouteHighlightWindow, _timeManager, _guiColorsPalette);
-            _routeHighlightWindowController.Init(_highlightingProperty, StopHighlighting);
+            _routeHighlightWindowController = new TrainRouteHighlightWindowController(_window.RouteHighlightWindow, _timeManager, _guiColorsPalette, sceneFlags);
+            _routeHighlightWindowController.Init(_selectedProperty, StopHighlighting);
         }
 
         public void AddLine(TimetabledTrain train)
@@ -64,7 +67,7 @@ namespace ZE.NodeStation
                     return Mathf.Clamp01(1f - delta / periodTicks);
                 });
 
-            var isLineSelectedObservable = _highlightingProperty
+            var isLineSelectedObservable = _selectedProperty
                 .Select( data => data.Route == route );
 
             line.Setup(new()
@@ -102,7 +105,7 @@ namespace ZE.NodeStation
                 _lines.Remove(train);
             }
 
-            if (train == _highlightingProperty.Value.Train)
+            if (train == _selectedProperty.Value.Train)
                 StopHighlighting();
         }
 
@@ -110,20 +113,20 @@ namespace ZE.NodeStation
         {
             if (_routesManager.TryGetRoute(train, out var route))
             {
-                if (!_highlightingProperty.Value.IsEmpty)
-                    _routeDrawManager.ClearRouteDrawing(_highlightingProperty.Value.Route);
+                if (!_selectedProperty.Value.IsEmpty)
+                    _routeDrawManager.ClearRouteDrawing(_selectedProperty.Value.Route);
                 _routeDrawManager.DrawRoute(route);
-                _highlightingProperty.Value = new() { Route = route, Train = train };
+                _selectedProperty.Value = new() { Route = route, Train = train };
             }                
         }
 
         private void StopHighlighting()
         {
-            if (_highlightingProperty.Value.IsEmpty)
+            if (_selectedProperty.Value.IsEmpty)
                 return;
 
-            _routeDrawManager.ClearRouteDrawing(_highlightingProperty.Value.Route);
-            _highlightingProperty.Value = default;
+            _routeDrawManager.ClearRouteDrawing(_selectedProperty.Value.Route);
+            _selectedProperty.Value = default;
         }
     }
 }

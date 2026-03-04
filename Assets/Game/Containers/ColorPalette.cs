@@ -6,7 +6,7 @@ namespace ZE.NodeStation
     [CreateAssetMenu(fileName = nameof(ColorPalette), menuName = Constants.ScriptableObjectsFolderPath + nameof(ColorPalette))]
 
     // NOTE: we also can use binding by key, instead of multiple interfaces (VContainer feature)
-    public class ColorPalette : ScriptableObject, IGUIColorsPalette, ILightColorsPalette
+    public class ColorPalette : ScriptableObject, IGUIColorsPalette, ILightColorsPalette, IMaterialColorsPalette
     {
         [SerializeField] private SerializedDictionary<ColorKey, Color> _colors;
     
@@ -15,6 +15,8 @@ namespace ZE.NodeStation
         public Color GetGUIColor(ColorKey key) => GetColor(key);
 
         public Color GetLightColor(ColorKey key) => GetColor(key);
+
+        public Color GetMaterialColor(ColorKey key) => GetColor(key);
     }
 
     public interface IGUIColorsPalette
@@ -25,5 +27,10 @@ namespace ZE.NodeStation
     public interface ILightColorsPalette
     {
         Color GetLightColor(ColorKey key);
+    }
+
+    public interface IMaterialColorsPalette
+    {
+        Color GetMaterialColor(ColorKey key);
     }
 }

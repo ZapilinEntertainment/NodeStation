@@ -2,6 +2,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using UniRx;
+using ZE.Flags;
 
 namespace ZE.NodeStation
 {
@@ -19,6 +20,8 @@ namespace ZE.NodeStation
         [SerializeField] private RouteSegmentLineDrawer _segmentLineDrawer;
         [SerializeField] private ColorPalette _guiColors;
         [SerializeField] private ColorPalette _lightColors;
+        [SerializeField] private ColorPalette _materialColors;
+        [SerializeField] private HighlightMaterialsPack _highlightMaterialsPack;
 
         private PathsMap _pathsMap;
 
@@ -54,6 +57,8 @@ namespace ZE.NodeStation
             builder.RegisterInstance(_timetableWindow);
             builder.Register<TrainsTimetableWindowController>(Lifetime.Scoped);
 
+            builder.RegisterEntryPoint<TrainRouteHighlightEffectController>(Lifetime.Singleton);
+
             builder.Register<TimeManager>(Lifetime.Scoped);
             builder.RegisterInstance(_timeWindow);
             builder.Register<TimeWindowController>(Lifetime.Scoped);
@@ -64,7 +69,9 @@ namespace ZE.NodeStation
             builder.Register<RouteSemaphoresSupervisor>(Lifetime.Scoped);
             builder.Register<PrepareRouteSemaphoresDataCommand>(Lifetime.Scoped);
             builder.Register<SemaphoresManager>(Lifetime.Scoped);
-            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);            
+            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);  
+            
+            builder.Register<ISceneFlagsManager, SceneFlagsManager>(Lifetime.Scoped);
 
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);  
             
@@ -77,9 +84,9 @@ namespace ZE.NodeStation
             builder.RegisterInstance(_cameraController).As<ICameraController>();
             builder.RegisterInstance<IGUIColorsPalette>(_guiColors);
             builder.RegisterInstance<ILightColorsPalette>(_lightColors);
-            PreparePools(builder);
-
-            builder.RegisterEntryPoint<HighlightEffectController>(Lifetime.Singleton);
+            builder.RegisterInstance<IMaterialColorsPalette>(_materialColors);
+            builder.RegisterInstance(_highlightMaterialsPack);
+            PreparePools(builder);            
 
             var messageBroker = MessageBroker.Default;
             builder.RegisterInstance(messageBroker);

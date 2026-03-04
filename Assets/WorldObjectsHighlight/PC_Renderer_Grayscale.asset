@@ -22,10 +22,10 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 256
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 0b63a658bcc2c934bb9f94ebc099a92c, type: 2}
+    overrideMaterial: {fileID: 2100000, guid: 68dc683d3638c58448e0bee2eeba442f, type: 2}
     overrideMaterialPassIndex: 0
-    overrideShader: {fileID: 0}
-    overrideShaderPassIndex: 0
+    overrideShader: {fileID: -6465566751694194690, guid: d27508fdb3e709c42ace5d95f7e6e77d, type: 3}
+    overrideShaderPassIndex: 1
     overrideMode: 1
     overrideDepthState: 0
     depthCompareFunction: 4
@@ -157,11 +157,11 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 256
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: f80416ffe12bc3242a3d0a1cfe758aff, type: 2}
+    overrideMaterial: {fileID: 2100000, guid: ce741db67b3507544af2bad080645adb, type: 2}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
-    overrideMode: 1
+    overrideMode: 0
     overrideDepthState: 0
     depthCompareFunction: 4
     enableWrite: 1

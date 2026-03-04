@@ -4,21 +4,29 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
-    public class RouteHighlightWindowController : IDisposable
+    public class TrainRouteHighlightWindowController : IDisposable
     {
         private readonly RouteHighlightWindow _window;
         private readonly TimeManager _timeManager;
+        private readonly ISceneFlagsManager _flags;
         private readonly IGUIColorsPalette _guiColors;
-        private IDisposable _subscription;
 
-        public RouteHighlightWindowController(RouteHighlightWindow window, TimeManager timeManager, IGUIColorsPalette guiColors)
+        private CompositeDisposable _compositeDisposable = new();
+        private TrainRouteHighlightFlag _routeHighlightFlag;
+
+        public TrainRouteHighlightWindowController(
+            RouteHighlightWindow window, 
+            TimeManager timeManager, 
+            IGUIColorsPalette guiColors,
+            ISceneFlagsManager flags)
         {
             _window = window;
             _timeManager = timeManager;
             _guiColors = guiColors;
+            _flags = flags;
         }
-
-        public void Init(IReadOnlyReactiveProperty<TrainsTimetableWindowController.HighlightedData> highlightProperty, Action cancelAction)
+        
+        public void Init(IReadOnlyReactiveProperty<TrainsTimetableWindowController.SelectionData> highlightProperty, Action cancelAction)
         {
             var existingRouteData = highlightProperty.Where(data => !data.IsEmpty);
 
@@ -26,7 +34,7 @@ namespace ZE.NodeStation
                 existingRouteData
                 .CombineLatest(
                     _timeManager.CurrentTimeProperty, 
-                    (TrainsTimetableWindowController.HighlightedData data, TimeSpan currentTime) => 
+                    (TrainsTimetableWindowController.SelectionData data, TimeSpan currentTime) => 
                     {
                         var launchTime = data.Train.TrainLaunchTime;
                         if (currentTime < launchTime) 
@@ -49,23 +57,44 @@ namespace ZE.NodeStation
                     RouteLabel = data.Train.RouteText
                 });
 
-            _subscription = highlightProperty
+            highlightProperty
                 .Select(data => data.IsEmpty)
                 .DistinctUntilChanged()
                 .Subscribe(isDataEmpty =>
                 {
                     if (isDataEmpty)
+                    {
                         _window.Hide();
+                    }                        
                     else
+                    {
+                        _window.Setup(observableRouteData, cancelAction);
                         _window.Show();
-                });
+                    }                        
+                })
+                .AddTo(_compositeDisposable);
 
-            _window.Setup(observableRouteData, cancelAction);
+            highlightProperty
+                .Subscribe(data =>
+                {
+                    if (_routeHighlightFlag != null)
+                        _flags.RemoveFlag(_routeHighlightFlag);
+
+                    if (!data.IsEmpty)
+                    {
+                        _routeHighlightFlag = new(data.Train, data.Route);
+                        _flags.AddFlag(_routeHighlightFlag);
+                    }
+                })
+                .AddTo(_compositeDisposable);
         }
 
         public void Dispose()
         {
-            _subscription.Dispose();
+            if (_flags != null && _routeHighlightFlag != null)
+                _flags.RemoveFlag(_routeHighlightFlag);
+
+            _compositeDisposable.Dispose();
             if (_window != null)
                 _window.Hide();
         }
