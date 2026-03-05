@@ -47,7 +47,7 @@ namespace ZE.NodeStation
                 if ((front && status.FrontLightRoute != null && status.FrontLightRoute != route) 
                     || (!front && status.RearLightRoute != null && status.RearLightRoute != route))
                 {
-                    Debug.LogWarning("routes conflict!");
+                    //Debug.LogWarning("routes conflict!");
                     // TODO: add visual notification
                 }
             }

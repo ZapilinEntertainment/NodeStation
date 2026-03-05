@@ -25,7 +25,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 1
+      Minute: 0
     WarningTimeInMinutes: 10
     SpawnNodeKey: 16
     TargetNodeKey: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 2
+      Minute: 5
     WarningTimeInMinutes: 19
     SpawnNodeKey: 17
     TargetNodeKey: 15
@@ -43,7 +43,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 3
+      Minute: 10
     WarningTimeInMinutes: 28
     SpawnNodeKey: 0
     TargetNodeKey: 11
@@ -52,7 +52,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 4
+      Minute: 15
     WarningTimeInMinutes: 37
     SpawnNodeKey: 14
     TargetNodeKey: 11
@@ -61,7 +61,7 @@ MonoBehaviour:
   - LabelAppearTime:
       Day: 0
       Hour: 23
-      Minute: 10
+      Minute: 20
     WarningTimeInMinutes: 40
     SpawnNodeKey: 16
     TargetNodeKey: 13

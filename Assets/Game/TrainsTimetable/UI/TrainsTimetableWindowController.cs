@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 using UniRx;
 
 namespace ZE.NodeStation
 {
-    public class TrainsTimetableWindowController : IDisposable
+    public class TrainsTimetableWindowController : IDisposable, IStartable
     {
         public struct SelectionData
         {
@@ -21,12 +22,18 @@ namespace ZE.NodeStation
         private readonly TrainsTimetableWindow _window;
         private readonly RouteDrawManager _routeDrawManager;
         private readonly RoutesManager _routesManager;
-        private readonly TimeManager _timeManager;
+        private readonly TimeManager _timeManager;       
         private readonly IGUIColorsPalette _guiColorsPalette;
+        private readonly IMessageBroker _messageBroker;
+        private readonly ITimetabledTrainsList _trainsList;
 
+        private readonly CompositeDisposable _compositeDisposable = new();
         private readonly TrainRouteHighlightWindowController _routeHighlightWindowController;
-        private readonly Dictionary<TimetabledTrain, TrainTimetableLine> _lines = new();        
+        private readonly Dictionary<TimetabledTrain, int> _activeLines = new();        
         private readonly ReactiveProperty<SelectionData> _selectedProperty = new();
+        private readonly TrainTimetableLine[] _linesInOrder = new TrainTimetableLine[Constants.MAX_ROUTE_BUTTONS];
+
+        private int _nextButtonIndex = 0;
 
         [Inject]
         public TrainsTimetableWindowController(
@@ -35,24 +42,65 @@ namespace ZE.NodeStation
             RoutesManager routesManager,
             TimeManager timeManager,
             IGUIColorsPalette guiColorsPalette,
-            ISceneFlagsManager sceneFlags)
+            ISceneFlagsManager sceneFlags,
+            IMessageBroker messageBroker,
+            ITimetabledTrainsList trainsList)
         {
             _window = window;
             _routeDrawManager = routeDrawManager;
             _routesManager = routesManager;
             _timeManager = timeManager;
             _guiColorsPalette = guiColorsPalette;
+            _messageBroker = messageBroker;
+            _trainsList = trainsList;
 
             _routeHighlightWindowController = new TrainRouteHighlightWindowController(_window.RouteHighlightWindow, _timeManager, _guiColorsPalette, sceneFlags);
             _routeHighlightWindowController.Init(_selectedProperty, StopHighlighting);
         }
 
-        public void AddLine(TimetabledTrain train)
+        public void Start()
+        {
+            var trains = _trainsList.Trains;
+            var count = Mathf.Min(trains.Count, Constants.MAX_ROUTE_BUTTONS);
+            var j = 0;
+            for (var i = 0; i< count;i++ )
+            {
+                var train = trains[i];
+                if (train.Status.CanChangeRoute())
+                {
+                    AddRouteButton(trains[i]);
+                    j++;
+                }
+                    
+            }
+
+            if (j < Constants.MAX_ROUTE_BUTTONS)
+            {
+                for (; j < Constants.MAX_ROUTE_BUTTONS; j++) 
+                {
+                    GetLineAt(j).SwitchToDisabled();
+                }
+            }
+
+            _messageBroker
+                .Receive<TrainAnnouncedMessage>()
+                .Select(msg => msg.Train)
+                .Subscribe(train => AddRouteButton(train))
+                .AddTo(_compositeDisposable);
+        }
+
+        private void AddRouteButton(TimetabledTrain train)
         {
             if (!_routesManager.TryGetRoute(train, out var route))
                 return;
 
-            var line = _window.GetOrCreateLinesPool().Get();
+            if (_activeLines.Count == Constants.MAX_ROUTE_BUTTONS)
+            {
+                Debug.LogError("too much tracking routes!");
+                return;                
+            }
+
+            var line = GetLineAt(_nextButtonIndex);
 
             var appearTime = train.TrainLaunchTime;
             float periodTicks = (appearTime - _timeManager.CurrentTime).Ticks;
@@ -79,30 +127,48 @@ namespace ZE.NodeStation
                 ArrivalProgressObservable = arrivalProgress,
                 IsLineSelectedObservable = isLineSelectedObservable
             });
-            _lines.Add(train, line);    
+            _activeLines.Add(train, _nextButtonIndex);    
             train.DisposeEvent += () => OnTrainDisposed(train);
-        }
+
+            _linesInOrder[_nextButtonIndex] = line;
+
+            for (var i = 0; i < _linesInOrder.Length; i++)
+            {
+                _nextButtonIndex = (_nextButtonIndex + 1) % Constants.MAX_ROUTE_BUTTONS;
+                if (!_activeLines.ContainsValue(_nextButtonIndex))
+                    break;
+            }
+        }       
 
         public void Dispose()
         {
-            if (_lines.Count != 0)
+            foreach (var trainLine in _linesInOrder)
             {
-                foreach (var trainLine in _lines.Values)
-                {
-                    trainLine.Dispose();
-                }
-                _lines.Clear();
+                trainLine?.Dispose();
             }
+            _activeLines.Clear();
 
             _routeHighlightWindowController.Dispose();
+            _compositeDisposable.Dispose();
+        }
+
+        private TrainTimetableLine GetLineAt(int index)
+        {
+            var line = _linesInOrder[index];
+            if (line != null)
+                return line;
+
+            line = _window.GetOrCreateLinesPool().Get();
+            _linesInOrder[index] = line;
+            return line;
         }
 
         private void OnTrainDisposed(TimetabledTrain train)
         {
-            if (_lines.TryGetValue(train, out var line))
+            if (_activeLines.TryGetValue(train, out var lineIndex))
             {
-                line?.Dispose();
-                _lines.Remove(train);
+                GetLineAt(lineIndex).SwitchToDisabled();
+                _activeLines.Remove(train);
             }
 
             if (train == _selectedProperty.Value.Train)

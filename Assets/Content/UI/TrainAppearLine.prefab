@@ -91,6 +91,7 @@ MonoBehaviour:
   _currentState: 2
   _image: {fileID: 1415658322774384803}
   _sprites:
+  - {fileID: 0}
   - {fileID: 21300000, guid: 957d7ec5816147a4abfac28b20ccee3a, type: 3}
   - {fileID: 21300000, guid: dea6e8c5ae3f13a4199d25d3a6fe3e88, type: 3}
 --- !u!1 &2256623987337997906
@@ -104,6 +105,7 @@ GameObject:
   - component: {fileID: 8098675691779222555}
   - component: {fileID: 1822967454002007288}
   - component: {fileID: 9106382422502740723}
+  - component: {fileID: 8129729370568482801}
   m_Layer: 5
   m_Name: RouteLabel
   m_TagString: Untagged
@@ -229,6 +231,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8129729370568482801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256623987337997906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ab8278fb138944e8ebb4934487940a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ActivityPropertySwitcher
+  _currentState: 2
+  _values: 000101
 --- !u!1 &2967972794250219056
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +349,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5082026434996455947}
+  - {fileID: 4281536674079937698}
   - {fileID: 9121023988622792577}
   - {fileID: 2485715189175395600}
   m_Father: {fileID: 7413068602748245737}
@@ -474,8 +491,10 @@ MonoBehaviour:
   _colouringImages:
   - {fileID: 8122553185379404952}
   - {fileID: 1415658322774384803}
+  - {fileID: 4568259445796947465}
   _arrivalProgressImage: {fileID: 8122553185379404952}
   _button: {fileID: 1267678302284058401}
+  _glow: {fileID: 4568259445796947465}
 --- !u!114 &8393475648225630145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +511,8 @@ MonoBehaviour:
   _elements:
   - {fileID: 6364192846031015424}
   - {fileID: 4339198011490701738}
+  - {fileID: 3253810243114270599}
+  - {fileID: 8129729370568482801}
 --- !u!1 &7508365033783873826
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +542,7 @@ RectTransform:
   m_GameObject: {fileID: 7508365033783873826}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5251697897337732966}
@@ -589,7 +610,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -629,8 +650,84 @@ MonoBehaviour:
   _currentState: 2
   _image: {fileID: 7576517575384278406}
   _sprites:
+  - {fileID: 21300000, guid: 644ea7af969224c4889e8df6f8c03b6f, type: 3}
   - {fileID: 21300000, guid: 445b091a81a30044081b54477aeb0ea0, type: 3}
   - {fileID: 21300000, guid: 3aafdba7acce5db4c8755a2f2301ec6b, type: 3}
+--- !u!1 &8281823045001804310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4281536674079937698}
+  - component: {fileID: 2462762991007435517}
+  - component: {fileID: 4568259445796947465}
+  m_Layer: 5
+  m_Name: Glow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4281536674079937698
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281823045001804310}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8833346559903037646}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2462762991007435517
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281823045001804310}
+  m_CullTransparentMesh: 1
+--- !u!114 &4568259445796947465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8281823045001804310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.07098794, g: 1, b: 0, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de27bf3da192f814d9fc21669e5cff35, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 0.464
+  m_FillClockwise: 1
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8684237557075531099
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +739,7 @@ GameObject:
   - component: {fileID: 5082026434996455947}
   - component: {fileID: 3540760971447265578}
   - component: {fileID: 8122553185379404952}
+  - component: {fileID: 3253810243114270599}
   m_Layer: 5
   m_Name: ArrivalProgressionHighlight
   m_TagString: Untagged
@@ -701,8 +799,22 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.464
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3253810243114270599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684237557075531099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ab8278fb138944e8ebb4934487940a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.ActivityPropertySwitcher
+  _currentState: 2
+  _values: 000101

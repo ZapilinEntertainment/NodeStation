@@ -12,7 +12,9 @@ namespace ZE.NodeStation
 
         protected override void OnStateChanged(int state)
         {
-            _image.sprite = _sprites[state];
+            var sprite = _sprites[state];
+            _image.sprite = sprite;
+            _image.enabled = sprite == null ? false : true;            
         }
     }
 }

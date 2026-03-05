@@ -6,6 +6,7 @@ namespace ZE.NodeStation
 
     public static class TimetabledTrainStatusExtension
     {
-        public static bool CanChangeRoute(this TimetabledTrainStatus status) => status == TimetabledTrainStatus.Announced || status == TimetabledTrainStatus.Launched;
+        public static bool CanChangeRoute(this TimetabledTrainStatus status) => 
+            status == TimetabledTrainStatus.Announced || status == TimetabledTrainStatus.Launched;
     }
 }

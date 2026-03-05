@@ -15,6 +15,8 @@ namespace ZE.NodeStation
 
         public const int NO_VIEW_ID = -1;
 
+        public const int MAX_ROUTE_BUTTONS = 5;
+
         public static readonly int HIGHLIGHT_COLOURED_LAYER = LayerMask.NameToLayer("HighlightColoured");
         public static readonly int GRAYSCALE_IGNORE_LAYER = LayerMask.NameToLayer("IgnoreGrayscale");
     }

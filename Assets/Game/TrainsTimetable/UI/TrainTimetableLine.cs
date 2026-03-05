@@ -9,6 +9,8 @@ namespace ZE.NodeStation
 {
     public class TrainTimetableLine : MonoBehaviour, IDisposable, IPoolable<TrainTimetableLine>
     {
+        private enum LineState : byte { Disabled, ActiveNoSelection, Selected}
+
         public struct SetupProtocol
         {
             public Color Color;
@@ -24,6 +26,7 @@ namespace ZE.NodeStation
         [SerializeField] private Image[] _colouringImages;
         [SerializeField] private Image _arrivalProgressImage;
         [SerializeField] private Button _button;
+        [SerializeField] private Image _glow;
 
         private bool _isDestroyed = false;
         private IObjectPool<TrainTimetableLine> _pool;
@@ -47,8 +50,19 @@ namespace ZE.NodeStation
                 .AddTo(_subscriptions);
 
             protocol.IsLineSelectedObservable
-                .Subscribe(x => _statusGroup.SwitchState(x ? 1 : 0))
+                .Subscribe(x => _statusGroup.SwitchState(x ? (int)LineState.Selected : (int)LineState.ActiveNoSelection))
                 .AddTo(_subscriptions);
+
+            _button.interactable = true;
+            _glow.enabled = false;
+        }
+
+        public void SwitchToDisabled()
+        {
+            Clear();
+            _button.interactable = false;
+            _glow.enabled = false;
+            _statusGroup.SwitchState((int)LineState.Disabled);
         }
 
         public void Dispose() 
@@ -69,7 +83,7 @@ namespace ZE.NodeStation
         {
             if (gameObject != null)
                 gameObject.SetActive(false);
-            _subscriptions.Clear();
+            Clear();
         }
 
         public void FinalDispose()
@@ -84,7 +98,10 @@ namespace ZE.NodeStation
         {
             if (_isDestroyed) return;
             _button.interactable = status.CanChangeRoute();
+            _glow.enabled = status == TimetabledTrainStatus.Launched;
         }
+
+        private void Clear() => _subscriptions.Clear();
 
         private void OnDestroy()
         {

@@ -57,7 +57,7 @@ namespace ZE.NodeStation
             builder.Register<TrainsTimetableController>(Lifetime.Scoped).As<ITimetabledTrainsList>().AsSelf();
             builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);            
             builder.RegisterInstance(_timetableWindow);
-            builder.Register<TrainsTimetableWindowController>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<TrainsTimetableWindowController>(Lifetime.Scoped);
 
             builder.RegisterEntryPoint<TrainRouteHighlightEffectController>(Lifetime.Scoped);
             builder.RegisterEntryPoint<TrainHighlightController>(Lifetime.Scoped);
