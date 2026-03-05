@@ -8,6 +8,12 @@ namespace ZE.NodeStation
         public TrainAnnouncedMessage(TimetabledTrain train) => Train = train;
     }
 
+    //public class TrainLaunchedMessage
+    //{
+    //    public readonly ITrain Train;
+    //    public TrainLaunchedMessage(ITrain train) => Train = train;
+    //}
+
     public class RouteDisposedMessage
     {
         public readonly RouteController RouteController;

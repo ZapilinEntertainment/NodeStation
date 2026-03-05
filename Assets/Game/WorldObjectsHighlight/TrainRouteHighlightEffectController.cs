@@ -6,6 +6,7 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
+    // apply grayscale + colouring effect when a route has been selected by player
     public class TrainRouteHighlightEffectController : IStartable, IDisposable 
     {
         private readonly ICameraController _cameraController;
@@ -48,8 +49,6 @@ namespace ZE.NodeStation
 
                 var activeHighlightFlag = _flags.GetFirstFlag<TrainRouteHighlightFlag>();
                 var color = _materialColors.GetMaterialColor(activeHighlightFlag.Route.ColorKey);
-
-                // TODO: change train view layer
 
                 Shader.SetGlobalColor(GLOBAL_HIGHLIGHT_COLOR, color);
             }

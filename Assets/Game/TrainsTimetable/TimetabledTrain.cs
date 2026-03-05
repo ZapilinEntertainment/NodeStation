@@ -45,6 +45,7 @@ namespace ZE.NodeStation
 
             Status = TimetabledTrainStatus.Disposed;
             DisposeEvent?.Invoke();
+            DisposeEvent = null;
             _statusProperty.Dispose();
         }
     }

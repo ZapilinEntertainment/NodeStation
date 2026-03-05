@@ -206,12 +206,12 @@ GameObject:
   - component: {fileID: 78959325}
   - component: {fileID: 78959324}
   m_Layer: 8
-  m_Name: Sphere
+  m_Name: colouredSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &78959324
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -297,12 +297,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78959323}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -43.8, y: 50.9, z: 152.60043}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1542423331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &91412215
 PrefabInstance:
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 934458227}
-  m_RendererIndex: 1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -1634,12 +1634,12 @@ GameObject:
   - component: {fileID: 547531352}
   - component: {fileID: 547531351}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: colouredCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &547531351
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1725,12 +1725,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547531350}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 34.24259, y: 0, z: 133.38527}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1542423331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &613194899
 GameObject:
@@ -9213,6 +9213,8 @@ Transform:
   - {fileID: 1085246078}
   - {fileID: 1243145383}
   - {fileID: 683272232}
+  - {fileID: 547531354}
+  - {fileID: 78959327}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1546244739
@@ -11824,5 +11826,3 @@ SceneRoots:
   - {fileID: 364739170}
   - {fileID: 218359906}
   - {fileID: 1542423331}
-  - {fileID: 547531354}
-  - {fileID: 78959327}

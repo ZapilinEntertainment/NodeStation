@@ -30,12 +30,13 @@ namespace ZE.NodeStation
         public bool IsReachedDestination { get; private set; } = false;
         public float Speed { get; protected set; } = 0f;
         public RailPosition FirstBogiePosition => RailPosition;
+        public abstract int ViewId { get; }
 
         protected readonly TrainConfiguration Config;
         protected readonly RailMovementCalculator RailMovementCalculator;
         protected readonly PathsMap Map;
         protected readonly ReactiveProperty<RailPosition> _railPositionProperty = new();
-        protected RailPosition RailPosition => _railPositionProperty.Value;       
+        protected RailPosition RailPosition => _railPositionProperty.Value;        
 
         protected bool _isAccelerating = false;
         protected bool _isReversed = false;
@@ -121,6 +122,8 @@ namespace ZE.NodeStation
         protected virtual void Derail()
         {
             _mode = TrainActivityMode.Disabled;
-        }       
+        }
+
+        public abstract void OnViewSet(int viewKey);
     }
 }

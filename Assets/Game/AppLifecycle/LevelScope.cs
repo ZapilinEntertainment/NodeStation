@@ -28,6 +28,8 @@ namespace ZE.NodeStation
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_levelConfig);
+
+            builder.Register<SceneViewsList>(Lifetime.Scoped);
            
             builder.Register<TickableManager>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
             builder.Register<RailMovementCalculator>(Lifetime.Scoped);
@@ -57,7 +59,8 @@ namespace ZE.NodeStation
             builder.RegisterInstance(_timetableWindow);
             builder.Register<TrainsTimetableWindowController>(Lifetime.Scoped);
 
-            builder.RegisterEntryPoint<TrainRouteHighlightEffectController>(Lifetime.Singleton);
+            builder.RegisterEntryPoint<TrainRouteHighlightEffectController>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<TrainHighlightController>(Lifetime.Scoped);
 
             builder.Register<TimeManager>(Lifetime.Scoped);
             builder.RegisterInstance(_timeWindow);

@@ -10,16 +10,19 @@ namespace ZE.NodeStation
         public event Action DisposedEvent;
         private readonly TrainBase.InjectProtocol _injectProtocol;
         private readonly RailCarBuilder _railCarBuilder;
+        private readonly SceneViewsList _sceneViewsList;
 
         [Inject]
         public TrainFactory(
             RailMovementCalculator railMovementCalculator, 
             PathsMap pathsMap, 
             TickableManager tickableManager,
-            RailCarBuilder railCarBuilder) 
+            RailCarBuilder railCarBuilder,
+            SceneViewsList sceneViewsList) 
         {
             _injectProtocol = new(railMovementCalculator, pathsMap, tickableManager);
             _railCarBuilder = railCarBuilder;
+            _sceneViewsList = sceneViewsList;
         }  
         
         public ITrain Build(TrainConfiguration config, RailPosition position)
@@ -37,6 +40,10 @@ namespace ZE.NodeStation
             train.SetupTrain(cars);
             train.SetPosition(position);
             train.Activate();
+
+            var view = new GameObject("train view").AddComponent<MultiBogeyTrainViewController>();            
+            view.Init(train, _sceneViewsList);
+            _sceneViewsList.RegisterView(view);
 
             return train;
         }

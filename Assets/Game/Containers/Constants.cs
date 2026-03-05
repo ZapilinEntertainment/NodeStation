@@ -12,5 +12,10 @@ namespace ZE.NodeStation
         
         public const float SEMAPHORE_IGNITE_DISTANCE = 250f;
         public const float SEMAPHORE_EXTINGUISH_DISTANCE = 10f;
+
+        public const int NO_VIEW_ID = -1;
+
+        public static readonly int HIGHLIGHT_COLOURED_LAYER = LayerMask.NameToLayer("HighlightColoured");
+        public static readonly int GRAYSCALE_IGNORE_LAYER = LayerMask.NameToLayer("IgnoreGrayscale");
     }
 }

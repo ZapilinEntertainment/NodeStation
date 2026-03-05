@@ -9,6 +9,7 @@ namespace ZE.NodeStation
         public RailPosition RailPosition { get; private set; }
         public Vector3 WorldPosition => RailPosition.WorldPosition;
         public Quaternion WorldRotation => RailPosition.WorldRotation;
+        public int ViewId { get;private set; }
 
         public event Action DisposedEvent;
 
@@ -27,5 +28,7 @@ namespace ZE.NodeStation
                 DisposedEvent = null;
             }
         }
+
+        public void OnViewSet(int viewKey) => ViewId = viewKey;
     }
 }

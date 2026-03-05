@@ -20,6 +20,8 @@ namespace ZE.NodeStation
         public Vector3 WorldPosition { get;private set; }
         public Quaternion WorldRotation { get; private set; }
 
+        public int ViewId { get; private set; }
+
         public RailCar(Bogie front, Bogie rear, float carLength, bool reverseView)
         {
             ReverseView = reverseView;
@@ -56,5 +58,7 @@ namespace ZE.NodeStation
                 DisposedEvent = null;
             }
         }
+
+        public void OnViewSet(int viewId) => ViewId = viewId;
     }
 }

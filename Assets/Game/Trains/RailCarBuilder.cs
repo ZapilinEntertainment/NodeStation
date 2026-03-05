@@ -5,7 +5,14 @@ namespace ZE.NodeStation
 {
     public class RailCarBuilder
     {
+        private readonly SceneViewsList _viewsList;
         private BogieView _bogieViewPrefab;
+
+        [Inject]
+        public RailCarBuilder(SceneViewsList viewsList)
+        {
+            _viewsList = viewsList;
+        }
 
         public RailCar Build(RailCarBuildProtocol protocol)
         {
@@ -28,8 +35,9 @@ namespace ZE.NodeStation
                 true);
             }            
 
-            var view = GameObject.Instantiate<RailCarView>(config.Prefab);
+            var view = GameObject.Instantiate<RailCarView>(config.Prefab);            
             view.AssignOwner(railCar);
+            _viewsList.RegisterView(view);
 
             _bogieViewPrefab ??= Resources.Load<BogieView>(ResourceNames.BOGIE_PREFAB_NAME);
             AddBogie(railCar.FrontBogie, true);
@@ -41,6 +49,7 @@ namespace ZE.NodeStation
         private void AddBogie(Bogie bogie, bool isFront)
         {
             var view = GameObject.Instantiate(_bogieViewPrefab);
+            _viewsList.RegisterView(view);
             view.AssignOwner(bogie);
 
             #if UNITY_EDITOR
