@@ -9,19 +9,29 @@ namespace ZE.NodeStation
         private readonly GetRouteStartPointCommand _getStartCommand;
         private readonly RouteBuilder _routeBuilder;
         private readonly RoutesManager _routesManager;
+        private readonly LevelConfig _levelConfig;
 
         [Inject]
-        public TimetabledTrainBuilder(GetRouteStartPointCommand getStartCommand, RouteBuilder routeBuilder, RoutesManager routesManager)
+        public TimetabledTrainBuilder(
+            GetRouteStartPointCommand getStartCommand, 
+            RouteBuilder routeBuilder, 
+            RoutesManager routesManager,
+            LevelConfig levelConfig)
         {
             _getStartCommand = getStartCommand;
             _routeBuilder = routeBuilder;
             _routesManager = routesManager;
+            _levelConfig = levelConfig;
         }
 
         public TimetabledTrain Build(in TrainAppearInfo trainAppearInfo)
         {
             var labelAppearTime = trainAppearInfo.LabelAppearTime.ToTimeSpan();
-            var spawnPoint = _getStartCommand.Execute(trainAppearInfo.SpawnNodeKey);
+
+            var spawnNodeKey = _levelConfig.Destinations[trainAppearInfo.SpawnDestinationIndex].NodeKey;
+            var targetNodeKey = _levelConfig.Destinations[trainAppearInfo.TargetDestinationIndex].NodeKey;
+
+            var spawnPoint = _getStartCommand.Execute(spawnNodeKey);
 
             var train = new TimetabledTrain(
                 labelAppearTime: labelAppearTime, 
@@ -32,8 +42,8 @@ namespace ZE.NodeStation
             var routeParameters = new RouteSettings()
             {
                 ColorKey = trainAppearInfo.ColorKey,
-                SpawnNodeKey = trainAppearInfo.SpawnNodeKey,
-                TargetNodeKey = trainAppearInfo.TargetNodeKey,
+                SpawnNodeKey = spawnNodeKey,
+                TargetNodeKey = targetNodeKey,
                 IsReversed = spawnPoint.IsReversed
             };
             if (_routeBuilder.TryBuildRoute(routeParameters.SpawnNodeKey, routeParameters.ColorKey, out var trainRoute))
@@ -45,7 +55,7 @@ namespace ZE.NodeStation
         private string BuildRouteLabel(in TrainAppearInfo trainAppearInfo)
         {
             // TODO: get names of nodes and combine
-            return $"Node {trainAppearInfo.SpawnNodeKey} - Node {trainAppearInfo.TargetNodeKey}";
+            return $"{_levelConfig.Destinations[trainAppearInfo.SpawnDestinationIndex].NameKey} - {_levelConfig.Destinations[trainAppearInfo.TargetDestinationIndex].NameKey}";
         }
     
     }

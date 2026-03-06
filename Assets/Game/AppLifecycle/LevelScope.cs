@@ -14,6 +14,7 @@ namespace ZE.NodeStation
         [SerializeField] private LevelConfig _levelConfig;
         [SerializeField] private TrainsTimetableWindow _timetableWindow;
         [SerializeField] private TimeWindow _timeWindow;
+        [SerializeField] private WorldSpaceMarkersWindow _worldMarkersWindow;
         [Space]
         [Header("app scope:")]
         [SerializeField] private RoutePointDrawer _routePointDrawer;
@@ -22,13 +23,16 @@ namespace ZE.NodeStation
         [SerializeField] private ColorPalette _lightColors;
         [SerializeField] private ColorPalette _materialColors;
         [SerializeField] private HighlightMaterialsPack _highlightMaterialsPack;
+        [SerializeField] private WorldSpaceMarkerViewsPack _worldSpaceMarkersPack;
 
         private PathsMap _pathsMap;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_levelConfig);
+            // TODO: discrete into FeatureInstallers + load prefabs via addresables (path-loading)
 
+            builder.RegisterInstance(_levelConfig);
+            builder.Register<ISceneFlagsManager, SceneFlagsManager>(Lifetime.Scoped);
             builder.Register<SceneViewsList>(Lifetime.Scoped);
            
             builder.Register<TickableManager>(Lifetime.Scoped).AsImplementedInterfaces().AsSelf();
@@ -69,18 +73,28 @@ namespace ZE.NodeStation
             builder.Register<SpawnTrainCommand>(Lifetime.Scoped);
             builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
 
+            // # semaphores
+
             builder.Register<RouteSemaphoresSupervisor>(Lifetime.Scoped);
             builder.Register<PrepareRouteSemaphoresDataCommand>(Lifetime.Scoped);
             builder.Register<SemaphoresManager>(Lifetime.Scoped);
-            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);  
+            builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);
+
+            // # world space markers
+            builder.RegisterInstance(_worldSpaceMarkersPack);
+            builder.RegisterInstance<WorldSpaceMarkersWindow, IWorldSpaceMarkersWindow>(_worldMarkersWindow);
+            builder.Register<WorldSpaceMarkersFactory>(Lifetime.Scoped);
+            builder.Register<WorldSpaceMarkerViewFactory>(Lifetime.Scoped);                  
+            builder.RegisterEntryPoint<TrainDestinationsController>(Lifetime.Scoped);
             
-            builder.Register<ISceneFlagsManager, SceneFlagsManager>(Lifetime.Scoped);
+            // # start point:
 
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Scoped);  
             
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             // NOTE: Sometimes produce hidden error and dont dispose!!!
             builder.RegisterDisposeCallback(_ => Debug.Log("level scope disposed"));
+            // TODO: add dispose flag in real build and check if scope was really disposed
 #endif
 
             // todo: move to app scope

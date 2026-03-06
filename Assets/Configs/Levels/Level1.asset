@@ -21,14 +21,25 @@ MonoBehaviour:
     Day: 0
     Hour: 8
     Minute: 0
+  Destinations:
+  - NodeKey: 0
+    NameKey: Depot
+  - NodeKey: 14
+    NameKey: S.Augustine
+  - NodeKey: 15
+    NameKey: Creya
+  - NodeKey: 16
+    NameKey: Whitehill
+  - NodeKey: 17
+    NameKey: City 17
   <Trains>k__BackingField:
   - LabelAppearTime:
       Day: 0
       Hour: 23
       Minute: 0
     WarningTimeInMinutes: 10
-    SpawnNodeKey: 16
-    TargetNodeKey: 0
+    SpawnDestinationIndex: 4
+    TargetDestinationIndex: 2
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 1
   - LabelAppearTime:
@@ -36,8 +47,8 @@ MonoBehaviour:
       Hour: 23
       Minute: 5
     WarningTimeInMinutes: 19
-    SpawnNodeKey: 17
-    TargetNodeKey: 15
+    SpawnDestinationIndex: 4
+    TargetDestinationIndex: 0
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 2
   - LabelAppearTime:
@@ -45,8 +56,8 @@ MonoBehaviour:
       Hour: 23
       Minute: 10
     WarningTimeInMinutes: 28
-    SpawnNodeKey: 0
-    TargetNodeKey: 11
+    SpawnDestinationIndex: 1
+    TargetDestinationIndex: 4
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 3
   - LabelAppearTime:
@@ -54,8 +65,8 @@ MonoBehaviour:
       Hour: 23
       Minute: 15
     WarningTimeInMinutes: 37
-    SpawnNodeKey: 14
-    TargetNodeKey: 11
+    SpawnDestinationIndex: 0
+    TargetDestinationIndex: 3
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 4
   - LabelAppearTime:
@@ -63,7 +74,7 @@ MonoBehaviour:
       Hour: 23
       Minute: 20
     WarningTimeInMinutes: 40
-    SpawnNodeKey: 16
-    TargetNodeKey: 13
+    SpawnDestinationIndex: 2
+    TargetDestinationIndex: 3
     TrainConfig: {fileID: 11400000, guid: a837988b17f89174c902cff1eae8fc78, type: 2}
     ColorKey: 5

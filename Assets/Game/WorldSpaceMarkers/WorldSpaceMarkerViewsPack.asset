@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e84d0eb6282184448ab2ec92e99b785, type: 3}
+  m_Name: WorldSpaceMarkerViewsPack
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.WorldSpaceMarkerViewsPack
+  _views:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 1820524737538444138, guid: 5ad4b776588790e4580004221819fbf3, type: 3}

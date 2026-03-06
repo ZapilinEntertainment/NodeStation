@@ -8,8 +8,8 @@ namespace ZE.NodeStation
     {
         public TimeStamp LabelAppearTime;
         public int WarningTimeInMinutes;
-        public int SpawnNodeKey;
-        public int TargetNodeKey;
+        public int SpawnDestinationIndex;
+        public int TargetDestinationIndex;
         public TrainConfiguration TrainConfig;  
         public ColorKey ColorKey;
 

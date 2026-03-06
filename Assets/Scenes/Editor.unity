@@ -1135,12 +1135,14 @@ MonoBehaviour:
   _levelConfig: {fileID: 11400000, guid: 73a5e53a5b931e54cb149e83ca4d11c6, type: 2}
   _timetableWindow: {fileID: 500088054}
   _timeWindow: {fileID: 432036141}
+  _worldMarkersWindow: {fileID: 1450675588}
   _routePointDrawer: {fileID: 2464172477405051001, guid: 34547d9d7a17e00438a3d51958505579, type: 3}
   _segmentLineDrawer: {fileID: 5185787143834030628, guid: 121c4b1bc436dfd47ad6d46b46c76cb2, type: 3}
   _guiColors: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
   _lightColors: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
   _materialColors: {fileID: 11400000, guid: 4accb8f316f9e81429237997cb53ade9, type: 2}
   _highlightMaterialsPack: {fileID: 11400000, guid: 5978c0c45f90b1849954c87f1842002f, type: 2}
+  _worldSpaceMarkersPack: {fileID: 11400000, guid: 5a0c1b573f8aac04f8f2e66441db380d, type: 2}
 --- !u!4 &364135109
 Transform:
   m_ObjectHideFlags: 0
@@ -6786,6 +6788,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1450675587}
   - {fileID: 1766005707}
   - {fileID: 500088053}
   - {fileID: 432036140}
@@ -8785,6 +8788,55 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1450675586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450675587}
+  - component: {fileID: 1450675588}
+  m_Layer: 5
+  m_Name: WorldSpaceMarkersWindow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1450675587
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450675586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 667956314}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1450675588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450675586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7456676744976184297f9314f77e7ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ZE.NodeStation::ZE.NodeStation.WorldSpaceMarkersWindow
+  _markersHost: {fileID: 1450675587}
 --- !u!43 &1460020071
 Mesh:
   m_ObjectHideFlags: 0

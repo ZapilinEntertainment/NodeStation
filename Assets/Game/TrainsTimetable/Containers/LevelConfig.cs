@@ -9,7 +9,10 @@ namespace ZE.NodeStation
         [field: SerializeField] public TimeStamp StartTime;
         [field: SerializeField] public DayOfWeek StartDayOfTheWeek;
         [field: SerializeField] public TimeStamp ShiftDuration;
+
+        [field: SerializeField] public DestinationPoint[] Destinations;
         [field:SerializeField] public TrainAppearInfo[] Trains { get; set; }
+        
     
     }
 }

@@ -11,4 +11,5 @@ namespace ZE.NodeStation
     public interface IFrameTickable : ICustomTickable { }
 
     public interface IFixedFrameTickable : ICustomTickable { }
+    public interface ILateFrameTickable : ICustomTickable { }
 }

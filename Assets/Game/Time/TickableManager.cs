@@ -8,15 +8,17 @@ using UniRx;
 namespace ZE.NodeStation
 {
     // why custom one: VContainer tickable doesn't support manual add/remove
-    public class TickableManager : IDisposable, ITickable, IFixedTickable
+    public class TickableManager : IDisposable, ITickable, IFixedTickable, ILateTickable
     {
         private readonly TickablesHandler<IFrameTickable> _regularTickables = new();
         private readonly TickablesHandler<IFixedFrameTickable> _fixedTickables = new();
+        private readonly TickablesHandler<ILateFrameTickable> _lateTickables = new();
 
         public void Dispose()
         {
             _regularTickables.Dispose();
             _fixedTickables.Dispose();
+            _lateTickables.Dispose();
         }
 
         public void FixedTick()
@@ -29,8 +31,16 @@ namespace ZE.NodeStation
             _regularTickables.Tick();
         }
 
+        public void LateTick()
+        {
+            _lateTickables.Tick();
+        }
+
         public void Add(IFrameTickable tickable) => _regularTickables.Add(tickable);
         public void Add(IFixedFrameTickable tickable) => _fixedTickables.Add(tickable);
+        public void Add(ILateFrameTickable tickable) => _lateTickables.Add(tickable);
+
+
         public IDisposable AddAsSubscription(IFixedFrameTickable tickable)
         {
             _fixedTickables.Add(tickable);
@@ -39,5 +49,7 @@ namespace ZE.NodeStation
 
         public void Remove(IFrameTickable tickable) => _regularTickables.Remove(tickable);
         public void Remove(IFixedFrameTickable tickable) => _fixedTickables.Remove(tickable);
+        public void Remove(ILateFrameTickable tickable) => _lateTickables.Remove(tickable);
+
     }
 }

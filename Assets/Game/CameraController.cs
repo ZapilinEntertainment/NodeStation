@@ -8,8 +8,6 @@ namespace ZE.NodeStation
         [SerializeField] private Camera _camera;
         private UniversalAdditionalCameraData _cameraData;
 
-        public Camera Camera => _camera;
-
         public void SwitchRenderMode(CameraRenderMode mode)
         {
             if (_camera == null)
@@ -25,5 +23,7 @@ namespace ZE.NodeStation
             var hit =  Physics.Raycast(ray, maxDistance: Constants.MAX_INPUT_RAYCAST_LENGTH, layerMask: mask, hitInfo: out rh);
             return hit;
         }
+
+        public Vector2 WorldToScreen(Vector3 worldPos) => _camera.WorldToScreenPoint(worldPos);
     }
 }
