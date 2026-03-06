@@ -9,7 +9,7 @@ namespace ZE.NodeStation
 {
     public class TrainTimetableLine : MonoBehaviour, IDisposable, IPoolable<TrainTimetableLine>
     {
-        private enum LineState : byte { Disabled, ActiveNoSelection, Selected}
+        private enum LineState : byte { Disabled, AwaitingTrain, TrainArrived, Selected}
 
         public struct SetupProtocol
         {
@@ -26,9 +26,10 @@ namespace ZE.NodeStation
         [SerializeField] private Image[] _colouringImages;
         [SerializeField] private Image _arrivalProgressImage;
         [SerializeField] private Button _button;
-        [SerializeField] private Image _glow;
 
         private bool _isDestroyed = false;
+        private bool _isLineSelected = false;
+        private bool _isTrainArrived = false;
         private IObjectPool<TrainTimetableLine> _pool;
         private CompositeDisposable _subscriptions = new();
         private ReactiveCommand _buttonClickCommand = new();
@@ -50,18 +51,13 @@ namespace ZE.NodeStation
                 .AddTo(_subscriptions);
 
             protocol.IsLineSelectedObservable
-                .Subscribe(x => _statusGroup.SwitchState(x ? (int)LineState.Selected : (int)LineState.ActiveNoSelection))
+                .Subscribe(x => {_isLineSelected = x; UpdateState(); })
                 .AddTo(_subscriptions);
-
-            _button.interactable = true;
-            _glow.enabled = false;
         }
 
         public void SwitchToDisabled()
         {
             Clear();
-            _button.interactable = false;
-            _glow.enabled = false;
             _statusGroup.SwitchState((int)LineState.Disabled);
         }
 
@@ -97,11 +93,29 @@ namespace ZE.NodeStation
         private void OnStatusChanged(TimetabledTrainStatus status)
         {
             if (_isDestroyed) return;
-            _button.interactable = status.CanChangeRoute();
-            _glow.enabled = status == TimetabledTrainStatus.Launched;
+            _button.interactable = status.CanChangeRoute();           
+            _isTrainArrived = status == TimetabledTrainStatus.Launched;
+            UpdateState();
         }
 
-        private void Clear() => _subscriptions.Clear();
+        private void Clear() 
+        {
+            _subscriptions.Clear();
+            _isLineSelected = false;
+            _isTrainArrived = false;
+        }
+
+        private void UpdateState()
+        {
+            if (_isLineSelected)
+            {
+                _statusGroup.SwitchState((int)LineState.Selected);
+            }
+            else
+            {
+                _statusGroup.SwitchState((int)(_isTrainArrived ? LineState.TrainArrived : LineState.AwaitingTrain));
+            }
+        }
 
         private void OnDestroy()
         {

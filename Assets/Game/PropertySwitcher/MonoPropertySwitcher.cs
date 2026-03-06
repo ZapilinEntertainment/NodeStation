@@ -14,7 +14,7 @@ namespace ZE.NodeStation
         {
             if (IsDisposed)
                 return;
-            state = Mathf.Clamp(state, 0, StatesCount);
+            state = Mathf.Clamp(state, 0, StatesCount-1);
             _currentState = state;
             OnStateChanged(state);
         }
