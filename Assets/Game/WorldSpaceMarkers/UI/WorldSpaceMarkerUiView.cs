@@ -12,5 +12,7 @@ namespace ZE.NodeStation
                 return;
             transform.position = screenPos;
         }
+
+        public void SetVisible(bool visible) => gameObject.SetActive(visible);
     }
 }

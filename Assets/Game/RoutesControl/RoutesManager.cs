@@ -9,7 +9,7 @@ namespace ZE.NodeStation
     public class RoutesManager : IDisposable
     {
         private readonly IMessageBroker _messageBroker;
-        private readonly Dictionary<TimetabledTrain, RouteController> _routes = new();
+        private readonly Dictionary<TimetabledTrain, RouteController> _timetabledRoutes = new();
         private readonly Dictionary<IRoute, RouteController> _routeControllers = new();
 
         [Inject]
@@ -20,25 +20,25 @@ namespace ZE.NodeStation
 
         public void SetRoute(TimetabledTrain train, RouteController routeController)
         {
-            _routes.Add(train, routeController);
+            _timetabledRoutes.Add(train, routeController);
             _routeControllers.Add(routeController.Route, routeController);
             train.DisposeEvent += () => this.ClearRoute(train);
         }
 
         public void ClearRoute(TimetabledTrain train)
         {
-            if (_routes.TryGetValue(train, out var route))
+            if (_timetabledRoutes.TryGetValue(train, out var route))
             {
                 _routeControllers.Remove(route.Route);
                 route.Dispose();
-                _routes.Remove(train);                
+                _timetabledRoutes.Remove(train);                
                 _messageBroker.Publish<RouteDisposedMessage>(new(route));
             }
         }
 
         public bool TryGetRoute(TimetabledTrain train, out IRoute route)
         {
-            if (_routes.TryGetValue(train, out var routeController))
+            if (_timetabledRoutes.TryGetValue(train, out var routeController))
             {
                 route = routeController.Route;
                 return true;
@@ -53,11 +53,11 @@ namespace ZE.NodeStation
 
         public void Dispose()
         {
-            foreach (var route in _routes.Values)
+            foreach (var route in _timetabledRoutes.Values)
             {
                 route?.Dispose();
             }
-            _routes.Clear();
+            _timetabledRoutes.Clear();
             _routeControllers.Clear();
         }
     }

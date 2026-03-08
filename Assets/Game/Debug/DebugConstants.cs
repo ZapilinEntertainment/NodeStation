@@ -8,6 +8,8 @@ namespace ZE.NodeStation
         public const string FRONT_BOGIE_NAME = "Front Bogie";
         public const string REAR_BOGIE_NAME = "Rear Bogie";
 
+        public const float DESTINATION_MARKER_SIZE = 3f;
+
         public static readonly GUIStyle NodeHandleStyle = new() { fontSize = 32, alignment = TextAnchor.MiddleCenter };
     }
 }

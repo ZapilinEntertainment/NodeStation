@@ -6,6 +6,7 @@ namespace ZE.NodeStation
     public interface IWorldMarkerUiView : IDisposable
     {
         void SetPosition(Vector2 screenPos);
+        void SetVisible(bool visible);
     
     }
 }

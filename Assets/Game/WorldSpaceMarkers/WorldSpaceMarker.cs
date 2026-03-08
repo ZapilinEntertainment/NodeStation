@@ -5,7 +5,7 @@ namespace ZE.NodeStation
 {
     public abstract class WorldSpaceMarker : IDisposable, ILateFrameTickable
     {
-
+        protected bool _isActive = true;
         protected event Action DisposeEvent;
         protected readonly Func<Vector3, Vector2> ConversionFunc;
         protected readonly IWorldMarkerUiView View;
@@ -24,6 +24,8 @@ namespace ZE.NodeStation
 
         public void Tick()
         {
+            if (!_isActive) return;
+
             var screenPos = ConversionFunc(WorldPos);
             View.SetPosition(screenPos);
         }
@@ -35,5 +37,11 @@ namespace ZE.NodeStation
             DisposeEvent?.Invoke();
             DisposeEvent = null;
         }       
+
+        public void SetActivity(bool x)
+        {
+            _isActive = x;
+            View.SetVisible(x);
+        }
     }
 }

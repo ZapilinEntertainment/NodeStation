@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace ZE.NodeStation
 {
@@ -8,7 +9,17 @@ namespace ZE.NodeStation
     {
         public ColorKey ColorKey { get;private set; }
         public IReadOnlyList<IPathNode> Points => _points;
+        public IReadOnlyReactiveProperty<RouteStatus> StatusProperty => _statusProperty;
+
+        // not available via interface
+        public RouteStatus Status
+        {
+            get => _statusProperty.Value;
+            set => _statusProperty.Value = value;
+        }
+
         private List<IPathNode> _points;
+        private readonly ReactiveProperty<RouteStatus> _statusProperty = new();
 
 
         public TrainRoute(ColorKey colorKey, List<IPathNode> points)
@@ -20,6 +31,7 @@ namespace ZE.NodeStation
         public void Dispose()
         {
             _points.Clear();
+            _statusProperty.Dispose();
         }
 
         public IEnumerator<IPathNode> GetEnumerator() => _points.GetEnumerator();

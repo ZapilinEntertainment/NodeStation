@@ -1,5 +1,6 @@
 using UnityEngine;
 using VContainer;
+using UniRx;
 
 namespace ZE.NodeStation
 {
@@ -19,7 +20,7 @@ namespace ZE.NodeStation
 
         public RouteDrawer Build(IRoute route)
         {
-            var drawerController = new RouteDrawer(_lineDrawerFactory.CreateRouteLineDrawer(route.ColorKey));
+            var drawerController = new RouteDrawer(_lineDrawerFactory.CreateRouteLineDrawer(route.ColorKey, route.Status.GetColorSaturation()));
 
             var points = route.Points;
             for (var i = 0; i < points.Count; i++)
@@ -67,6 +68,9 @@ namespace ZE.NodeStation
                 drawerController.AddLinePoint(node.WorldPosition);
             }
             drawerController.FinishDraw();
+
+
+
             return drawerController;
         }
     }

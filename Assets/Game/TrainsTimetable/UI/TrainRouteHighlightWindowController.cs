@@ -26,7 +26,7 @@ namespace ZE.NodeStation
             _flags = flags;
         }
         
-        public void Init(IReadOnlyReactiveProperty<TrainsTimetableWindowController.SelectionData> highlightProperty, Action cancelAction)
+        public void Init(IObservable<TrainsTimetableWindowController.SelectionData> highlightProperty, Action cancelAction)
         {
             var existingRouteData = highlightProperty.Where(data => !data.IsEmpty);
 
@@ -54,7 +54,8 @@ namespace ZE.NodeStation
                 {
                     Color = _guiColors.GetGUIColor(data.Route.ColorKey),
                     ObservableArrivalLabel = observableArrivalLabel,
-                    RouteLabel = data.Train.RouteText
+                    RouteLabel = data.Train.RouteText,
+                    ObservableIsRouteCorrect = data.Route.StatusProperty.Select(status => status == RouteStatus.Correct),
                 });
 
             highlightProperty

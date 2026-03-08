@@ -15,10 +15,11 @@ namespace ZE.NodeStation
             _segmentsPool = segmentsPool;
         }
 
-        public ILineDrawer CreateRouteLineDrawer(ColorKey colorKey)
+        public ILineDrawer CreateRouteLineDrawer(ColorKey colorKey, float saturation)
         {
             var segmentDrawer = _segmentsPool.Get();
-            segmentDrawer.SetColor(_colorPalette.GetGUIColor(colorKey));
+            var baseColor = _colorPalette.GetGUIColor(colorKey);
+            segmentDrawer.SetColor(Color.Lerp(Color.grey, baseColor, saturation));
             return segmentDrawer;
         }
     

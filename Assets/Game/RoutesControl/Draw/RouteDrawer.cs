@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace ZE.NodeStation
 {
@@ -21,7 +22,6 @@ namespace ZE.NodeStation
 
         public void Dispose()
         {
-            _points.Clear();
             _lineDrawer?.Dispose();
 
             if (_activePointMarkers.Count != 0)

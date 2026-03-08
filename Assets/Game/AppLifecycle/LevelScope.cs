@@ -58,17 +58,25 @@ namespace ZE.NodeStation
             builder.Register<LineDrawerFactory>(Lifetime.Scoped);
             builder.Register<PointDrawerFactory>(Lifetime.Scoped);
 
+            // # trains timetabling 
+
             builder.Register<TrainsTimetableController>(Lifetime.Scoped).As<ITimetabledTrainsList>().AsSelf();
             builder.Register<TimetabledTrainBuilder>(Lifetime.Scoped);            
             builder.RegisterInstance(_timetableWindow);
             builder.RegisterEntryPoint<TrainsTimetableWindowController>(Lifetime.Scoped);
 
+            // # selected route highlight
+
             builder.RegisterEntryPoint<TrainRouteHighlightEffectController>(Lifetime.Scoped);
             builder.RegisterEntryPoint<TrainHighlightController>(Lifetime.Scoped);
+
+            // # time management
 
             builder.Register<TimeManager>(Lifetime.Scoped);
             builder.RegisterInstance(_timeWindow);
             builder.Register<TimeWindowController>(Lifetime.Scoped);
+
+            // # train commands
 
             builder.Register<SpawnTrainCommand>(Lifetime.Scoped);
             builder.Register<LaunchTimetabledTrainCommand>(Lifetime.Scoped);
@@ -81,6 +89,7 @@ namespace ZE.NodeStation
             builder.Register<RouteSemaphoreControllerBuilder>(Lifetime.Scoped);
 
             // # world space markers
+
             builder.RegisterInstance(_worldSpaceMarkersPack);
             builder.RegisterInstance<WorldSpaceMarkersWindow, IWorldSpaceMarkersWindow>(_worldMarkersWindow);
             builder.Register<WorldSpaceMarkersFactory>(Lifetime.Scoped);

@@ -29,7 +29,9 @@ namespace ZE.NodeStation
             var nodeDrawer = _draggableDrawers.Get();
 
             nodeDrawer.SetMode(mode);
-            nodeDrawer.SetColor(_colorPalette.GetGUIColor(route.ColorKey));
+
+            var baseColor = _colorPalette.GetGUIColor(route.ColorKey);
+            nodeDrawer.SetColor(Color.Lerp(Color.grey, baseColor, route.Status.GetColorSaturation()));
             nodeDrawer.SetPosition(point.WorldPosition);
 
             switch (mode)

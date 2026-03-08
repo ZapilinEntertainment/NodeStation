@@ -10,18 +10,21 @@ namespace ZE.NodeStation
         private readonly RouteBuilder _routeBuilder;
         private readonly RoutesManager _routesManager;
         private readonly LevelConfig _levelConfig;
+        private readonly PathsMap _map;
 
         [Inject]
         public TimetabledTrainBuilder(
             GetRouteStartPointCommand getStartCommand, 
             RouteBuilder routeBuilder, 
             RoutesManager routesManager,
-            LevelConfig levelConfig)
+            LevelConfig levelConfig,
+            PathsMap map)
         {
             _getStartCommand = getStartCommand;
             _routeBuilder = routeBuilder;
             _routesManager = routesManager;
             _levelConfig = levelConfig;
+            _map = map;
         }
 
         public TimetabledTrain Build(in TrainAppearInfo trainAppearInfo)
@@ -39,15 +42,15 @@ namespace ZE.NodeStation
                 routeText: BuildRouteLabel(trainAppearInfo),
                 spawnInfo: new(trainAppearInfo.TrainConfig, spawnPoint));
 
-            var routeParameters = new RouteSettings()
+            if (_routeBuilder.TryBuildRoute(spawnNodeKey, trainAppearInfo.ColorKey, out var trainRoute))
             {
-                ColorKey = trainAppearInfo.ColorKey,
-                SpawnNodeKey = spawnNodeKey,
-                TargetNodeKey = targetNodeKey,
-                IsReversed = spawnPoint.IsReversed
-            };
-            if (_routeBuilder.TryBuildRoute(routeParameters.SpawnNodeKey, routeParameters.ColorKey, out var trainRoute))
                 _routesManager.SetRoute(train, trainRoute);
+                if (_map.TryGetNode(targetNodeKey, out var targetNode))
+                    trainRoute.SetTargetNode(targetNode);
+                else
+                    Debug.LogError("Invalid target node!");
+            }
+                
 
             return train;
         }

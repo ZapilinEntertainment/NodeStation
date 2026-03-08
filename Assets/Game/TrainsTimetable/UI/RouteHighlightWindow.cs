@@ -13,6 +13,7 @@ namespace ZE.NodeStation
             public Color Color;
             public string RouteLabel;
             public IObservable<string> ObservableArrivalLabel;
+            public IObservable<bool> ObservableIsRouteCorrect;
         }
 
         [SerializeField] private Image _colouredFrame;
@@ -52,6 +53,10 @@ namespace ZE.NodeStation
             _routeLabel.text = data.RouteLabel;
             _arrivalLabelSubscription = data.ObservableArrivalLabel
                 .Subscribe(text => _arrivalLabel.text = text);
+
+            data.ObservableIsRouteCorrect
+                .Subscribe(x => _colouredFrame.enabled = x)
+                .AddTo(_compositeDisposable);
         }
 
         private void OnHide()

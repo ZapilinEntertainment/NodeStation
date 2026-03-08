@@ -7,6 +7,7 @@ using UniRx;
 
 namespace ZE.NodeStation
 {
+    // controls route buttons
     public class TrainsTimetableWindowController : IDisposable, IStartable
     {
         public struct SelectionData

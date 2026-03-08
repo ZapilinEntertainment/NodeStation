@@ -10,7 +10,7 @@ namespace ZE.NodeStation
         protected bool IsDestroyed { get;private set; } = false;
         protected SpriteRenderer SpriteRenderer => _spriteRenderer;
 
-        public void SetColor(Color color) => _spriteRenderer.color = color;
+        public virtual void SetColor(Color color) => _spriteRenderer.color = color;
         public void SetPosition(Vector3 pos) => transform.position = pos;
         private void OnDestroy() => IsDestroyed = true;
     }
