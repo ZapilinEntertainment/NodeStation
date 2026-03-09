@@ -8,7 +8,7 @@ using UniRx;
 namespace ZE.NodeStation
 {
     // controls route buttons
-    public class TrainsTimetableWindowController : IDisposable, IStartable
+    public class TrainsTimetableWindowController : IDisposable, IStartable, IRouteHighlighlightController
     {
         public struct SelectionData
         {
@@ -19,6 +19,8 @@ namespace ZE.NodeStation
         }
 
         public IReadOnlyReactiveProperty<SelectionData> SelectionProperty => _selectedProperty;
+        public IObservable<IRoute> ObservableHighlightedRoute => _selectedProperty.Select(data => data.Route);
+        public IRoute CurrentHighlightedRoute => _selectedProperty.Value.Route;
 
         private readonly TrainsTimetableWindow _window;
         private readonly RouteDrawManager _routeDrawManager;

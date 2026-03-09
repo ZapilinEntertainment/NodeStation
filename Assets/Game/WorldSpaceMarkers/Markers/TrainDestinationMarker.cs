@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ZE.NodeStation
 {
@@ -14,5 +15,7 @@ namespace ZE.NodeStation
         }
 
         public void Setup(string destinationText) => _textView.SetText(destinationText);
+        public void SetColor(Color color) => _textView.SetColor(color);
+        public void ResetColor() => _textView.ResetColor();
     }
 }

@@ -18,7 +18,7 @@ namespace ZE.NodeStation
         }
 
         // just get next point until path ends
-        public bool TryBuildRoute(int startNode, ColorKey colorKey, out RouteController route)
+        public bool TryBuildRoute(int startNode, int targetNode, ColorKey colorKey, out RouteController route)
         {
             var points = new List<IPathNode>();
             var nodeKey = startNode;
@@ -55,7 +55,8 @@ namespace ZE.NodeStation
             }
             while (nextNodeFound);
 
-            route = new RouteController(_messageBroker, new TrainRoute(colorKey, points));
+            route = new RouteController(_messageBroker, new TrainRoute(colorKey, points), targetNode);
+            route.SetCurrentExitNode(node);
             return true;
         }
     }

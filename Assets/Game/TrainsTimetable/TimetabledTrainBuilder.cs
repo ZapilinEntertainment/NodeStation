@@ -42,13 +42,9 @@ namespace ZE.NodeStation
                 routeText: BuildRouteLabel(trainAppearInfo),
                 spawnInfo: new(trainAppearInfo.TrainConfig, spawnPoint));
 
-            if (_routeBuilder.TryBuildRoute(spawnNodeKey, trainAppearInfo.ColorKey, out var trainRoute))
+            if (_routeBuilder.TryBuildRoute(spawnNodeKey, targetNodeKey, trainAppearInfo.ColorKey, out var trainRoute))
             {
                 _routesManager.SetRoute(train, trainRoute);
-                if (_map.TryGetNode(targetNodeKey, out var targetNode))
-                    trainRoute.SetTargetNode(targetNode);
-                else
-                    Debug.LogError("Invalid target node!");
             }
                 
 

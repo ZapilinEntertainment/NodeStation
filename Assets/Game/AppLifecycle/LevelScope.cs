@@ -94,7 +94,7 @@ namespace ZE.NodeStation
             builder.RegisterInstance<WorldSpaceMarkersWindow, IWorldSpaceMarkersWindow>(_worldMarkersWindow);
             builder.Register<WorldSpaceMarkersFactory>(Lifetime.Scoped);
             builder.Register<WorldSpaceMarkerViewFactory>(Lifetime.Scoped);                  
-            builder.RegisterEntryPoint<TrainDestinationsController>(Lifetime.Scoped);
+            builder.RegisterEntryPoint<TrainDestinationMarkersController>(Lifetime.Scoped);
             
             // # start point:
 

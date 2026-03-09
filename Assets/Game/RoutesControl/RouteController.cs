@@ -8,15 +8,19 @@ namespace ZE.NodeStation
     // controls route changes
     public class RouteController : IDisposable
     {
+        public readonly int TimetabledTargetNodeKey;
+        public IPathNode CurrentExitNode { get; private set; }
         public IRoute Route => _route;
+
         private readonly TrainRoute _route;
         private readonly IMessageBroker _messageBroker;
-        private IPathNode _targetNode;
+        
 
-        public RouteController(IMessageBroker messageBroker, TrainRoute route)
+        public RouteController(IMessageBroker messageBroker, TrainRoute route, int timetabledTargetNodeKey)
         {
             _messageBroker = messageBroker;
             _route = route;
+            TimetabledTargetNodeKey = timetabledTargetNodeKey;
         }
 
         public void Dispose()
@@ -27,25 +31,20 @@ namespace ZE.NodeStation
         public void UpdatePoints(List<IPathNode> points)
         {
             _route.UpdatePoints(points);
+            CurrentExitNode = points[points.Count - 1];
             UpdateRouteStatus();
             _messageBroker.Publish<RouteChangedMessage>(new(this));
         }
 
-        public void SetTargetNode(IPathNode targetNode)
+        public void SetCurrentExitNode(IPathNode targetNode)
         {
-            _targetNode = targetNode;
+            CurrentExitNode = targetNode;
             UpdateRouteStatus();
         }
 
         private void UpdateRouteStatus()
         {
-            if (_targetNode == null)
-            {
-                _route.Status = RouteStatus.Correct;
-                return;
-            }
-
-            _route.Status = _route.Points[_route.Points.Count - 1] == _targetNode ? RouteStatus.Correct : RouteStatus.Missed;
+            _route.Status = _route.Points[_route.Points.Count - 1].Key == TimetabledTargetNodeKey ? RouteStatus.Correct : RouteStatus.Missed;
         }
     }
 }

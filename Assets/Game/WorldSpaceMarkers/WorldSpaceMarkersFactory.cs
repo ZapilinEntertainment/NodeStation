@@ -19,7 +19,7 @@ namespace ZE.NodeStation
 
         public TrainDestinationMarker CreateTrainDestinationMarker(Vector3 worldPos)
         {
-            var marker = new TrainDestinationMarker(
+            var marker = new TrainDestinationMarker(                
                 worldPos,
                 _camera.WorldToScreen, 
                 _viewFactory.CreateView(WorldSpaceMarkerViewKey.TrainDestination),
